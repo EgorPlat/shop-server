@@ -28,7 +28,7 @@ export class UserController {
 
     @ApiOperation({summary: 'Получить пользователя'})
     @ApiResponse({status: 200, type: User})
-    @Post()
+    @Post('/getUserByLogin')
     getUserByLogin(@Body() login: string) {
         return this.userService.getUserByLogin(login); 
     }
