@@ -25,4 +25,11 @@ export class UserController {
     addUser(@Body() userDto: CreateUserDto) {
         return this.userService.addUser(userDto); 
     }
+
+    @ApiOperation({summary: 'Получить пользователя'})
+    @ApiResponse({status: 200, type: User})
+    @Post()
+    getUserByLogin(@Body() login: string) {
+        return this.userService.getUserByLogin(login); 
+    }
 }

@@ -18,6 +18,10 @@ export class UserService {
         const user = await this.userModel.create(dto);
         return user;
     }
+    async getUserByLogin(login: string) {
+        const user = await this.userModel.findOne({login: login})
+        return user;
+    }
 
     async getUserByEmail(email: string) {
         const user = await this.userModel.findOne({email: email});
