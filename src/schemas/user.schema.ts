@@ -5,7 +5,7 @@ export type UserDocument = User & Document;
 
 @Schema()
 
-export class User {
+export class User {                  
     @ApiProperty({example: '1', description: 'Уникальный ид'})
     @Prop({ default: 'id' + String(Math.floor(Math.random()*100000)) })
     userId: string;
