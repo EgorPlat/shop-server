@@ -17,7 +17,7 @@ export class AuthService {
         console.log(user.password + " " + userDto.password);
         
         if(user && passwordEquals) {
-            const data = this.generateToken(user);
+            const data = await this.generateToken(user);
             throw new HttpException(data, 200)
         } else {
             throw new HttpException('Неккоректные данные. Пожалуйста попробуйте снова.', HttpStatus.BAD_REQUEST);
