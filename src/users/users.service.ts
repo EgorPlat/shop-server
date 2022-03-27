@@ -24,7 +24,6 @@ export class UserService {
     }
     async getUserByLogin(login: string) {
         const user = await this.userModel.findOne({login: login}, {
-            //password: false,
             _id: false,
             __v: false
         })
