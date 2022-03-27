@@ -20,9 +20,9 @@ export class ProfileService {
             throw new HttpException('Ошибка. Обновите токен.', HttpStatus.UNAUTHORIZED);
         }
     }
-    async getProfileByLogin(request: Request) {
+    async getProfileByLogin(params) {
         /*const queryLogin: any = request.query.login;*/
-        console.log(request.query);
+        console.log(params);
         
         /*const user = await this.userService.getUserByLogin(queryLogin);
         if(user) {
