@@ -17,21 +17,18 @@ export class AuthService {
         console.log(user.password + " " + userDto.password);
         
         if(user && passwordEquals) {
-            return this.generateToken(user);
+            const data = this.generateToken(user);
+            throw new HttpException(data, 200)
         } else {
             throw new HttpException('Неккоректные данные. Пожалуйста попробуйте снова.', HttpStatus.BAD_REQUEST);
         }
     }
     private async generateToken(user: User) {
         const payload = {email: user.email, name: user.name, city: user.city, avatar: user.avatar}
-        /*return {
+        return {
             auth: { token: this.jwtService.sign(payload) },
             profile: { user }
-        }*/
-        throw new HttpException({
-            auth: { token: this.jwtService.sign(payload) },
-            profile: { user }
-        }, 201)
+        }
     }
     async registration(userDto: CreateUserDto) {
         const condidate = await this.userService.getUserByEmail(userDto.email);
