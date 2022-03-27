@@ -1,4 +1,4 @@
-import { Controller, Get, Headers, Req } from '@nestjs/common';
+import { Controller, Get, Headers, Post, Req } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ApiTags } from '@nestjs/swagger';
 import { ProfileService } from './profile.service';
@@ -13,5 +13,9 @@ export class ProfileController {
     @Get('/my-profile')
     getMyProfile(@Req() request: Request) {
         return this.profileService.getMyProfile(request);
+    }
+    @Post('/by-login')
+    getProfileByLogin(@Req() request: Request) {
+        return this.profileService.getProfileByLogin(request);
     }
 }
