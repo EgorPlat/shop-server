@@ -12,7 +12,7 @@ export class ProfileService {
             const BearerToken: any = request.headers['authorazation'];
             //const token = BearerToken.split(' ')[1];
             const decodedToken = this.jwtService.decode(BearerToken);
-            //console.log(request.headers);
+            console.log(request.headers);
             console.log(BearerToken);
             //console.log(decodedToken);
             throw new HttpException(decodedToken, 200)
