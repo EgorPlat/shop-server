@@ -21,7 +21,7 @@ export class ProfileService {
         }
     }
     async getProfileByLogin(request: Request) {
-        const queryLogin: any = request.query.login;
+        /*const queryLogin: any = request.query.login;*/
         console.log(request.query);
         
         /*const user = await this.userService.getUserByLogin(queryLogin);
