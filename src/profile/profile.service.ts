@@ -10,7 +10,7 @@ export class ProfileService {
     async getMyProfile(request: Request) {
         try {
             const token: any = request.headers['authorazation'];
-            const decodedToken: string | { [key: string]: any; } = this.jwtService.decode(token);
+            const decodedToken = this.jwtService.decode(token.split(' ')[1]);
             console.log(request.headers);
             console.log(token);
             console.log(decodedToken);
