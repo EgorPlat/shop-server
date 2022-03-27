@@ -10,10 +10,10 @@ export class ProfileService {
     async getMyProfile(request: Request) {
         try {
             const BearerToken: any = request.headers['authorazation'];
-            const token = BearerToken.split(' ')[1];
+            //const token = BearerToken.split(' ')[1];
             const decodedToken = this.jwtService.decode(BearerToken);
             //console.log(request.headers);
-            console.log(token);
+            console.log(BearerToken);
             //console.log(decodedToken);
             throw new HttpException(decodedToken, 200)
         } catch(e) {
