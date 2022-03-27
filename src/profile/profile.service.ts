@@ -9,12 +9,12 @@ export class ProfileService {
     
     async getMyProfile(request: Request) {
         try {
-            const BearerToken: any = request.headers['authorazation'];
-            //const token = BearerToken.split(' ')[1];
-            const decodedToken = this.jwtService.decode(BearerToken);
+            const BearerToken: any = request.headers.authorazation;
+            const token = BearerToken.split(' ')[1];
+            const decodedToken = this.jwtService.decode(token);
             console.log(request.headers);
-            console.log(BearerToken);
-            //console.log(decodedToken);
+            console.log(token);
+            console.log(decodedToken);
             throw new HttpException(decodedToken, 200)
         } catch(e) {
             throw new HttpException('Невалидный токен. Обновите.', HttpStatus.UNAUTHORIZED)
