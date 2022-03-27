@@ -13,6 +13,9 @@ export class AuthService {
     async login(userDto: UserDto) {
         const user = await this.userService.getUserByEmail(userDto.email);
         const passwordEquals = user.password === userDto.password;
+        console.log(user);
+        console.log(user.password + " " + userDto.password);
+        
         if(user && passwordEquals) {
             return this.generateToken(user);
         } else {
