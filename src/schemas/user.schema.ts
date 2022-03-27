@@ -51,7 +51,7 @@ export class User {
     birthDate: Date;
 
     @ApiProperty({example: 'Строка', description: 'Статус пользователя'})
-    @Prop()
+    @Prop({ default: 'Секрет' })
     city: string;
 
 }
