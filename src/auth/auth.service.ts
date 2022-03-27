@@ -24,10 +24,14 @@ export class AuthService {
     }
     private async generateToken(user: User) {
         const payload = {email: user.email, name: user.name, city: user.city, avatar: user.avatar}
-        return {
+        /*return {
             auth: { token: this.jwtService.sign(payload) },
             profile: { user }
-        }
+        }*/
+        throw new HttpException({
+            auth: { token: this.jwtService.sign(payload) },
+            profile: { user }
+        }, 201)
     }
     async registration(userDto: CreateUserDto) {
         const condidate = await this.userService.getUserByEmail(userDto.email);
