@@ -11,6 +11,8 @@ export class ProfileService {
         try {
             const token: any = request.headers['Authorazation'];
             const decodedToken: string | { [key: string]: any; } = this.jwtService.decode(token);
+            console.log(request.headers);
+            console.log(token);
             console.log(decodedToken);
             throw new HttpException(decodedToken, 200)
         } catch(e) {
