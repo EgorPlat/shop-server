@@ -15,7 +15,7 @@ export class ProfileService {
             //console.log(request.headers);
             console.log(token);
             //console.log(decodedToken);
-            throw new HttpException(BearerToken, 200)
+            throw new HttpException('Gotovo', 200)
         } catch(e) {
             throw new HttpException('Невалидный токен. Обновите.', HttpStatus.UNAUTHORIZED)
         }
