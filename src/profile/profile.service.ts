@@ -9,11 +9,11 @@ export class ProfileService {
     
     async getMyProfile(request: Request) {
         try {
-            const BearerToken: any = request.headers.authorazation;
-            //const token = BearerToken.split(' ')[1];
+            const BearerToken: any = request.headers.authorization;
+            const token = BearerToken.split(' ')[1];
             //const decodedToken = this.jwtService.decode(token);
             //console.log(request.headers);
-            console.log(BearerToken);
+            console.log(token);
             //console.log(decodedToken);
             throw new HttpException(BearerToken, 200)
         } catch(e) {
