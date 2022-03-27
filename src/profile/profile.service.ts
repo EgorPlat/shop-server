@@ -1,5 +1,6 @@
 import { HttpCode, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { Request } from 'express';
 
 @Injectable()
 export class ProfileService {
@@ -8,7 +9,7 @@ export class ProfileService {
     
     async getMyProfile(request: Request) {
         try {
-            const token: string = request.headers['Authorazation'];
+            const token: any = request.headers['Authorazation'];
             const decodedToken: string | { [key: string]: any; } = this.jwtService.decode(token);
             console.log(decodedToken);
             throw new HttpException(decodedToken, 200)

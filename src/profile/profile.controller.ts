@@ -2,6 +2,7 @@ import { Controller, Get, Headers, Req } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ApiTags } from '@nestjs/swagger';
 import { ProfileService } from './profile.service';
+import { Request } from 'express';
 
 @Controller('profile')
 @ApiTags('Профиль')
