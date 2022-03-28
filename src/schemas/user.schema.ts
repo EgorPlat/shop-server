@@ -15,7 +15,7 @@ export class User {
     name: string;
 
     @ApiProperty({example: 'Строка', description: 'Статус пользователя'})
-    @Prop({ default: '' })
+    @Prop({ default: 'Это мой новый статус!' })
     status: string;
 
     @ApiProperty({example: '89693469999', description: 'Телефон пользователя'})
