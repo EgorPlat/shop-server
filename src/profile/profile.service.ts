@@ -20,15 +20,14 @@ export class ProfileService {
             throw new HttpException('Ошибка. Обновите токен.', HttpStatus.UNAUTHORIZED);
         }
     }
-    async getProfileByLogin(params) {
-        /*const queryLogin: any = request.query.login;*/
-        console.log(params);
+    async getProfileByLogin(login) {
+        console.log(login);
         
-        /*const user = await this.userService.getUserByLogin(queryLogin);
+        const user = await this.userService.getUserByLogin(login);
         if(user) {
             throw new HttpException(user, 200)
         } else {
-            throw new HttpException('Ошибка. Обновите токен.', HttpStatus.UNAUTHORIZED);
-        }*/
+            throw new HttpException('Ошибка. Пользователь не найден.', HttpStatus.NOT_FOUND);
+        }
     }
 }
