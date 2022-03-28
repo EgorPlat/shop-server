@@ -53,6 +53,7 @@ export class User {
     @ApiProperty({example: 'Строка', description: 'Статус пользователя'})
     @Prop({ default: 'Секрет' })
     city: string;
+    // город пользователя
 
 }
 
