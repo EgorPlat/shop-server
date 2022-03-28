@@ -14,7 +14,7 @@ export class ProfileController {
     getMyProfile(@Req() request: Request) {
         return this.profileService.getMyProfile(request);
     }
-    @Post('/by-login/:login')
+    @Get('/by-login/:login')
     getProfileByLogin(@Param('login') login) {
         return this.profileService.getProfileByLogin(login);
     }
