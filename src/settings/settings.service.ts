@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UploadedFile } from '@nestjs/common';
 
 @Injectable()
 export class SettingsService {
-    async updateUserAvatar(file: any) {
-        console.log(file);
+    async updateUserAvatar(image: any) {
+        console.log(image);
     }
 }
