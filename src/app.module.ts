@@ -6,11 +6,14 @@ import { dbUrl } from "./global/data";
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ProfileModule } from './profile/profile.module';
+import { SettingsController } from './settings/settings.controller';
+import { SettingsService } from './settings/settings.service';
+import { SettingsModule } from './settings/settings.module';
 
 @Module({
-    controllers: [AppController],
-    providers: [AppService],
-    imports: [UsersModule, MongooseModule.forRoot(dbUrl), AuthModule, ProfileModule]
+    controllers: [AppController, SettingsController],
+    providers: [AppService, SettingsService],
+    imports: [UsersModule, MongooseModule.forRoot(dbUrl), AuthModule, ProfileModule, SettingsModule]
 })
 export class AppModule {
 
