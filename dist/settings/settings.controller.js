@@ -17,7 +17,7 @@ let SettingsController = class SettingsController {
         this.settingsService = settingsService;
     }
     updateUserAvatar(req) {
-        return this.settingsService.updateUserAvatar(req.body);
+        return this.settingsService.updateUserAvatar(req);
     }
 };
 __decorate([
