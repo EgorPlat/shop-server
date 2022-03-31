@@ -35,7 +35,7 @@ export class User {
     gender: string;
 
     @ApiProperty({example: 'Строка', description: 'URL картинки'})
-    @Prop({ default: 'no-avatar.jpeg' })
+    @Prop({ default: 'no-avatar.jpg' })
     avatar: string;
 
     @ApiProperty({example: '2022-03-25T13:40:13.192+00:00', description: 'Дата регистрации пользователя'})
