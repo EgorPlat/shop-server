@@ -6,7 +6,7 @@ import {AppModule} from "./app.module";
 
 
 const start = async () => {
-    try {
+    try {// статика
         const PORT = process.env.PORT || 5000;
         const app = await NestFactory.create<NestExpressApplication>(AppModule);
         app.useStaticAssets(join(__dirname, './dist')); 
