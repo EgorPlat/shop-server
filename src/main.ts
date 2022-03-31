@@ -9,7 +9,7 @@ const start = async () => {
     try {// статика
         const PORT = process.env.PORT || 5000;
         const app = await NestFactory.create<NestExpressApplication>(AppModule);
-        app.useStaticAssets(join(__dirname, '/dist')); 
+        app.useStaticAssets(join(__dirname, './dist')); 
         app.enableCors({
             origin: true,
             methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
