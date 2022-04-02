@@ -8,9 +8,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SettingsService = void 0;
 const common_1 = require("@nestjs/common");
+const uuid = require("uuid");
+const path = require("path");
+const fs = require("fs");
 let SettingsService = class SettingsService {
     async updateUserAvatar(file) {
-        console.log(file);
+        const fileName = uuid.v4() + '.jpg';
+        const filePath = path.resolve(__dirname, '../../src/static');
+        fs.readFile(filePath, (err, buffer) => console.log(buffer));
+        throw new common_1.HttpException('Создано успешно!', 200);
     }
 };
 SettingsService = __decorate([

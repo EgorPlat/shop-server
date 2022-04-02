@@ -30,7 +30,8 @@ let UserService = class UserService {
         return users;
     }
     async addUser(dto) {
-        const user = await this.userModel.create(dto);
+        let candidate = Object.assign(Object.assign({}, dto), { login: Math.floor(Math.random() * 10000) });
+        const user = await this.userModel.create(candidate);
         return user;
     }
     async getUserByLogin(login) {
@@ -40,6 +41,37 @@ let UserService = class UserService {
             __v: false
         });
         return user;
+    }
+    async getUserList() {
+        const user = await this.userModel.find({}, {
+            password: false,
+            _id: false,
+            __v: false
+        });
+        const peoples = user.map(user => {
+            return {
+                login: user.login,
+                userName: user.name,
+                userAvatar: user.avatar,
+                status: user.status,
+                age: 20,
+                city: user.city,
+                gender: user.gender
+            };
+        });
+        return peoples;
+    }
+    async getSortedUsers(sortParams) {
+        let userList = await this.getUserList();
+        if (sortParams.age !== 50) {
+            userList = userList.filter((user) => user.age == sortParams.age);
+            console.log(userList);
+        }
+        if (sortParams.gender !== "") {
+            userList = userList.filter((user) => user.gender == sortParams.gender);
+            console.log(userList);
+        }
+        return userList;
     }
     async getUserByEmail(email) {
         const user = await this.userModel.findOne({ email: email }, {

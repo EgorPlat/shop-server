@@ -51,7 +51,7 @@ __decorate([
 ], User.prototype, "gender", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ example: 'Строка', description: 'URL картинки' }),
-    (0, mongoose_1.Prop)({ default: 'no-avatar.jpeg' }),
+    (0, mongoose_1.Prop)({ default: 'no-avatar.jpg' }),
     __metadata("design:type", String)
 ], User.prototype, "avatar", void 0);
 __decorate([

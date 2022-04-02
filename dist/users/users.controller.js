@@ -32,6 +32,12 @@ let UserController = class UserController {
     getUserByLogin(login) {
         return this.userService.getUserByLogin(login);
     }
+    getUserList() {
+        return this.userService.getUserList();
+    }
+    getSortedUsers(sortParams) {
+        return this.userService.getSortedUsers(sortParams);
+    }
 };
 __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Список пользователей' }),
@@ -60,6 +66,23 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "getUserByLogin", null);
+__decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Получить список пользователей' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: user_schema_1.User }),
+    (0, common_1.Get)('/getUserList'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "getUserList", null);
+__decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Получить список сортированных пользователей' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: user_schema_1.User }),
+    (0, common_1.Post)('/getSortedUsers'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "getSortedUsers", null);
 UserController = __decorate([
     (0, swagger_1.ApiTags)('Пользователи'),
     (0, common_1.Controller)('/users'),
