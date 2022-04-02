@@ -49,7 +49,7 @@ export class UserService {
                 city: user.city,
                 gender: user.gender
             }
-        }) // fdfdffd
+        })
         return peoples;
     }
     async getSortedUsers(sortParams: ISortParams) {
