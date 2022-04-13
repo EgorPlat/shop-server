@@ -5,6 +5,10 @@ import { Model } from 'mongoose';
 import { CreateUserDto } from "src/dto/create-user.dto";
 import { IPeople } from "src/interfaces/people.interface";
 import { ISortParams } from "src/interfaces/sort.params";
+import {Request} from 'express';
+import { JwtService } from "@nestjs/jwt";
+import { IAccount } from "src/interfaces/account.interface";
+import { IProfile } from "src/interfaces/profile.interface";
 
 @Injectable()
 export class UserService {
@@ -52,17 +56,15 @@ export class UserService {
         })
         return peoples;
     }
-    async getSortedUsers(sortParams: ISortParams) {
-        let userList = await this.getUserList();
+    async getSortedPeoples(sortParams: ISortParams) {
+        let peoples = await this.getUserList();
         if(sortParams.age !== 50) {
-            userList = userList.filter((user) => user.age == sortParams.age);
-            console.log(userList);
+            peoples = peoples.filter((user) => user.age == sortParams.age);
         }
         if(sortParams.gender !== "") {
-            userList = userList.filter((user) => user.gender == sortParams.gender);
-            console.log(userList);
+            peoples = peoples.filter((user) => user.gender == sortParams.gender);;
         }
-        return userList;
+        throw new HttpException(peoples, 200);
     }
     async getUserByEmail(email: string) {
         const user = await this.userModel.findOne({email: email}, {
@@ -71,5 +73,52 @@ export class UserService {
         });
         console.log(user);
         return user;
+    }
+    async updateUserStatus(decodedToken: any, status: string) {
+
+        await this.userModel.updateOne({email : decodedToken.email}, {$set: {status : status}});
+
+        const updatedUser: User = await this.userModel.findOne({email: decodedToken.email}, {
+            _id: false,
+            __v: false,
+            password: false
+        });
+        if(updatedUser) { 
+            return updatedUser;
+        }
+    }
+    async updateUserAccount(decodedToken: any, accountData: IAccount) {
+
+        await this.userModel.updateOne({email : decodedToken.email}, {$set: {
+            email : accountData.email, 
+            password: accountData.password,
+            login: accountData.login
+        }});
+
+        const updatedUser: User = await this.userModel.findOne({email: decodedToken.email}, {
+            _id: false,
+            __v: false,
+            password: false
+        });
+        if(updatedUser) { 
+            return updatedUser;
+        }
+    }
+    async updateUserProfile(decodedToken: any, accountData: IProfile) {
+
+        await this.userModel.updateOne({email : decodedToken.email}, {$set: {
+            phoneNumber : accountData.phoneNumber, 
+            name: accountData.name,
+            birthDate: accountData.birthDate
+        }});
+
+        const updatedUser: User = await this.userModel.findOne({email: decodedToken.email}, {
+            _id: false,
+            __v: false,
+            password: false
+        });
+        if(updatedUser) { 
+            return updatedUser;
+        }
     }
 }

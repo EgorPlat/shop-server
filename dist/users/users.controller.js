@@ -35,8 +35,8 @@ let UserController = class UserController {
     getUserList() {
         return this.userService.getUserList();
     }
-    getSortedUsers(sortParams) {
-        return this.userService.getSortedUsers(sortParams);
+    getSortedPeoples(sortParams) {
+        return this.userService.getSortedPeoples(sortParams);
     }
 };
 __decorate([
@@ -82,7 +82,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
-], UserController.prototype, "getSortedUsers", null);
+], UserController.prototype, "getSortedPeoples", null);
 UserController = __decorate([
     (0, swagger_1.ApiTags)('Пользователи'),
     (0, common_1.Controller)('/users'),

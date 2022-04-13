@@ -14,6 +14,6 @@ export declare class UserController {
     getUserByLogin(login: string): Promise<User & import("mongoose").Document<any, any, any> & {
         _id: any;
     }>;
-    getUserList(): Promise<import("../interfaces/people.interface").IPeople[]>;
-    getSortedUsers(sortParams: ISortParams): Promise<import("../interfaces/people.interface").IPeople[]>;
+    getUserList(): Promise<import("src/interfaces/people.interface").IPeople[]>;
+    getSortedPeoples(sortParams: ISortParams): Promise<void>;
 }

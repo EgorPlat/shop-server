@@ -3,6 +3,8 @@ import { Model } from 'mongoose';
 import { CreateUserDto } from "src/dto/create-user.dto";
 import { IPeople } from "src/interfaces/people.interface";
 import { ISortParams } from "src/interfaces/sort.params";
+import { IAccount } from "src/interfaces/account.interface";
+import { IProfile } from "src/interfaces/profile.interface";
 export declare class UserService {
     private userModel;
     constructor(userModel: Model<UserDocument>);
@@ -16,8 +18,11 @@ export declare class UserService {
         _id: any;
     }>;
     getUserList(): Promise<IPeople[]>;
-    getSortedUsers(sortParams: ISortParams): Promise<IPeople[]>;
+    getSortedPeoples(sortParams: ISortParams): Promise<void>;
     getUserByEmail(email: string): Promise<User & import("mongoose").Document<any, any, any> & {
         _id: any;
     }>;
+    updateUserStatus(decodedToken: any, status: string): Promise<User>;
+    updateUserAccount(decodedToken: any, accountData: IAccount): Promise<User>;
+    updateUserProfile(decodedToken: any, accountData: IProfile): Promise<User>;
 }

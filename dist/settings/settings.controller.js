@@ -23,6 +23,15 @@ let SettingsController = class SettingsController {
     updateUserAvatar(file) {
         return this.settingsService.updateUserAvatar(file);
     }
+    updateUserStatus(request) {
+        return this.settingsService.updateUserStatus(request);
+    }
+    updateUserAccount(request) {
+        return this.settingsService.updateUserAccount(request);
+    }
+    updateUserProfile(request) {
+        return this.settingsService.updateUserProfile(request);
+    }
 };
 __decorate([
     (0, common_1.Post)('/update-avatar'),
@@ -32,6 +41,27 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], SettingsController.prototype, "updateUserAvatar", null);
+__decorate([
+    (0, common_1.Post)('/update-status'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], SettingsController.prototype, "updateUserStatus", null);
+__decorate([
+    (0, common_1.Post)('/update-account'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], SettingsController.prototype, "updateUserAccount", null);
+__decorate([
+    (0, common_1.Post)('/update-profile'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], SettingsController.prototype, "updateUserProfile", null);
 SettingsController = __decorate([
     (0, common_1.Controller)('settings'),
     __metadata("design:paramtypes", [settings_service_1.SettingsService])

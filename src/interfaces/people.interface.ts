@@ -7,3 +7,4 @@ export interface IPeople {
     city: string,
     gender: string
 }
+export type People = IPeople;

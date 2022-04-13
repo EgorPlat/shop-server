@@ -61,17 +61,16 @@ let UserService = class UserService {
         });
         return peoples;
     }
-    async getSortedUsers(sortParams) {
-        let userList = await this.getUserList();
+    async getSortedPeoples(sortParams) {
+        let peoples = await this.getUserList();
         if (sortParams.age !== 50) {
-            userList = userList.filter((user) => user.age == sortParams.age);
-            console.log(userList);
+            peoples = peoples.filter((user) => user.age == sortParams.age);
         }
         if (sortParams.gender !== "") {
-            userList = userList.filter((user) => user.gender == sortParams.gender);
-            console.log(userList);
+            peoples = peoples.filter((user) => user.gender == sortParams.gender);
+            ;
         }
-        return userList;
+        throw new common_1.HttpException(peoples, 200);
     }
     async getUserByEmail(email) {
         const user = await this.userModel.findOne({ email: email }, {
@@ -80,6 +79,47 @@ let UserService = class UserService {
         });
         console.log(user);
         return user;
+    }
+    async updateUserStatus(decodedToken, status) {
+        await this.userModel.updateOne({ email: decodedToken.email }, { $set: { status: status } });
+        const updatedUser = await this.userModel.findOne({ email: decodedToken.email }, {
+            _id: false,
+            __v: false,
+            password: false
+        });
+        if (updatedUser) {
+            return updatedUser;
+        }
+    }
+    async updateUserAccount(decodedToken, accountData) {
+        await this.userModel.updateOne({ email: decodedToken.email }, { $set: {
+                email: accountData.email,
+                password: accountData.password,
+                login: accountData.login
+            } });
+        const updatedUser = await this.userModel.findOne({ email: decodedToken.email }, {
+            _id: false,
+            __v: false,
+            password: false
+        });
+        if (updatedUser) {
+            return updatedUser;
+        }
+    }
+    async updateUserProfile(decodedToken, accountData) {
+        await this.userModel.updateOne({ email: decodedToken.email }, { $set: {
+                phoneNumber: accountData.phoneNumber,
+                name: accountData.name,
+                birthDate: accountData.birthDate
+            } });
+        const updatedUser = await this.userModel.findOne({ email: decodedToken.email }, {
+            _id: false,
+            __v: false,
+            password: false
+        });
+        if (updatedUser) {
+            return updatedUser;
+        }
     }
 };
 UserService = __decorate([

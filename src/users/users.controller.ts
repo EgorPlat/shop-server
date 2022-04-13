@@ -5,6 +5,7 @@ import { CreateUserDto } from "src/dto/create-user.dto";
 import { ISortParams } from "src/interfaces/sort.params";
 import { User } from "src/schemas/user.schema";
 import { UserService } from "./users.service";
+import { People } from "src/interfaces/people.interface";
 
 @ApiTags('Пользователи')
 @Controller('/users')
@@ -44,7 +45,7 @@ export class UserController {
     @ApiOperation({summary: 'Получить список сортированных пользователей'})
     @ApiResponse({status: 200, type: User})
     @Post('/getSortedUsers')
-    getSortedUsers(@Body() sortParams: ISortParams) {
-        return this.userService.getSortedUsers(sortParams); 
+    getSortedPeoples(@Body() sortParams: ISortParams) {
+        return this.userService.getSortedPeoples(sortParams); 
     }
 }
