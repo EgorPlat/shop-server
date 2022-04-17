@@ -15,12 +15,14 @@ export class AuthService {
         
         if(user) {
             const passwordEquals = user.password === userDto.password;
-            if(passwordEquals) {
+            if(passwordEquals && user.password) {
                 const data = await this.generateToken(user);
                 throw new HttpException(data, 200)
             } else {
                 throw new HttpException('Неккоректные данные. Пожалуйста попробуйте снова.', 400);
             }
+        }else {
+            throw new HttpException('Неккоректные данные. Пожалуйста попробуйте снова.', 400);
         }
     }
     private async generateToken(user: User) {
