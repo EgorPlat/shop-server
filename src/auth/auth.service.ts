@@ -18,9 +18,9 @@ export class AuthService {
             if(passwordEquals) {
                 const data = await this.generateToken(user);
                 throw new HttpException(data, 200)
+            } else {
+                throw new HttpException('Неккоректные данные. Пожалуйста попробуйте снова.', 400);
             }
-        } else {
-            throw new HttpException('Неккоректные данные. Пожалуйста попробуйте снова.', HttpStatus.BAD_REQUEST);
         }
     }
     private async generateToken(user: User) {
