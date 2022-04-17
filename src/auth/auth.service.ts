@@ -12,11 +12,13 @@ export class AuthService {
 
     async login(userDto: UserDto) {
         const user = await this.userService.getUserByEmail(userDto.email);
-        const passwordEquals = user.password === userDto.password;
         
-        if(user && passwordEquals) {
-            const data = await this.generateToken(user);
-            throw new HttpException(data, 200)
+        if(user) {
+            const passwordEquals = user.password === userDto.password;
+            if(passwordEquals) {
+                const data = await this.generateToken(user);
+                throw new HttpException(data, 200)
+            }
         } else {
             throw new HttpException('Неккоректные данные. Пожалуйста попробуйте снова.', HttpStatus.BAD_REQUEST);
         }
