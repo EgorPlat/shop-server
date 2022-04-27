@@ -28,4 +28,5 @@ export declare class UserService {
     updateUserStatus(decodedToken: any, status: string): Promise<User>;
     updateUserAccount(decodedToken: any, accountData: IAccount): Promise<User>;
     updateUserProfile(decodedToken: any, accountData: IProfile): Promise<User>;
+    updateUserAvatar(file: any, user: User): Promise<User>;
 }

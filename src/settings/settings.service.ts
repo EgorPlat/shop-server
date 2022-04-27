@@ -14,15 +14,11 @@ export class SettingsService {
 
     constructor(private userService: UserService, private jwtService: JwtService, private helpJwtService: HelpJwtService) {}
 
-    async updateUserAvatar(file: any) {
-        console.log(file);
-        //const fileName = uuid.v4() + '.jpg';
-        //const filePath = path.resolve(__dirname, '../../src/static');
-        //fs.readFile(filePath, (err, buffer) => console.log(buffer));
-        /*if(!fs.existsSync(filePath)) {
-            fs.mkdirSync(filePath, {recursive: true});
-        }
-        fs.writeFileSync(path.join(filePath, fileName), file.buffer);*/
+    async updateUserAvatar(file: any, request: Request) {
+        const decodedToken = await this.helpJwtService.decodeJwt(request);
+        const user = await this.userService.getUserByEmail(decodedToken.email);
+
+        this.userService.updateUserAvatar(file, user);
         throw new HttpException('Создано успешно!', 200);
     }
     async updateUserStatus(request: Request) {

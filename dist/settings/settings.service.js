@@ -20,8 +20,10 @@ let SettingsService = class SettingsService {
         this.jwtService = jwtService;
         this.helpJwtService = helpJwtService;
     }
-    async updateUserAvatar(file) {
-        console.log(file);
+    async updateUserAvatar(file, request) {
+        const decodedToken = await this.helpJwtService.decodeJwt(request);
+        const user = await this.userService.getUserByEmail(decodedToken.email);
+        this.userService.updateUserAvatar(file, user);
         throw new common_1.HttpException('Создано успешно!', 200);
     }
     async updateUserStatus(request) {

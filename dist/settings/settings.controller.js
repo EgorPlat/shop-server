@@ -21,8 +21,8 @@ let SettingsController = class SettingsController {
     constructor(settingsService) {
         this.settingsService = settingsService;
     }
-    updateUserAvatar(file) {
-        return this.settingsService.updateUserAvatar(file);
+    updateUserAvatar(file, request) {
+        return this.settingsService.updateUserAvatar(file, request);
     }
     updateUserStatus(request) {
         return this.settingsService.updateUserStatus(request);
@@ -38,7 +38,7 @@ __decorate([
     (0, common_1.Post)('/update-avatar'),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('uploadedFile', {
         storage: (0, multer_1.diskStorage)({
-            destination: './static',
+            destination: './src/static',
             filename: (req, file, cb) => {
                 const fileNameSplit = file.originalname.split('.');
                 const fileExt = fileNameSplit[fileNameSplit.length - 1];
@@ -47,8 +47,9 @@ __decorate([
         })
     })),
     __param(0, (0, common_1.UploadedFile)()),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", void 0)
 ], SettingsController.prototype, "updateUserAvatar", null);
 __decorate([

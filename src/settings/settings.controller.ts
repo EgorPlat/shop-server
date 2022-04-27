@@ -12,7 +12,7 @@ export class SettingsController {
     @UseInterceptors(FileInterceptor('uploadedFile',{     
     storage: diskStorage(
         {
-            destination: './static',
+            destination: './src/static',
             filename: (req, file, cb) => {
                 const fileNameSplit = file.originalname.split('.');
                 const fileExt = fileNameSplit[fileNameSplit.length - 1];
@@ -21,8 +21,8 @@ export class SettingsController {
         }
     )
     }))
-    updateUserAvatar(@UploadedFile() file) {
-        return this.settingsService.updateUserAvatar(file);
+    updateUserAvatar(@UploadedFile() file, @Req() request: Request) {
+        return this.settingsService.updateUserAvatar(file, request);
     }
 
     @Post('/update-status')

@@ -7,7 +7,7 @@ export declare class SettingsService {
     private jwtService;
     private helpJwtService;
     constructor(userService: UserService, jwtService: JwtService, helpJwtService: HelpJwtService);
-    updateUserAvatar(file: any): Promise<void>;
+    updateUserAvatar(file: any, request: Request): Promise<void>;
     updateUserStatus(request: Request): Promise<void>;
     updateUserAccount(request: Request): Promise<void>;
     updateUserProfile(request: Request): Promise<void>;

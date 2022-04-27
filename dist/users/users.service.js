@@ -129,6 +129,20 @@ let UserService = class UserService {
             return updatedUser;
         }
     }
+    async updateUserAvatar(file, user) {
+        await this.userModel.updateOne({ email: user.email }, { $set: {
+                avatar: "/" + file.filename,
+            } });
+        const updatedUser = await this.userModel.findOne({ email: user.email }, {
+            _id: false,
+            __v: false,
+            password: false
+        });
+        if (updatedUser) {
+            return updatedUser;
+        }
+        console.log(file);
+    }
 };
 UserService = __decorate([
     (0, common_1.Injectable)(),
