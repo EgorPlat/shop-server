@@ -16,6 +16,7 @@ exports.SettingsController = void 0;
 const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
 const settings_service_1 = require("./settings.service");
+const multer_1 = require("multer");
 let SettingsController = class SettingsController {
     constructor(settingsService) {
         this.settingsService = settingsService;
@@ -35,7 +36,16 @@ let SettingsController = class SettingsController {
 };
 __decorate([
     (0, common_1.Post)('/update-avatar'),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('uploadedFile', { dest: './update-avatar' })),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('uploadedFile', {
+        storage: (0, multer_1.diskStorage)({
+            destination: './static',
+            filename: (req, file, cb) => {
+                const fileNameSplit = file.originalname.split('.');
+                const fileExt = fileNameSplit[fileNameSplit.length - 1];
+                cb(null, `${Date.now()}.${fileExt}`);
+            }
+        })
+    })),
     __param(0, (0, common_1.UploadedFile)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),

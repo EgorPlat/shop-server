@@ -1,10 +1,12 @@
 import { Request } from 'express';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/users/users.service';
+import { HelpJwtService } from 'src/help/token.service';
 export declare class SettingsService {
     private userService;
     private jwtService;
-    constructor(userService: UserService, jwtService: JwtService);
+    private helpJwtService;
+    constructor(userService: UserService, jwtService: JwtService, helpJwtService: HelpJwtService);
     updateUserAvatar(file: any): Promise<void>;
     updateUserStatus(request: Request): Promise<void>;
     updateUserAccount(request: Request): Promise<void>;

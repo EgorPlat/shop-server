@@ -22,6 +22,9 @@ export declare class UserService {
     getUserByEmail(email: string): Promise<User & import("mongoose").Document<any, any, any> & {
         _id: any;
     }>;
+    getUserByUserId(userId: string): Promise<User & import("mongoose").Document<any, any, any> & {
+        _id: any;
+    }>;
     updateUserStatus(decodedToken: any, status: string): Promise<User>;
     updateUserAccount(decodedToken: any, accountData: IAccount): Promise<User>;
     updateUserProfile(decodedToken: any, accountData: IProfile): Promise<User>;

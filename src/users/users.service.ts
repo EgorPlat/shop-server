@@ -74,6 +74,14 @@ export class UserService {
         console.log(user);
         return user;
     }
+    async getUserByUserId(userId: string) {
+        const user = await this.userModel.findOne({userId: userId}, {
+            _id: false,
+            __v: false
+        });
+        console.log(user);
+        return user;
+    }
     async updateUserStatus(decodedToken: any, status: string) {
 
         await this.userModel.updateOne({email : decodedToken.email}, {$set: {status : status}});

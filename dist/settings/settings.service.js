@@ -11,47 +11,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SettingsService = void 0;
 const common_1 = require("@nestjs/common");
-const uuid = require("uuid");
-const path = require("path");
-const fs = require("fs");
 const jwt_1 = require("@nestjs/jwt");
 const users_service_1 = require("../users/users.service");
+const token_service_1 = require("../help/token.service");
 let SettingsService = class SettingsService {
-    constructor(userService, jwtService) {
+    constructor(userService, jwtService, helpJwtService) {
         this.userService = userService;
         this.jwtService = jwtService;
+        this.helpJwtService = helpJwtService;
     }
     async updateUserAvatar(file) {
-        const fileName = uuid.v4() + '.jpg';
-        const filePath = path.resolve(__dirname, '../../src/static');
-        fs.readFile(filePath, (err, buffer) => console.log(buffer));
+        console.log(file);
         throw new common_1.HttpException('Создано успешно!', 200);
     }
     async updateUserStatus(request) {
-        const BearerToken = request.headers.authorization;
-        const token = BearerToken.split(' ')[1];
-        const decodedToken = this.jwtService.decode(token);
+        const decodedToken = this.helpJwtService.decodeJwt(request);
         const updatedUser = await this.userService.updateUserStatus(decodedToken, request.body.status);
         throw new common_1.HttpException(updatedUser, 200);
     }
     async updateUserAccount(request) {
-        const BearerToken = request.headers.authorization;
-        const token = BearerToken.split(' ')[1];
-        const decodedToken = this.jwtService.decode(token);
+        const decodedToken = this.helpJwtService.decodeJwt(request);
         const updatedUser = await this.userService.updateUserAccount(decodedToken, request.body);
         throw new common_1.HttpException(updatedUser, 200);
     }
     async updateUserProfile(request) {
-        const BearerToken = request.headers.authorization;
-        const token = BearerToken.split(' ')[1];
-        const decodedToken = this.jwtService.decode(token);
+        const decodedToken = this.helpJwtService.decodeJwt(request);
         const updatedUser = await this.userService.updateUserProfile(decodedToken, request.body);
         throw new common_1.HttpException(updatedUser, 200);
     }
 };
 SettingsService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [users_service_1.UserService, jwt_1.JwtService])
+    __metadata("design:paramtypes", [users_service_1.UserService, jwt_1.JwtService, token_service_1.HelpJwtService])
 ], SettingsService);
 exports.SettingsService = SettingsService;
 //# sourceMappingURL=settings.service.js.map

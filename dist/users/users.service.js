@@ -80,6 +80,14 @@ let UserService = class UserService {
         console.log(user);
         return user;
     }
+    async getUserByUserId(userId) {
+        const user = await this.userModel.findOne({ userId: userId }, {
+            _id: false,
+            __v: false
+        });
+        console.log(user);
+        return user;
+    }
     async updateUserStatus(decodedToken, status) {
         await this.userModel.updateOne({ email: decodedToken.email }, { $set: { status: status } });
         const updatedUser = await this.userModel.findOne({ email: decodedToken.email }, {

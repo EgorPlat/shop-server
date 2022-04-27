@@ -2,13 +2,25 @@ import { Body, Controller, Post, Req, UploadedFile, UploadedFiles, UseIntercepto
 import { FileInterceptor } from '@nestjs/platform-express';
 import { SettingsService } from './settings.service';
 import {Request} from 'express';
+import { diskStorage } from 'multer';
 
 @Controller('settings')
 export class SettingsController {
 
     constructor(private settingsService: SettingsService) {}
     @Post('/update-avatar')
-    @UseInterceptors(FileInterceptor('uploadedFile', { dest: './update-avatar' }))
+    @UseInterceptors(FileInterceptor('uploadedFile',{     
+    storage: diskStorage(
+        {
+            destination: './static',
+            filename: (req, file, cb) => {
+                const fileNameSplit = file.originalname.split('.');
+                const fileExt = fileNameSplit[fileNameSplit.length - 1];
+                cb(null, `${Date.now()}.${fileExt}`);
+            }
+        }
+    )
+    }))
     updateUserAvatar(@UploadedFile() file) {
         return this.settingsService.updateUserAvatar(file);
     }

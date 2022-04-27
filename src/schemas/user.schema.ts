@@ -50,11 +50,10 @@ export class User {
     @Prop({ default: new Date() })
     birthDate: Date;
 
-    @ApiProperty({example: 'Строка', description: 'Статус пользователя'})
+    @ApiProperty({example: 'Строка', description: 'Город пользователя'})
     @Prop({ default: 'Секрет' })
     city: string;
     // город пользователя
-
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

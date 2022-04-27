@@ -70,7 +70,7 @@ __decorate([
     __metadata("design:type", Date)
 ], User.prototype, "birthDate", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'Строка', description: 'Статус пользователя' }),
+    (0, swagger_1.ApiProperty)({ example: 'Строка', description: 'Город пользователя' }),
     (0, mongoose_1.Prop)({ default: 'Секрет' }),
     __metadata("design:type", String)
 ], User.prototype, "city", void 0);

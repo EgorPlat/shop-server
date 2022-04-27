@@ -9,11 +9,13 @@ import { ProfileModule } from './profile/profile.module';
 import { SettingsController } from './settings/settings.controller';
 import { SettingsService } from './settings/settings.service';
 import { SettingsModule } from './settings/settings.module';
+import { ChatModule } from './chat/chat.module';
+import { HelpJwtModule } from "./help/token.module";
 
 @Module({
     controllers: [AppController, SettingsController],
     providers: [AppService, SettingsService],
-    imports: [UsersModule, MongooseModule.forRoot(dbUrl), AuthModule, ProfileModule, SettingsModule]
+    imports: [HelpJwtModule, UsersModule, MongooseModule.forRoot(dbUrl), AuthModule, ProfileModule, SettingsModule, ChatModule]
 })
 export class AppModule {
 

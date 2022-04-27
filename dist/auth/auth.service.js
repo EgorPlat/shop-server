@@ -20,15 +20,18 @@ let AuthService = class AuthService {
     }
     async login(userDto) {
         const user = await this.userService.getUserByEmail(userDto.email);
-        const passwordEquals = user.password === userDto.password;
-        console.log(user);
-        console.log(user.password + " " + userDto.password);
-        if (user && passwordEquals) {
-            const data = await this.generateToken(user);
-            throw new common_1.HttpException(data, 200);
+        if (user) {
+            const passwordEquals = user.password === userDto.password;
+            if (passwordEquals && user.password) {
+                const data = await this.generateToken(user);
+                throw new common_1.HttpException(data, 200);
+            }
+            else {
+                throw new common_1.HttpException({ message: 'Неккоректные данные. Пожалуйста попробуйте снова.' }, 400);
+            }
         }
         else {
-            throw new common_1.HttpException('Неккоректные данные. Пожалуйста попробуйте снова.', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException({ message: 'Неккоректные данные. Пожалуйста попробуйте снова.' }, 400);
         }
     }
     async generateToken(user) {

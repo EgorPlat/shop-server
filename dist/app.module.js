@@ -18,13 +18,15 @@ const profile_module_1 = require("./profile/profile.module");
 const settings_controller_1 = require("./settings/settings.controller");
 const settings_service_1 = require("./settings/settings.service");
 const settings_module_1 = require("./settings/settings.module");
+const chat_module_1 = require("./chat/chat.module");
+const token_module_1 = require("./help/token.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
         controllers: [app_controller_1.AppController, settings_controller_1.SettingsController],
         providers: [app_service_1.AppService, settings_service_1.SettingsService],
-        imports: [users_module_1.UsersModule, mongoose_1.MongooseModule.forRoot(data_1.dbUrl), auth_module_1.AuthModule, profile_module_1.ProfileModule, settings_module_1.SettingsModule]
+        imports: [token_module_1.HelpJwtModule, users_module_1.UsersModule, mongoose_1.MongooseModule.forRoot(data_1.dbUrl), auth_module_1.AuthModule, profile_module_1.ProfileModule, settings_module_1.SettingsModule, chat_module_1.ChatModule]
     })
 ], AppModule);
 exports.AppModule = AppModule;
