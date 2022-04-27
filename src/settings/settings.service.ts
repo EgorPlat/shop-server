@@ -18,8 +18,8 @@ export class SettingsService {
         const decodedToken = await this.helpJwtService.decodeJwt(request);
         const user = await this.userService.getUserByEmail(decodedToken.email);
 
-        this.userService.updateUserAvatar(file, user);
-        throw new HttpException('Создано успешно!', 200);
+        const updatedUser = await this.userService.updateUserAvatar(file, user);
+        throw new HttpException(updatedUser, 200);
     }
     async updateUserStatus(request: Request) {
         const decodedToken = this.helpJwtService.decodeJwt(request);
