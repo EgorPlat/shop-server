@@ -131,7 +131,7 @@ let UserService = class UserService {
     }
     async updateUserAvatar(file, user) {
         await this.userModel.updateOne({ email: user.email }, { $set: {
-                avatar: "/" + file.filename,
+                avatar: file.filename,
             } });
         const updatedUser = await this.userModel.findOne({ email: user.email }, {
             _id: false,

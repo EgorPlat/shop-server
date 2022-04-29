@@ -33,8 +33,8 @@ export class ChatService {
         const decodedJwt = await this.helpJwtService.decodeJwt(request);
         const inithiator: User = await this.userService.getUserByEmail(decodedJwt.email);
         const findedDialogs = await this.getMyDialogs(inithiator);
-
-        const shortDialogsForUser = await findedDialogs.map(async (eachDialog) => {
+        
+        const shortDialogsForUser = await Promise.all(findedDialogs.map( async (eachDialog) => {
             const firstUser: User = await this.userService.getUserByUserId(eachDialog.firstUserId)
             const secondUser: User = await this.userService.getUserByUserId(eachDialog.secondUserId)
             if(inithiator.userId === eachDialog.firstUserId) {
@@ -54,7 +54,8 @@ export class ChatService {
                     content: eachDialog.messages[0]
                 } 
             }
-        })
+        }))
+        
         throw new HttpException(shortDialogsForUser, 200);
     }
     async startNewDialog(request: Request) {
@@ -65,7 +66,7 @@ export class ChatService {
         const newDialogId: string = String(Math.floor(Math.random()*1000000));
         await this.chatModel.create({dialogId: "dialog" + newDialogId, messages: [], firstUserId: inithiator.userId, secondUserId: createChatDto.userId});
         
-        const createdChat = await this.chatModel.findOne({dialogId: newDialogId});
+        const createdChat = await this.chatModel.findOne({dialogId: "dialog"+newDialogId});
         const message: IMessage = {
             dialogId: createdChat.dialogId,
             content: createChatDto.messageContent,

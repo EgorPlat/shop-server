@@ -132,7 +132,7 @@ export class UserService {
     async updateUserAvatar(file: any, user: User) {
 
         await this.userModel.updateOne({email : user.email}, {$set: {
-            avatar : "/" + file.filename, 
+            avatar : file.filename, 
         }});
 
         const updatedUser: User = await this.userModel.findOne({email: user.email}, {
