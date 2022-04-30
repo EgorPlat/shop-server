@@ -43,7 +43,7 @@ export class ChatService {
                     userName: secondUser.name,
                     userAvatar: secondUser.avatar,
                     isRead: true,
-                    content: eachDialog.messages[0],
+                    content: eachDialog.messages[0].content,
                     messages: eachDialog.messages
                 }
             } else {
@@ -52,7 +52,7 @@ export class ChatService {
                     userName: eachDialog.firstUserId,
                     userAvatar: firstUser.avatar,
                     isRead: true,
-                    content: eachDialog.messages[0],
+                    content: eachDialog.messages[0].content,
                     messages: eachDialog.messages
                 } 
             }
