@@ -43,7 +43,8 @@ export class ChatService {
                     userName: secondUser.name,
                     userAvatar: secondUser.avatar,
                     isRead: true,
-                    content: eachDialog.messages[0]
+                    content: eachDialog.messages[0],
+                    messages: eachDialog.messages
                 }
             } else {
                 return {
@@ -51,7 +52,8 @@ export class ChatService {
                     userName: eachDialog.firstUserId,
                     userAvatar: firstUser.avatar,
                     isRead: true,
-                    content: eachDialog.messages[0]
+                    content: eachDialog.messages[0],
+                    messages: eachDialog.messages
                 } 
             }
         }))
