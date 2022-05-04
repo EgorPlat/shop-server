@@ -10,11 +10,13 @@ const start = async () => {
         const PORT = process.env.PORT || 5000;
         const app = await NestFactory.create<NestExpressApplication>(AppModule);
         app.useStaticAssets(join(__dirname, '../src/static')); 
+        
         app.enableCors({
             origin: true,
             methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
             credentials: true,
         });
+
         const config = new DocumentBuilder()
         .setTitle('Meetins Server')
         .setDescription('Meetins Documentation')

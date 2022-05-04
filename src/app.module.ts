@@ -11,10 +11,11 @@ import { SettingsService } from './settings/settings.service';
 import { SettingsModule } from './settings/settings.module';
 import { ChatModule } from './chat/chat.module';
 import { HelpJwtModule } from "./help/token.module";
+import { AppGateway } from './app.gateway';
 
 @Module({
     controllers: [AppController, SettingsController],
-    providers: [AppService, SettingsService],
+    providers: [AppService, SettingsService, AppGateway],
     imports: [HelpJwtModule, UsersModule, MongooseModule.forRoot(dbUrl), AuthModule, ProfileModule, SettingsModule, ChatModule]
 })
 export class AppModule {

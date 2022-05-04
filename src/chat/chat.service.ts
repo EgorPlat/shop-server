@@ -8,11 +8,17 @@ import { Model } from 'mongoose';
 import { UserService } from 'src/users/users.service';
 import { CreateChatDto } from 'src/dto/create-chat.dto';
 import { User } from 'src/schemas/user.schema';
+import { AppGateway } from 'src/app.gateway';
 
 @Injectable()
 export class ChatService {
 
-    constructor(private userService: UserService, private helpJwtService: HelpJwtService, @InjectModel(Chat.name) private chatModel: Model<ChatDocument>) {}
+    constructor(
+        private userService: UserService, 
+        private helpJwtService: HelpJwtService, 
+        @InjectModel(Chat.name) private chatModel: Model<ChatDocument>,
+        private socketServer: AppGateway
+    ) {}
     
     async getMyDialogs(inithiator: User) {
         const myDialogs = await this.chatModel.find({firstUserId: inithiator.userId});
@@ -24,11 +30,27 @@ export class ChatService {
             messages: [...prevChatState.messages, message]
         }});
         const currentChatState = await this.chatModel.findOne({dialogId: message.dialogId});
+        this.socketServer.server.emit('message', `Вам пришло новое сообщение в диалоге ${message.dialogId}`)
         return currentChatState.messages;
     }
-
-
     // Все обработчики роутов ниже
+    async sendNewMessage(request: Request) {
+        const decodedJwt = await this.helpJwtService.decodeJwt(request);
+        const inithiator: User = await this.userService.getUserByEmail(decodedJwt.email);
+        const message: IMessage = {
+            dialogId: request.body.dialogId,
+            content: request.body.messageContent,
+            messageId: String(Math.floor(Math.random()*5000000)),
+            sendAt: String(new Date()),
+            senderId: inithiator.userId,
+            isRead: false,
+            avatar: inithiator.avatar,
+            senderName: inithiator.name,
+            status: false
+        }
+        const updatedMessages = await this.addNewMessage(inithiator, message);
+        throw new HttpException(updatedMessages, 200);
+    }
     async getUserDialogs(request: Request) {
         const decodedJwt = await this.helpJwtService.decodeJwt(request);
         const inithiator: User = await this.userService.getUserByEmail(decodedJwt.email);

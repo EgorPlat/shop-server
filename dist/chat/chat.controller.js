@@ -19,6 +19,9 @@ let ChatController = class ChatController {
     constructor(chatService) {
         this.chatService = chatService;
     }
+    sendNewMessage(request) {
+        return this.chatService.sendNewMessage(request);
+    }
     startNewDialog(request) {
         return this.chatService.startNewDialog(request);
     }
@@ -26,6 +29,13 @@ let ChatController = class ChatController {
         return this.chatService.getUserDialogs(request);
     }
 };
+__decorate([
+    (0, common_1.Post)('/send-message'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], ChatController.prototype, "sendNewMessage", null);
 __decorate([
     (0, common_1.Post)('/start-dialog'),
     __param(0, (0, common_1.Req)()),

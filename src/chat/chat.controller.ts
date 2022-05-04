@@ -7,6 +7,10 @@ export class ChatController {
 
     constructor(private chatService: ChatService) {}
 
+    @Post('/send-message')
+    sendNewMessage(@Req() request: Request) {
+        return this.chatService.sendNewMessage(request);
+    }
     @Post('/start-dialog')
     startNewDialog(@Req() request: Request) {
         return this.chatService.startNewDialog(request);

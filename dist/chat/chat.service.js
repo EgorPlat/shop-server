@@ -19,11 +19,13 @@ const token_service_1 = require("../help/token.service");
 const chat_schema_1 = require("../schemas/chat.schema");
 const mongoose_2 = require("mongoose");
 const users_service_1 = require("../users/users.service");
+const app_gateway_1 = require("../app.gateway");
 let ChatService = class ChatService {
-    constructor(userService, helpJwtService, chatModel) {
+    constructor(userService, helpJwtService, chatModel, socketServer) {
         this.userService = userService;
         this.helpJwtService = helpJwtService;
         this.chatModel = chatModel;
+        this.socketServer = socketServer;
     }
     async getMyDialogs(inithiator) {
         const myDialogs = await this.chatModel.find({ firstUserId: inithiator.userId });
@@ -35,7 +37,25 @@ let ChatService = class ChatService {
                 messages: [...prevChatState.messages, message]
             } });
         const currentChatState = await this.chatModel.findOne({ dialogId: message.dialogId });
+        this.socketServer.server.emit('message', `Вам пришло новое сообщение в диалоге ${message.dialogId}`);
         return currentChatState.messages;
+    }
+    async sendNewMessage(request) {
+        const decodedJwt = await this.helpJwtService.decodeJwt(request);
+        const inithiator = await this.userService.getUserByEmail(decodedJwt.email);
+        const message = {
+            dialogId: request.body.dialogId,
+            content: request.body.messageContent,
+            messageId: String(Math.floor(Math.random() * 5000000)),
+            sendAt: String(new Date()),
+            senderId: inithiator.userId,
+            isRead: false,
+            avatar: inithiator.avatar,
+            senderName: inithiator.name,
+            status: false
+        };
+        const updatedMessages = await this.addNewMessage(inithiator, message);
+        throw new common_1.HttpException(updatedMessages, 200);
     }
     async getUserDialogs(request) {
         const decodedJwt = await this.helpJwtService.decodeJwt(request);
@@ -50,7 +70,8 @@ let ChatService = class ChatService {
                     userName: secondUser.name,
                     userAvatar: secondUser.avatar,
                     isRead: true,
-                    content: eachDialog.messages[0]
+                    content: eachDialog.messages[0].content,
+                    messages: eachDialog.messages
                 };
             }
             else {
@@ -59,7 +80,8 @@ let ChatService = class ChatService {
                     userName: eachDialog.firstUserId,
                     userAvatar: firstUser.avatar,
                     isRead: true,
-                    content: eachDialog.messages[0]
+                    content: eachDialog.messages[0].content,
+                    messages: eachDialog.messages
                 };
             }
         }));
@@ -90,7 +112,10 @@ let ChatService = class ChatService {
 ChatService = __decorate([
     (0, common_1.Injectable)(),
     __param(2, (0, mongoose_1.InjectModel)(chat_schema_1.Chat.name)),
-    __metadata("design:paramtypes", [users_service_1.UserService, token_service_1.HelpJwtService, mongoose_2.Model])
+    __metadata("design:paramtypes", [users_service_1.UserService,
+        token_service_1.HelpJwtService,
+        mongoose_2.Model,
+        app_gateway_1.AppGateway])
 ], ChatService);
 exports.ChatService = ChatService;
 //# sourceMappingURL=chat.service.js.map
