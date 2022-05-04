@@ -11,6 +11,10 @@ export class ChatController {
     sendNewMessage(@Req() request: Request) {
         return this.chatService.sendNewMessage(request);
     }
+    @Post('/messages')
+    getDialogMessages(@Req() request: Request) {
+        return this.chatService.getDialogMessages(request);
+    }
     @Post('/start-dialog')
     startNewDialog(@Req() request: Request) {
         return this.chatService.startNewDialog(request);

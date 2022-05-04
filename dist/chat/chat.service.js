@@ -40,6 +40,11 @@ let ChatService = class ChatService {
         this.socketServer.server.emit('message', `Вам пришло новое сообщение в диалоге ${message.dialogId}`);
         return currentChatState.messages;
     }
+    async getDialogMessages(request) {
+        const dialog = await this.chatModel.findOne({ dialogId: request.body.dialogId });
+        const messages = dialog.messages;
+        throw new common_1.HttpException(messages, 200);
+    }
     async sendNewMessage(request) {
         const decodedJwt = await this.helpJwtService.decodeJwt(request);
         const inithiator = await this.userService.getUserByEmail(decodedJwt.email);

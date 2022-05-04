@@ -34,6 +34,11 @@ export class ChatService {
         return currentChatState.messages;
     }
     // Все обработчики роутов ниже
+    async getDialogMessages(request: Request) {
+        const dialog: Chat = await this.chatModel.findOne({dialogId: request.body.dialogId});
+        const messages = dialog.messages;
+        throw new HttpException(messages, 200);
+    }
     async sendNewMessage(request: Request) {
         const decodedJwt = await this.helpJwtService.decodeJwt(request);
         const inithiator: User = await this.userService.getUserByEmail(decodedJwt.email);

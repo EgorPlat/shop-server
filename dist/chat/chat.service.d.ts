@@ -16,6 +16,7 @@ export declare class ChatService {
         _id: any;
     })[]>;
     addNewMessage(inithiator: User, message: IMessage): Promise<IMessage[]>;
+    getDialogMessages(request: Request): Promise<void>;
     sendNewMessage(request: Request): Promise<void>;
     getUserDialogs(request: Request): Promise<void>;
     startNewDialog(request: Request): Promise<void>;
