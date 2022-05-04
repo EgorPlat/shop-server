@@ -35,7 +35,7 @@ export class ChatService {
     }
     // Все обработчики роутов ниже
     async getDialogMessages(request: Request) {
-        const dialog: Chat = await this.chatModel.findOne({dialogId: request.body});
+        const dialog: Chat = await this.chatModel.findOne({dialogId: request.body.dialogId});
         const messages = dialog.messages;
         throw new HttpException(messages, 200);
     }

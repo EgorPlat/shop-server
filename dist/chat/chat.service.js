@@ -43,7 +43,6 @@ let ChatService = class ChatService {
     async getDialogMessages(request) {
         const dialog = await this.chatModel.findOne({ dialogId: request.body.dialogId });
         const messages = dialog.messages;
-        console.log(dialog);
         throw new common_1.HttpException(messages, 200);
     }
     async sendNewMessage(request) {
