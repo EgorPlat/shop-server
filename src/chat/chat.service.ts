@@ -37,6 +37,7 @@ export class ChatService {
     async getDialogMessages(request: Request) {
         const dialog: Chat = await this.chatModel.findOne({dialogId: request.body.dialogId});
         const messages = dialog.messages;
+        console.log(dialog);
         throw new HttpException(messages, 200);
     }
     async sendNewMessage(request: Request) {
