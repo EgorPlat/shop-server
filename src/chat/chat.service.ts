@@ -44,7 +44,7 @@ export class ChatService {
         const inithiator: User = await this.userService.getUserByEmail(decodedJwt.email);
         const message: IMessage = {
             dialogId: request.body.dialogId,
-            content: request.body.messageContent,
+            content: request.body.content,
             messageId: String(Math.floor(Math.random()*5000000)),
             sendAt: String(new Date()),
             senderId: inithiator.userId,
