@@ -30,7 +30,7 @@ export class ChatService {
             messages: [...prevChatState.messages, message]
         }});
         const currentChatState = await this.chatModel.findOne({dialogId: message.dialogId});
-        this.socketServer.server.emit('message', `Вам пришло новое сообщение в диалоге ${message.dialogId}`)
+        this.socketServer.server.emit('message', {dialogId: message.dialogId})
         return currentChatState.messages;
     }
     // Все обработчики роутов ниже
