@@ -21,12 +21,11 @@ export class ChatService {
     ) {}
     
     async getMyDialogs(inithiator: User) {
-        let myDialogs = await this.chatModel.find({firstUserId: inithiator.userId});
-        if(!myDialogs) {
-            myDialogs = await this.chatModel.find({secondUserId: inithiator.userId});
-            console.log(myDialogs);
-        }
-        return myDialogs;
+        let myDialogs1 = await this.chatModel.find({firstUserId: inithiator.userId});
+        let myDialogs2 = await this.chatModel.find({secondUserId: inithiator.userId});
+        console.log(myDialogs1);
+        console.log(myDialogs2);
+        return myDialogs1;
     }
     async addNewMessage(inithiator: User, message: IMessage) {
         const prevChatState = await this.chatModel.findOne({dialogId: message.dialogId});
