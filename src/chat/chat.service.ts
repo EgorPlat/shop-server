@@ -22,10 +22,9 @@ export class ChatService {
     
     async getMyDialogs(inithiator: User) {
         let myDialogs = await this.chatModel.find({firstUserId: inithiator.userId});
-        console.log(myDialogs);
-        if(myDialogs === []) {
-            console.log(myDialogs);
+        if(!myDialogs) {
             myDialogs = await this.chatModel.find({secondUserId: inithiator.userId});
+            console.log(myDialogs);
         }
         return myDialogs;
     }
