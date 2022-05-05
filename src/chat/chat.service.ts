@@ -36,7 +36,7 @@ export class ChatService {
         this.socketServer.server.emit('message', {dialogId: message.dialogId})
         return currentChatState.messages;
     }
-    // Все обработчики роутов ниже
+    // Все обработчики роутов ниже, а вверху вспомогательные функции
     async getDialogMessages(request: Request) {
         const dialog: Chat = await this.chatModel.findOne({dialogId: request.body.dialogId});
         const messages = dialog.messages;
