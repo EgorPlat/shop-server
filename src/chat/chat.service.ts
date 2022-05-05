@@ -81,7 +81,7 @@ export class ChatService {
             } else {
                 return {
                     dialogId: eachDialog.dialogId,
-                    userName: eachDialog.firstUserId,
+                    userName: firstUser.name,
                     userAvatar: firstUser.avatar,
                     isRead: true,
                     content: eachDialog.messages[0].content,
