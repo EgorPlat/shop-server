@@ -6,7 +6,6 @@ import { Server } from 'socket.io';
 @WebSocketGateway({ cors: true })
 export class AppGateway implements OnGatewayConnection, OnGatewayDisconnect {
   
-
   @WebSocketServer()
   server: Server;
 
@@ -19,6 +18,5 @@ export class AppGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('message')
   handleMessage(client: any, payload: any) {
     console.log(`${client.handshake.headers.authorization} отправил сообщение`);
-    console.log(payload)
   }
 }

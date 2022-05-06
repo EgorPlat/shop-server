@@ -5,8 +5,6 @@ import { Model } from 'mongoose';
 import { CreateUserDto } from "src/dto/create-user.dto";
 import { IPeople } from "src/interfaces/people.interface";
 import { ISortParams } from "src/interfaces/sort.params";
-import {Request} from 'express';
-import { JwtService } from "@nestjs/jwt";
 import { IAccount } from "src/interfaces/account.interface";
 import { IProfile } from "src/interfaces/profile.interface";
 

@@ -23,11 +23,8 @@ export class ChatService {
     async getMyDialogs(inithiator: User) {
         let myDialogs1 = await this.chatModel.find({firstUserId: inithiator.userId});
         let myDialogs2 = await this.chatModel.find({secondUserId: inithiator.userId});
-        if(myDialogs1.length === 0) {
-            return myDialogs2;
-        } else {
-            return myDialogs1;
-        }
+        let finalDialogs = [...myDialogs1, ...myDialogs2];
+        return finalDialogs;
     }
     async addNewMessage(inithiator: User, /*message: IMessage*/ dialogId: string, content: string) {
         const message: IMessage = {
@@ -58,17 +55,6 @@ export class ChatService {
     async sendNewMessage(request: Request) {
         const decodedJwt = await this.helpJwtService.decodeJwt(request);
         const inithiator: User = await this.userService.getUserByEmail(decodedJwt.email);
-        /*const message: IMessage = {
-            dialogId: request.body.dialogId,
-            content: request.body.content,
-            messageId: String(Math.floor(Math.random()*5000000)),
-            sendAt: String(new Date()),
-            senderId: inithiator.userId,
-            isRead: false,
-            avatar: inithiator.avatar,
-            senderName: inithiator.name,
-            status: false
-        }*/
         const updatedMessages = await this.addNewMessage(inithiator, request.body.dialogId, request.body.content);
         throw new HttpException(updatedMessages, 200);
     }
@@ -112,17 +98,6 @@ export class ChatService {
         await this.chatModel.create({dialogId: "dialog" + newDialogId, messages: [], firstUserId: inithiator.userId, secondUserId: createChatDto.userId});
         
         const createdChat = await this.chatModel.findOne({dialogId: "dialog"+newDialogId});
-        /*const message: IMessage = {
-            dialogId: createdChat.dialogId,
-            content: createChatDto.messageContent,
-            messageId: String(Math.floor(Math.random()*5000000)),
-            sendAt: String(new Date()),
-            senderId: inithiator.userId,
-            isRead: false,
-            avatar: inithiator.avatar,
-            senderName: inithiator.name,
-            status: false
-        }*/
         const updatedMessages = await this.addNewMessage(inithiator, createdChat.dialogId, createChatDto.messageContent);
         throw new HttpException(updatedMessages, 200);
     }

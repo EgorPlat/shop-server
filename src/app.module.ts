@@ -12,11 +12,12 @@ import { SettingsModule } from './settings/settings.module';
 import { ChatModule } from './chat/chat.module';
 import { HelpJwtModule } from "./help/token.module";
 import { AppGateway } from './app.gateway';
+import { EventModule } from './event/event.module';
 
 @Module({
     controllers: [AppController, SettingsController],
     providers: [AppService, SettingsService, AppGateway],
-    imports: [HelpJwtModule, UsersModule, MongooseModule.forRoot(dbUrl), AuthModule, ProfileModule, SettingsModule, ChatModule]
+    imports: [HelpJwtModule, UsersModule, MongooseModule.forRoot(dbUrl), AuthModule, ProfileModule, SettingsModule, ChatModule, EventModule]
 })
 export class AppModule {
 
