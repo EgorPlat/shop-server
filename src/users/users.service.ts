@@ -25,7 +25,9 @@ export class UserService {
     async addUser(dto: CreateUserDto) {
         let candidate = {...dto, login: Math.floor(Math.random()*10000)}
         const user = await this.userModel.create(candidate);
-        return user;
+        if(user) {
+            throw new HttpException(user, 201);
+        }
     }
     async getUserByLogin(login: string) {
         const user = await this.userModel.findOne({login: login}, {
