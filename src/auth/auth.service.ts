@@ -38,7 +38,7 @@ export class AuthService {
             throw new HttpException('Пользователь с таким email уже есть.', HttpStatus.BAD_REQUEST);
         }
         const user = await this.userService.addUser(userDto);
-        console.log(user);
-        return this.generateToken(user);
+        const userWithTokens = this.generateToken(user);
+        throw new HttpException(userWithTokens, 201);
     }
 }
