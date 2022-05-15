@@ -1,7 +1,6 @@
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from 'src/dto/create-user.dto';
 import { UserDto } from 'src/dto/user.dto';
-import { User } from 'src/schemas/user.schema';
 import { UserService } from 'src/users/users.service';
 export declare class AuthService {
     private userService;
@@ -9,12 +8,5 @@ export declare class AuthService {
     constructor(userService: UserService, jwtService: JwtService);
     login(userDto: UserDto): Promise<void>;
     private generateToken;
-    registration(userDto: CreateUserDto): Promise<{
-        auth: {
-            token: string;
-        };
-        profile: {
-            user: User;
-        };
-    }>;
+    registration(userDto: CreateUserDto): Promise<void>;
 }

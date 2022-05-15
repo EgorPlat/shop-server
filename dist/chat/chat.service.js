@@ -28,16 +28,29 @@ let ChatService = class ChatService {
         this.socketServer = socketServer;
     }
     async getMyDialogs(inithiator) {
-        const myDialogs = await this.chatModel.find({ firstUserId: inithiator.userId });
-        return myDialogs;
+        let myDialogs1 = await this.chatModel.find({ firstUserId: inithiator.userId });
+        let myDialogs2 = await this.chatModel.find({ secondUserId: inithiator.userId });
+        let finalDialogs = [...myDialogs1, ...myDialogs2];
+        return finalDialogs;
     }
-    async addNewMessage(inithiator, message) {
+    async addNewMessage(inithiator, dialogId, content) {
+        const message = {
+            dialogId: dialogId,
+            content: content,
+            messageId: String(Math.floor(Math.random() * 5000000)),
+            sendAt: String(new Date()),
+            senderId: inithiator.userId,
+            isRead: false,
+            avatar: inithiator.avatar,
+            senderName: inithiator.name,
+            status: false
+        };
         const prevChatState = await this.chatModel.findOne({ dialogId: message.dialogId });
         await this.chatModel.updateOne({ dialogId: message.dialogId }, { $set: {
                 messages: [...prevChatState.messages, message]
             } });
         const currentChatState = await this.chatModel.findOne({ dialogId: message.dialogId });
-        this.socketServer.server.emit('message', `Вам пришло новое сообщение в диалоге ${message.dialogId}`);
+        this.socketServer.server.emit('message', { dialogId: message.dialogId });
         return currentChatState.messages;
     }
     async getDialogMessages(request) {
@@ -48,18 +61,7 @@ let ChatService = class ChatService {
     async sendNewMessage(request) {
         const decodedJwt = await this.helpJwtService.decodeJwt(request);
         const inithiator = await this.userService.getUserByEmail(decodedJwt.email);
-        const message = {
-            dialogId: request.body.dialogId,
-            content: request.body.messageContent,
-            messageId: String(Math.floor(Math.random() * 5000000)),
-            sendAt: String(new Date()),
-            senderId: inithiator.userId,
-            isRead: false,
-            avatar: inithiator.avatar,
-            senderName: inithiator.name,
-            status: false
-        };
-        const updatedMessages = await this.addNewMessage(inithiator, message);
+        const updatedMessages = await this.addNewMessage(inithiator, request.body.dialogId, request.body.content);
         throw new common_1.HttpException(updatedMessages, 200);
     }
     async getUserDialogs(request) {
@@ -82,7 +84,7 @@ let ChatService = class ChatService {
             else {
                 return {
                     dialogId: eachDialog.dialogId,
-                    userName: eachDialog.firstUserId,
+                    userName: firstUser.name,
                     userAvatar: firstUser.avatar,
                     isRead: true,
                     content: eachDialog.messages[0].content,
@@ -99,19 +101,8 @@ let ChatService = class ChatService {
         const newDialogId = String(Math.floor(Math.random() * 1000000));
         await this.chatModel.create({ dialogId: "dialog" + newDialogId, messages: [], firstUserId: inithiator.userId, secondUserId: createChatDto.userId });
         const createdChat = await this.chatModel.findOne({ dialogId: "dialog" + newDialogId });
-        const message = {
-            dialogId: createdChat.dialogId,
-            content: createChatDto.messageContent,
-            messageId: String(Math.floor(Math.random() * 5000000)),
-            sendAt: String(new Date()),
-            senderId: inithiator.userId,
-            isRead: false,
-            avatar: inithiator.avatar,
-            senderName: inithiator.name,
-            status: false
-        };
-        const updatedDialogMessages = await this.addNewMessage(inithiator, message);
-        throw new common_1.HttpException(updatedDialogMessages, 200);
+        const updatedMessages = await this.addNewMessage(inithiator, createdChat.dialogId, createChatDto.messageContent);
+        throw new common_1.HttpException(updatedMessages, 200);
     }
 };
 ChatService = __decorate([

@@ -22,7 +22,6 @@ let AppGateway = class AppGateway {
     }
     handleMessage(client, payload) {
         console.log(`${client.handshake.headers.authorization} отправил сообщение`);
-        console.log(payload);
     }
 };
 __decorate([

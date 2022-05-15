@@ -32,7 +32,9 @@ let UserService = class UserService {
     async addUser(dto) {
         let candidate = Object.assign(Object.assign({}, dto), { login: Math.floor(Math.random() * 10000) });
         const user = await this.userModel.create(candidate);
-        return user;
+        if (user) {
+            return user;
+        }
     }
     async getUserByLogin(login) {
         const user = await this.userModel.findOne({ login: login }, {
