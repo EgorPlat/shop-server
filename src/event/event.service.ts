@@ -12,7 +12,7 @@ export class EventService {
             const {data} = await this.httpService.get(
                 `https://kudago.com/public-api/v1.4/events/?page=${eventsInfo.page}&page_size=75`
             ).toPromise();
-            return data;
+            throw new HttpException(data, 200);
         } catch(error) {
             throw new HttpException(error, 500);
         }
