@@ -8,13 +8,13 @@ export class EventService {
     constructor(private httpService: HttpService) {}
 
     async getEventsCategory(eventsInfo: IEventsInfo) {
-        try {
-            const {data} = await this.httpService.get(
-                `https://kudago.com/public-api/v1.4/events/?page=${eventsInfo.page}&page_size=75`
-            ).toPromise();
+        const {data} = await this.httpService.get(
+            `https://kudago.com/public-api/v1.4/events/?page=${eventsInfo.page}&page_size=75`
+        ).toPromise();
+        if(data) {
             throw new HttpException(data, 200);
-        } catch(error) {
-            throw new HttpException(error, 500);
+        } else {
+            throw new HttpException('Ничего не найдено', 404);
         }
     }
 }
