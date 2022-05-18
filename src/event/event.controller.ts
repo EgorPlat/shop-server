@@ -7,7 +7,11 @@ export class EventController {
     constructor(private eventService: EventService) {}
 
     @Post('/getEventsCategory')
-    getEventsCategory(@Request() request) {
-        return this.eventService.getEventsCategory(request.body)
+    getEventsByCategory(@Request() request) {
+        return this.eventService.getEventsByCategory(request.body)
+    }
+    @Get('/getEventInfoById')
+    getEventInfoById(@Request() request) {
+        return this.eventService.getEventInfoById(request.body)
     }
 }
