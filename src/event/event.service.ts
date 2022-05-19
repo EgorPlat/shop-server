@@ -9,7 +9,7 @@ export class EventService {
 
     async getEventsByCategory(eventsInfo: IEventsInfo) {
         const {data} = await this.httpService.get(
-            `https://kudago.com/public-api/v1.4/events/?page=${eventsInfo.page}&page_size=75&categories=${eventsInfo.nameCategory}&fields=id&title&description&price&images&age_restriction`
+            `https://kudago.com/public-api/v1.4/events/?page=${eventsInfo.page}&page_size=75&categories=${eventsInfo.nameCategory}&fields=id,title,description,price,images,age_restriction`
         ).toPromise();
         if(data) {
             return data;
