@@ -16,13 +16,22 @@ let EventService = class EventService {
     constructor(httpService) {
         this.httpService = httpService;
     }
-    async getEventsCategory(eventsInfo) {
-        try {
-            const { data } = await this.httpService.get(`https://kudago.com/public-api/v1.4/events/?page=${eventsInfo.page}&page_size=75`).toPromise();
+    async getEventsByCategory(eventsInfo) {
+        const { data } = await this.httpService.get(`https://kudago.com/public-api/v1.4/events/?page=${eventsInfo.page}&page_size=75&categories=${eventsInfo.nameCategory}&fields=id&title&description&price&images&age_restriction`).toPromise();
+        if (data) {
             return data;
         }
-        catch (error) {
-            throw new common_1.HttpException(error, 500);
+        else {
+            throw new common_1.HttpException('Ничего не найдено', 404);
+        }
+    }
+    async getEventInfoById(eventId) {
+        const { data } = await this.httpService.get(`https://kudago.com/public-api/v1.4/events/${eventId}`).toPromise();
+        if (data) {
+            throw new common_1.HttpException(data, 200);
+        }
+        else {
+            throw new common_1.HttpException('Ничего не найдено', 404);
         }
     }
 };

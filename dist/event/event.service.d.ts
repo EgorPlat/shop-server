@@ -3,5 +3,6 @@ import { IEventsInfo } from 'src/interfaces/events.interface';
 export declare class EventService {
     private httpService;
     constructor(httpService: HttpService);
-    getEventsCategory(eventsInfo: IEventsInfo): Promise<any>;
+    getEventsByCategory(eventsInfo: IEventsInfo): Promise<any>;
+    getEventInfoById(eventId: number): Promise<void>;
 }

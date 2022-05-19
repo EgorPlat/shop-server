@@ -20,8 +20,11 @@ let EventController = class EventController {
     constructor(eventService) {
         this.eventService = eventService;
     }
-    getEventsCategory(request) {
-        return this.eventService.getEventsCategory(request.body);
+    getEventsByCategory(request) {
+        return this.eventService.getEventsByCategory(request.body);
+    }
+    getEventInfoById(request) {
+        return this.eventService.getEventInfoById(request.body);
     }
 };
 __decorate([
@@ -30,7 +33,14 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
-], EventController.prototype, "getEventsCategory", null);
+], EventController.prototype, "getEventsByCategory", null);
+__decorate([
+    (0, common_1.Get)('/getEventInfoById'),
+    __param(0, (0, common_2.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], EventController.prototype, "getEventInfoById", null);
 EventController = __decorate([
     (0, common_1.Controller)('event'),
     __metadata("design:paramtypes", [event_service_1.EventService])
