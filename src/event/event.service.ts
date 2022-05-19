@@ -22,7 +22,7 @@ export class EventService {
             `https://kudago.com/public-api/v1.4/events/${eventId}`
         ).toPromise();
         if(data) {
-            throw new HttpException(data, 200);
+            return data;
         } else {
             throw new HttpException('Ничего не найдено', 404);
         }
