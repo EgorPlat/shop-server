@@ -22,7 +22,7 @@ export class AuthService {
                 throw new HttpException({message: 'Неккоректные данные. Пожалуйста попробуйте снова.'}, 400);
             }
         } else {
-            throw new HttpException({message: 'Неккоректные данные. Пожалуйста попробуйте снова.'}, 400);
+            throw new HttpException({message: 'Запрашиваемый пользователь не найден. Пожалуйста попробуйте снова.'}, 404);
         }
     }
     private async generateToken(user: User) {
