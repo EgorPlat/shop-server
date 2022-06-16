@@ -47,6 +47,17 @@ export class ChatService {
         return currentChatState.messages;
     }
     // Все обработчики роутов ниже, а вверху вспомогательные функции
+    async checkDialog(request: Request) {
+        const dialogTry1: Chat = await this.chatModel.findOne({firstUserId: request.body.userId});
+        const dialogTry2: Chat = await this.chatModel.findOne({secondUserId: request.body.userId});
+        if(dialogTry1) {
+            throw new HttpException(dialogTry1, 200);
+        }
+        if(dialogTry2) {
+            throw new HttpException(dialogTry2, 200);
+        }
+        throw new HttpException('Ничего не найдено по данному запросу.', 404);
+    } 
     async getDialogMessages(request: Request) {
         const dialog: Chat = await this.chatModel.findOne({dialogId: request.body.dialogId});
         const messages = dialog.messages;

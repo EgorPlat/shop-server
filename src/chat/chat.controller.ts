@@ -23,4 +23,8 @@ export class ChatController {
     getUserDialogs(@Req() request: Request) {
         return this.chatService.getUserDialogs(request);
     }
+    @Post('/check-dialog')
+    checkDialog(@Req() request: Request) {
+        return this.chatService.checkDialog(request);
+    }
 }
