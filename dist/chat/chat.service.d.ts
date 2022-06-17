@@ -1,10 +1,3 @@
-/// <reference types="mongoose/types/pipelinestage" />
-/// <reference types="mongoose/types/connection" />
-/// <reference types="mongoose/types/cursor" />
-/// <reference types="mongoose/types/document" />
-/// <reference types="mongoose/types/error" />
-/// <reference types="mongoose/types/mongooseoptions" />
-/// <reference types="mongoose/types/schemaoptions" />
 import { Request } from 'express';
 import { HelpJwtService } from 'src/help/token.service';
 import { IMessage } from 'src/interfaces/chatMessage.interface';
@@ -23,6 +16,7 @@ export declare class ChatService {
         _id: any;
     })[]>;
     addNewMessage(inithiator: User, dialogId: string, content: string): Promise<IMessage[]>;
+    checkDialog(request: Request): Promise<void>;
     getDialogMessages(request: Request): Promise<void>;
     sendNewMessage(request: Request): Promise<void>;
     getUserDialogs(request: Request): Promise<void>;

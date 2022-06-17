@@ -7,4 +7,5 @@ export declare class ChatController {
     getDialogMessages(request: Request): Promise<void>;
     startNewDialog(request: Request): Promise<void>;
     getUserDialogs(request: Request): Promise<void>;
+    checkDialog(request: Request): Promise<void>;
 }

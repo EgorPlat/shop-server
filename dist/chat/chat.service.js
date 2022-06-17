@@ -53,6 +53,17 @@ let ChatService = class ChatService {
         this.socketServer.server.emit('message', { dialogId: message.dialogId });
         return currentChatState.messages;
     }
+    async checkDialog(request) {
+        const dialogTry1 = await this.chatModel.find({ firstUserId: request.body.userId });
+        const dialogTry2 = await this.chatModel.find({ secondUserId: request.body.userId });
+        if (dialogTry1) {
+            throw new common_1.HttpException(dialogTry1, 200);
+        }
+        if (dialogTry2) {
+            throw new common_1.HttpException(dialogTry2, 200);
+        }
+        throw new common_1.HttpException('Ничего не найдено по данному запросу.', 404);
+    }
     async getDialogMessages(request) {
         const dialog = await this.chatModel.findOne({ dialogId: request.body.dialogId });
         const messages = dialog.messages;

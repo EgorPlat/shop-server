@@ -31,7 +31,7 @@ let AuthService = class AuthService {
             }
         }
         else {
-            throw new common_1.HttpException({ message: 'Неккоректные данные. Пожалуйста попробуйте снова.' }, 400);
+            throw new common_1.HttpException({ message: 'Запрашиваемый пользователь не найден. Пожалуйста попробуйте снова.' }, 404);
         }
     }
     async generateToken(user) {

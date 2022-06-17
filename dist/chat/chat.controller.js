@@ -31,6 +31,9 @@ let ChatController = class ChatController {
     getUserDialogs(request) {
         return this.chatService.getUserDialogs(request);
     }
+    checkDialog(request) {
+        return this.chatService.checkDialog(request);
+    }
 };
 __decorate([
     (0, common_1.Post)('/send-message'),
@@ -60,6 +63,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], ChatController.prototype, "getUserDialogs", null);
+__decorate([
+    (0, common_1.Post)('/check-dialog'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], ChatController.prototype, "checkDialog", null);
 ChatController = __decorate([
     (0, common_1.Controller)('chat'),
     __metadata("design:paramtypes", [chat_service_1.ChatService])

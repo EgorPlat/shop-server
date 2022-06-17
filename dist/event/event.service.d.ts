@@ -4,5 +4,5 @@ export declare class EventService {
     private httpService;
     constructor(httpService: HttpService);
     getEventsByCategory(eventsInfo: IEventsInfo): Promise<any>;
-    getEventInfoById(eventId: number): Promise<void>;
+    getEventInfoById(eventId: number): Promise<any>;
 }
