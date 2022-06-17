@@ -51,10 +51,10 @@ export class ChatService {
         const dialogTry1: Chat[] = await this.chatModel.find({firstUserId: request.body.userId});
         const dialogTry2: Chat[] = await this.chatModel.find({secondUserId: request.body.userId});
         
-        if(dialogTry1) {
+        if(dialogTry1.length !== 0) {
             throw new HttpException(dialogTry1, 200);
         }
-        if(dialogTry2) {
+        if(dialogTry2.length !== 0) {
             throw new HttpException(dialogTry2, 200);
         }
         throw new HttpException('Ничего не найдено по данному запросу.', 404);
