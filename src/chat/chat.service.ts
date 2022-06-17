@@ -48,8 +48,11 @@ export class ChatService {
     }
     // Все обработчики роутов ниже, а вверху вспомогательные функции
     async checkDialog(request: Request) {
-        const dialogTry1: Chat[] = await this.chatModel.find({firstUserId: request.body.userId});
-        const dialogTry2: Chat[] = await this.chatModel.find({secondUserId: request.body.userId});
+        const decodedJwt = await this.helpJwtService.decodeJwt(request);
+        const inithiator: User = await this.userService.getUserByEmail(decodedJwt.email);
+
+        const dialogTry1: Chat[] = await this.chatModel.find({firstUserId: request.body.userId, secondUserId: inithiator.userId});
+        const dialogTry2: Chat[] = await this.chatModel.find({secondUserId: request.body.userId, firstUserId: inithiator.userId});
         
         if(dialogTry1.length !== 0) {
             throw new HttpException(dialogTry1, 200);
