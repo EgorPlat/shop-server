@@ -11,11 +11,12 @@ const axios_1 = require("@nestjs/axios");
 const common_1 = require("@nestjs/common");
 const event_service_1 = require("./event.service");
 const event_controller_1 = require("./event.controller");
+const ckeck_service_1 = require("../help/ckeck.service");
 let EventModule = class EventModule {
 };
 EventModule = __decorate([
     (0, common_1.Module)({
-        providers: [event_service_1.EventService],
+        providers: [event_service_1.EventService, ckeck_service_1.CheckService],
         controllers: [event_controller_1.EventController],
         imports: [axios_1.HttpModule]
     })

@@ -1,8 +1,10 @@
 import { HttpService } from '@nestjs/axios';
 import { IEventsInfo } from 'src/interfaces/events.interface';
+import { CheckService } from 'src/help/ckeck.service';
 export declare class EventService {
     private httpService;
-    constructor(httpService: HttpService);
-    getEventsByCategory(eventsInfo: IEventsInfo): Promise<any>;
+    private checkService;
+    constructor(httpService: HttpService, checkService: CheckService);
+    getEventsByCategory(eventsInfo: IEventsInfo): Promise<any[]>;
     getEventInfoById(eventId: number): Promise<any>;
 }
