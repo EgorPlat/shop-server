@@ -20,17 +20,18 @@ let EventService = class EventService {
         this.checkService = checkService;
     }
     async getEventsByCategory(eventsInfo) {
-        const { data } = await this.httpService.get(`https://kudago.com/public-api/v1.4/events/?page=${eventsInfo.page}&page_size=15&categories=${eventsInfo.nameCategory}&fields=id,title,description,price,images,age_restriction`).toPromise();
+        const { data } = await this.httpService.get(`https://kudago.com/public-api/v1.4/events/?page=${eventsInfo.page}&page_size=70&categories=${eventsInfo.nameCategory}&fields=id,title,description,price,images,age_restriction`).toPromise();
         if (data) {
             let newData = [];
-            for (let i = 0; i < data.results.length; i++) {
-                const res = await (0, rxjs_1.lastValueFrom)(this.httpService.get(`${data.results[i].images[0].image}`)).catch(() => {
-                    return null;
-                });
-                if (res) {
-                    newData = [...newData, data.results[i]];
-                }
-            }
+            await Promise.all(data.results.map(async (el) => await (0, rxjs_1.lastValueFrom)(this.httpService.head(`${el.images[0].image}`)).then(() => {
+                return el;
+            }).catch(() => {
+                return null;
+            }))).then(results => {
+                newData = results.filter(res => res !== null);
+            }).catch(() => {
+                throw new common_1.HttpException('Ошибка сервера.', 500);
+            });
             return newData;
         }
         else {
