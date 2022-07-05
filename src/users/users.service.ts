@@ -23,9 +23,13 @@ export class UserService {
     }
 
     async addUser(dto: CreateUserDto) {
-        let candidate = {...dto, login: Math.floor(Math.random()*10000)}
+        let candidate = {
+            ...dto, 
+            login: Math.floor(Math.random()*20000),
+            userId: "id" + String(Math.floor(Math.random()*100000))
+        }
         const user = await this.userModel.create(candidate);
-        if(user) {
+        if(user) { 
             return user;
         }
     }

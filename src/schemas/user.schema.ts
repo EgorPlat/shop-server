@@ -7,7 +7,7 @@ export type UserDocument = User & Document;
 
 export class User {                  
     @ApiProperty({example: '1', description: 'Уникальный ид'})
-    @Prop({ default: 'id' + String(Math.floor(Math.random()*100000)) })
+    @Prop()
     userId: string;
 
     @ApiProperty({example: 'Имя', description: 'Имя пользователя'})
