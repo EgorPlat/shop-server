@@ -53,7 +53,7 @@ export class UserService {
                 userName: user.name,
                 userAvatar: user.avatar,
                 status: user.status,
-                age: 20,
+                age: user.age,
                 city: user.city,
                 gender: user.gender
             }

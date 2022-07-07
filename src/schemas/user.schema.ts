@@ -56,7 +56,7 @@ export class User {
 
     @ApiProperty({example: 'Число', description: 'Возраст пользователя'})
     @Prop({ default: 18 })
-    age: string;
+    age: number;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
