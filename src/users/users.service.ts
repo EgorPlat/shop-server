@@ -126,7 +126,7 @@ export class UserService {
 
         console.log(accountData.birthDate);
         
-        //await this.updateUserBirthDate(decodedToken.email, Date.parse(accountData.birthDate));
+        await this.updateUserBirthDate(decodedToken.email, new Date(accountData.birthDate));
 
         const updatedUser: User = await this.userModel.findOne({email: decodedToken.email}, {
             _id: false,
