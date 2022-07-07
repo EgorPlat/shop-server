@@ -124,6 +124,8 @@ export class UserService {
             birthDate: accountData.birthDate
         }});
 
+        await this.updateUserBirthDate(decodedToken.email, JSON.parse(accountData.birthDate));
+
         const updatedUser: User = await this.userModel.findOne({email: decodedToken.email}, {
             _id: false,
             __v: false,
@@ -149,5 +151,14 @@ export class UserService {
         }
         console.log(file);
         
+    }
+    async updateUserBirthDate(userEmail: string, date: Date) {
+        const actualYear = new Date().getFullYear();
+        const userBirthDateYear = date.getFullYear();
+
+        await this.userModel.updateOne({email : userEmail}, {$set: {
+            age: actualYear - userBirthDateYear, 
+        }});
+
     }
 }
