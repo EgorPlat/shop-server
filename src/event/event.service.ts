@@ -30,7 +30,7 @@ export class EventService {
             throw new HttpException('Ничего не найдено', 404);
         }
     }
-    async getEventInfoById(eventId: number) {
+    async getEventInfoById(eventId: string | number) {
         const {data} = await this.httpService.get(
             `https://kudago.com/public-api/v1.4/events/${eventId}`
         ).toPromise();

@@ -10,8 +10,8 @@ export class EventController {
     getEventsByCategory(@Request() request) {
         return this.eventService.getEventsByCategory(request.body)
     }
-    @Get('/getEventInfoById')
+    @Post('/getEventInfoById')
     getEventInfoById(@Request() request) {
-        return this.eventService.getEventInfoById(request.body)
+        return this.eventService.getEventInfoById(request.body.eventId)
     }
 }
