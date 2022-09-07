@@ -1,10 +1,3 @@
-/// <reference types="mongoose/types/pipelinestage" />
-/// <reference types="mongoose/types/connection" />
-/// <reference types="mongoose/types/cursor" />
-/// <reference types="mongoose/types/document" />
-/// <reference types="mongoose/types/error" />
-/// <reference types="mongoose/types/mongooseoptions" />
-/// <reference types="mongoose/types/schemaoptions" />
 import { User, UserDocument } from "src/schemas/user.schema";
 import { Model } from 'mongoose';
 import { CreateUserDto } from "src/dto/create-user.dto";
@@ -12,9 +5,11 @@ import { IPeople } from "src/interfaces/people.interface";
 import { ISortParams } from "src/interfaces/sort.params";
 import { IAccount } from "src/interfaces/account.interface";
 import { IProfile } from "src/interfaces/profile.interface";
+import { HelpJwtService } from "src/help/token.service";
 export declare class UserService {
     private userModel;
-    constructor(userModel: Model<UserDocument>);
+    private helpJwtService;
+    constructor(userModel: Model<UserDocument>, helpJwtService: HelpJwtService);
     getUsers(): Promise<(User & import("mongoose").Document<any, any, any> & {
         _id: any;
     })[]>;
@@ -36,4 +31,6 @@ export declare class UserService {
     updateUserAccount(decodedToken: any, accountData: IAccount): Promise<User>;
     updateUserProfile(decodedToken: any, accountData: IProfile): Promise<User>;
     updateUserAvatar(file: any, user: User): Promise<User>;
+    updateUserBirthDate(userEmail: string, date: Date): Promise<void>;
+    addUserEvent(request: any): Promise<User>;
 }

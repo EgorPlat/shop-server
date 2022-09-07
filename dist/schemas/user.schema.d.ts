@@ -20,5 +20,7 @@ export declare class User {
     login: number;
     birthDate: Date;
     city: string;
+    age: number;
+    events: string[];
 }
 export declare const UserSchema: import("mongoose").Schema<Document<User, any, any>, import("mongoose").Model<Document<User, any, any>, any, any, any>, {}, {}>;

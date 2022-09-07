@@ -38,6 +38,9 @@ let UserController = class UserController {
     getSortedPeoples(sortParams) {
         return this.userService.getSortedPeoples(sortParams);
     }
+    addUserEvent(request) {
+        return this.userService.addUserEvent(request);
+    }
 };
 __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Список пользователей' }),
@@ -83,6 +86,15 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "getSortedPeoples", null);
+__decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Добавить новое мероприятие для пользователя' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: user_schema_1.User }),
+    (0, common_1.Post)('/addUserEvent'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "addUserEvent", null);
 UserController = __decorate([
     (0, swagger_1.ApiTags)('Пользователи'),
     (0, common_1.Controller)('/users'),

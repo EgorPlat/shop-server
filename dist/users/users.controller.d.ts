@@ -1,15 +1,8 @@
-/// <reference types="mongoose/types/pipelinestage" />
-/// <reference types="mongoose/types/connection" />
-/// <reference types="mongoose/types/cursor" />
-/// <reference types="mongoose/types/document" />
-/// <reference types="mongoose/types/error" />
-/// <reference types="mongoose/types/mongooseoptions" />
-/// <reference types="mongoose/types/schemaoptions" />
-/// <reference types="mongoose" />
 import { CreateUserDto } from "src/dto/create-user.dto";
 import { ISortParams } from "src/interfaces/sort.params";
 import { User } from "src/schemas/user.schema";
 import { UserService } from "./users.service";
+import { Request } from "express";
 export declare class UserController {
     private userService;
     constructor(userService: UserService);
@@ -24,4 +17,5 @@ export declare class UserController {
     }>;
     getUserList(): Promise<import("src/interfaces/people.interface").IPeople[]>;
     getSortedPeoples(sortParams: ISortParams): Promise<void>;
+    addUserEvent(request: Request): Promise<User>;
 }

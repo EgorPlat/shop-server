@@ -7,11 +7,12 @@ import { IPeople } from "src/interfaces/people.interface";
 import { ISortParams } from "src/interfaces/sort.params";
 import { IAccount } from "src/interfaces/account.interface";
 import { IProfile } from "src/interfaces/profile.interface";
+import { HelpJwtService } from "src/help/token.service";
 
 @Injectable()
 export class UserService {
 
-    constructor(@InjectModel(User.name) private userModel: Model<UserDocument>){}
+    constructor(@InjectModel(User.name) private userModel: Model<UserDocument>, private helpJwtService: HelpJwtService){}
 
     async getUsers() {
         const users = await this.userModel.find({}, {
@@ -123,8 +124,6 @@ export class UserService {
             name: accountData.name,
             birthDate: accountData.birthDate
         }});
-
-        console.log(accountData.birthDate);
         
         await this.updateUserBirthDate(decodedToken.email, new Date(accountData.birthDate));
 
@@ -150,9 +149,7 @@ export class UserService {
         });
         if(updatedUser) { 
             return updatedUser;
-        }
-        console.log(file);
-        
+        } 
     }
     async updateUserBirthDate(userEmail: string, date: Date) {
         const actualYear = new Date().getFullYear();
@@ -161,6 +158,19 @@ export class UserService {
         await this.userModel.updateOne({email : userEmail}, {$set: {
             age: actualYear - userBirthDateYear, 
         }});
+    }
 
+    async addUserEvent(request: any) {
+        const { body } = request;
+        const decodedToken = this.helpJwtService.decodeJwt(request);
+        const prevUserState = await this.userModel.findOne({email : decodedToken.email});
+        
+        await this.userModel.updateOne({email : decodedToken.userEmail}, {$set: {
+            events: [...prevUserState.events, body.eventId], 
+        }});
+        const updatedUser: User = await this.userModel.findOne({email: decodedToken.email});
+        if (updatedUser) {
+            return updatedUser;
+        }
     }
 }

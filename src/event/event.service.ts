@@ -6,7 +6,10 @@ import { lastValueFrom }  from 'rxjs';
 @Injectable()
 export class EventService {
 
-    constructor(private httpService: HttpService, private checkService: CheckService) {}
+    constructor(
+        private httpService: HttpService,
+        private checkService: CheckService,
+    ) {}
 
     async getEventsByCategory(eventsInfo: IEventsInfo) {
         const {data} = await this.httpService.get(

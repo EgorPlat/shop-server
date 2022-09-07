@@ -50,7 +50,8 @@ let EventService = class EventService {
 };
 EventService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [axios_1.HttpService, ckeck_service_1.CheckService])
+    __metadata("design:paramtypes", [axios_1.HttpService,
+        ckeck_service_1.CheckService])
 ], EventService);
 exports.EventService = EventService;
 //# sourceMappingURL=event.service.js.map

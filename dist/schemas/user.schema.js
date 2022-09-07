@@ -16,7 +16,7 @@ let User = class User {
 };
 __decorate([
     (0, swagger_1.ApiProperty)({ example: '1', description: 'Уникальный ид' }),
-    (0, mongoose_1.Prop)({ default: 'id' + String(Math.floor(Math.random() * 100000)) }),
+    (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
 ], User.prototype, "userId", void 0);
 __decorate([
@@ -74,9 +74,20 @@ __decorate([
     (0, mongoose_1.Prop)({ default: 'Секрет' }),
     __metadata("design:type", String)
 ], User.prototype, "city", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 'Число', description: 'Возраст пользователя' }),
+    (0, mongoose_1.Prop)({ default: 18 }),
+    __metadata("design:type", Number)
+], User.prototype, "age", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: '[1209423, 1948352]', description: 'Мероприятия' }),
+    (0, mongoose_1.Prop)({ default: [] }),
+    __metadata("design:type", Array)
+], User.prototype, "events", void 0);
 User = __decorate([
     (0, mongoose_1.Schema)()
 ], User);
 exports.User = User;
+;
 exports.UserSchema = mongoose_1.SchemaFactory.createForClass(User);
 //# sourceMappingURL=user.schema.js.map

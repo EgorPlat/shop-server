@@ -6,5 +6,5 @@ export declare class EventService {
     private checkService;
     constructor(httpService: HttpService, checkService: CheckService);
     getEventsByCategory(eventsInfo: IEventsInfo): Promise<any[]>;
-    getEventInfoById(eventId: number): Promise<any>;
+    getEventInfoById(eventId: string | number): Promise<any>;
 }

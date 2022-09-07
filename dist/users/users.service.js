@@ -17,9 +17,11 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const user_schema_1 = require("../schemas/user.schema");
 const mongoose_2 = require("mongoose");
+const token_service_1 = require("../help/token.service");
 let UserService = class UserService {
-    constructor(userModel) {
+    constructor(userModel, helpJwtService) {
         this.userModel = userModel;
+        this.helpJwtService = helpJwtService;
     }
     async getUsers() {
         const users = await this.userModel.find({}, {
@@ -30,7 +32,7 @@ let UserService = class UserService {
         return users;
     }
     async addUser(dto) {
-        let candidate = Object.assign(Object.assign({}, dto), { login: Math.floor(Math.random() * 10000) });
+        let candidate = Object.assign(Object.assign({}, dto), { login: Math.floor(Math.random() * 20000), userId: "id" + String(Math.floor(Math.random() * 100000)) });
         const user = await this.userModel.create(candidate);
         if (user) {
             return user;
@@ -56,7 +58,7 @@ let UserService = class UserService {
                 userName: user.name,
                 userAvatar: user.avatar,
                 status: user.status,
-                age: 20,
+                age: user.age,
                 city: user.city,
                 gender: user.gender
             };
@@ -122,6 +124,7 @@ let UserService = class UserService {
                 name: accountData.name,
                 birthDate: accountData.birthDate
             } });
+        await this.updateUserBirthDate(decodedToken.email, new Date(accountData.birthDate));
         const updatedUser = await this.userModel.findOne({ email: decodedToken.email }, {
             _id: false,
             __v: false,
@@ -143,13 +146,32 @@ let UserService = class UserService {
         if (updatedUser) {
             return updatedUser;
         }
-        console.log(file);
+    }
+    async updateUserBirthDate(userEmail, date) {
+        const actualYear = new Date().getFullYear();
+        const userBirthDateYear = date.getFullYear();
+        await this.userModel.updateOne({ email: userEmail }, { $set: {
+                age: actualYear - userBirthDateYear,
+            } });
+    }
+    async addUserEvent(request) {
+        const { body } = request;
+        const decodedToken = this.helpJwtService.decodeJwt(request);
+        const prevUserState = await this.userModel.findOne({ email: decodedToken.email });
+        await this.userModel.updateOne({ email: decodedToken.userEmail }, { $set: {
+                events: [...prevUserState.events, body.eventId],
+            } });
+        const updatedUser = await this.userModel.findOne({ email: decodedToken.email });
+        if (updatedUser) {
+            console.log([...prevUserState.events, body.eventId]);
+            return updatedUser;
+        }
     }
 };
 UserService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(user_schema_1.User.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __metadata("design:paramtypes", [mongoose_2.Model, token_service_1.HelpJwtService])
 ], UserService);
 exports.UserService = UserService;
 //# sourceMappingURL=users.service.js.map
