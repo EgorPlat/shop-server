@@ -58,7 +58,7 @@ export class User {
     @Prop({ default: 18 })
     age: number;
 
-    @ApiProperty({example: '[1209423, 1948352]', description: 'Мероприятия'})
+    @ApiProperty({example: [], description: 'Мероприятия'})
     @Prop({ default: [] })
     events: string[];
 };
