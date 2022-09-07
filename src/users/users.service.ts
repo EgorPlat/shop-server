@@ -165,10 +165,9 @@ export class UserService {
         const decodedToken = this.helpJwtService.decodeJwt(request);
         const prevUserState = await this.userModel.findOne({email : decodedToken.email});
         
-        await this.userModel.updateOne({email : decodedToken.userEmail}, {$set: {
+        await this.userModel.updateOne({email : decodedToken.email}, {$set: {
             events: [...prevUserState.events, body.eventId], 
         }});
-        console.log(body.eventId);
         
         const updatedUser: User = await this.userModel.findOne({email: decodedToken.email});
         if (updatedUser) {
