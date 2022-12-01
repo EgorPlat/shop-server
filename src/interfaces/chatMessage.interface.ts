@@ -7,5 +7,6 @@ export interface IMessage {
     isRead: boolean,
     avatar: string,
     senderName: string,
-    status?: boolean
+    status?: boolean,
+    isFile?: boolean,
 }
