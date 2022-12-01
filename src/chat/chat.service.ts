@@ -51,7 +51,7 @@ export class ChatService {
         const decodedJwt = await this.helpJwtService.decodeJwt(request);
         const inithiator: User = await this.userService.getUserByEmail(decodedJwt.email);
 
-        const updatedMessages = await this.addNewMessage(inithiator, request.body.dialogId, file.file.filename); 
+        const updatedMessages = await this.addNewMessage(inithiator, request.body.dialogId, file.filename); 
         throw new HttpException(updatedMessages, 200);
     }
     async checkDialog(request: Request) {
