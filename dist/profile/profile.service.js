@@ -31,7 +31,6 @@ let ProfileService = class ProfileService {
         }
     }
     async getProfileByLogin(login) {
-        console.log(login);
         const user = await this.userService.getUserByLogin(login);
         if (user) {
             throw new common_1.HttpException(user, 200);

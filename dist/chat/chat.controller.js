@@ -15,9 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChatController = void 0;
 const common_1 = require("@nestjs/common");
 const chat_service_1 = require("./chat.service");
+const platform_express_1 = require("@nestjs/platform-express");
+const multer_1 = require("multer");
 let ChatController = class ChatController {
     constructor(chatService) {
         this.chatService = chatService;
+    }
+    updateUserAvatar(file, request) {
+        return this.chatService.sendFileToChat(file, request);
     }
     sendNewMessage(request) {
         return this.chatService.sendNewMessage(request);
@@ -35,6 +40,24 @@ let ChatController = class ChatController {
         return this.chatService.checkDialog(request);
     }
 };
+__decorate([
+    (0, common_1.Post)('/send-file-to-chat'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('uploadedFile', {
+        storage: (0, multer_1.diskStorage)({
+            destination: './src/static',
+            filename: (req, file, cb) => {
+                const fileNameSplit = file.originalname.split('.');
+                const fileExt = fileNameSplit[fileNameSplit.length - 1];
+                cb(null, `${Date.now()}.${fileExt}`);
+            }
+        })
+    })),
+    __param(0, (0, common_1.UploadedFile)()),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", void 0)
+], ChatController.prototype, "updateUserAvatar", null);
 __decorate([
     (0, common_1.Post)('/send-message'),
     __param(0, (0, common_1.Req)()),

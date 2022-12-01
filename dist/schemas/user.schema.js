@@ -80,7 +80,7 @@ __decorate([
     __metadata("design:type", Number)
 ], User.prototype, "age", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '[1209423, 1948352]', description: 'Мероприятия' }),
+    (0, swagger_1.ApiProperty)({ example: [], description: 'Мероприятия' }),
     (0, mongoose_1.Prop)({ default: [] }),
     __metadata("design:type", Array)
 ], User.prototype, "events", void 0);

@@ -53,6 +53,9 @@ let ChatService = class ChatService {
         this.socketServer.server.emit('message', { dialogId: message.dialogId });
         return currentChatState.messages;
     }
+    async sendFileToChat(request, file) {
+        console.log(file.file.filename);
+    }
     async checkDialog(request) {
         const decodedJwt = await this.helpJwtService.decodeJwt(request);
         const inithiator = await this.userService.getUserByEmail(decodedJwt.email);

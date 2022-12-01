@@ -16,6 +16,7 @@ export declare class ChatService {
         _id: any;
     })[]>;
     addNewMessage(inithiator: User, dialogId: string, content: string): Promise<IMessage[]>;
+    sendFileToChat(request: Request, file: any): Promise<void>;
     checkDialog(request: Request): Promise<void>;
     getDialogMessages(request: Request): Promise<void>;
     sendNewMessage(request: Request): Promise<void>;

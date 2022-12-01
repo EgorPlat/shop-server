@@ -89,7 +89,6 @@ let UserService = class UserService {
             _id: false,
             __v: false
         });
-        console.log(user);
         return user;
     }
     async updateUserStatus(decodedToken, status) {
@@ -158,12 +157,11 @@ let UserService = class UserService {
         const { body } = request;
         const decodedToken = this.helpJwtService.decodeJwt(request);
         const prevUserState = await this.userModel.findOne({ email: decodedToken.email });
-        await this.userModel.updateOne({ email: decodedToken.userEmail }, { $set: {
+        await this.userModel.updateOne({ email: decodedToken.email }, { $set: {
                 events: [...prevUserState.events, body.eventId],
             } });
         const updatedUser = await this.userModel.findOne({ email: decodedToken.email });
         if (updatedUser) {
-            console.log([...prevUserState.events, body.eventId]);
             return updatedUser;
         }
     }
