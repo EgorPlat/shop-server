@@ -47,7 +47,7 @@ export class ChatService {
         return currentChatState.messages;
     }
     // Все обработчики роутов ниже, а вверху вспомогательные функции
-    async sendFileToChat(request: Request, file: any) {
+    async sendFileToChat(file: any, request: Request) {
         const decodedJwt = await this.helpJwtService.decodeJwt(request);
         const inithiator: User = await this.userService.getUserByEmail(decodedJwt.email);
 

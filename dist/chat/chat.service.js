@@ -53,8 +53,9 @@ let ChatService = class ChatService {
         this.socketServer.server.emit('message', { dialogId: message.dialogId });
         return currentChatState.messages;
     }
-    async sendFileToChat(request, file) {
-        console.log(file.file.filename);
+    async sendFileToChat(file, request) {
+        console.log(request.body.dialogId);
+        throw new common_1.HttpException('success', 200);
     }
     async checkDialog(request) {
         const decodedJwt = await this.helpJwtService.decodeJwt(request);
