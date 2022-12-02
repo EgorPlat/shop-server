@@ -33,7 +33,7 @@ let ChatService = class ChatService {
         let finalDialogs = [...myDialogs1, ...myDialogs2];
         return finalDialogs;
     }
-    async addNewMessage(inithiator, dialogId, content) {
+    async addNewMessage(inithiator, dialogId, content, isFile) {
         const message = {
             dialogId: dialogId,
             content: content,
@@ -43,7 +43,8 @@ let ChatService = class ChatService {
             isRead: false,
             avatar: inithiator.avatar,
             senderName: inithiator.name,
-            status: false
+            status: false,
+            isFile: isFile
         };
         const prevChatState = await this.chatModel.findOne({ dialogId: message.dialogId });
         await this.chatModel.updateOne({ dialogId: message.dialogId }, { $set: {
@@ -54,7 +55,10 @@ let ChatService = class ChatService {
         return currentChatState.messages;
     }
     async sendFileToChat(file, request) {
-        console.log(file);
+        const decodedJwt = await this.helpJwtService.decodeJwt(request);
+        const inithiator = await this.userService.getUserByEmail(decodedJwt.email);
+        const updatedMessages = await this.addNewMessage(inithiator, request.body.dialogId, file.filename, true);
+        throw new common_1.HttpException(updatedMessages, 200);
     }
     async checkDialog(request) {
         const decodedJwt = await this.helpJwtService.decodeJwt(request);
@@ -77,7 +81,7 @@ let ChatService = class ChatService {
     async sendNewMessage(request) {
         const decodedJwt = await this.helpJwtService.decodeJwt(request);
         const inithiator = await this.userService.getUserByEmail(decodedJwt.email);
-        const updatedMessages = await this.addNewMessage(inithiator, request.body.dialogId, request.body.content);
+        const updatedMessages = await this.addNewMessage(inithiator, request.body.dialogId, request.body.content, false);
         throw new common_1.HttpException(updatedMessages, 200);
     }
     async getUserDialogs(request) {
@@ -117,7 +121,7 @@ let ChatService = class ChatService {
         const newDialogId = String(Math.floor(Math.random() * 1000000));
         await this.chatModel.create({ dialogId: "dialog" + newDialogId, messages: [], firstUserId: inithiator.userId, secondUserId: createChatDto.userId });
         const createdChat = await this.chatModel.findOne({ dialogId: "dialog" + newDialogId });
-        const updatedMessages = await this.addNewMessage(inithiator, createdChat.dialogId, createChatDto.messageContent);
+        const updatedMessages = await this.addNewMessage(inithiator, createdChat.dialogId, createChatDto.messageContent, false);
         throw new common_1.HttpException(updatedMessages, 200);
     }
 };

@@ -8,4 +8,5 @@ export interface IMessage {
     avatar: string;
     senderName: string;
     status?: boolean;
+    isFile?: boolean;
 }

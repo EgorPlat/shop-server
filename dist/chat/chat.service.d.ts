@@ -15,7 +15,7 @@ export declare class ChatService {
     getMyDialogs(inithiator: User): Promise<(Chat & import("mongoose").Document<any, any, any> & {
         _id: any;
     })[]>;
-    addNewMessage(inithiator: User, dialogId: string, content: string): Promise<IMessage[]>;
+    addNewMessage(inithiator: User, dialogId: string, content: string, isFile: boolean): Promise<IMessage[]>;
     sendFileToChat(file: any, request: Request): Promise<void>;
     checkDialog(request: Request): Promise<void>;
     getDialogMessages(request: Request): Promise<void>;
