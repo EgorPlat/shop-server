@@ -1,2 +1,5 @@
-run:
-  web: npm run start:prod
+meta:
+  environment: nest
+  toolchain:
+    name: npm
+    version: 18
