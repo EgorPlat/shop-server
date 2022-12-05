@@ -167,7 +167,6 @@ export class UserService {
         await this.userModel.updateOne({email : decodedToken.email}, {$set: {
             events: [...prevUserState.events, body.eventId], 
         }}); 
-        
         const updatedUser: User = await this.userModel.findOne({email: decodedToken.email});
         if (updatedUser) {
             return updatedUser;
