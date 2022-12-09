@@ -13,12 +13,21 @@ exports.AppGateway = void 0;
 const common_1 = require("@nestjs/common");
 const websockets_1 = require("@nestjs/websockets");
 const socket_io_1 = require("socket.io");
+const token_service_1 = require("./help/token.service");
 let AppGateway = class AppGateway {
+    constructor(jwtHelpService) {
+        this.jwtHelpService = jwtHelpService;
+        this.activeUsersList = [];
+    }
     handleDisconnect(client) {
-        console.log(`${client.handshake.headers.authorization} успешно отключился`);
+        const decodeToken = this.jwtHelpService.decodeJwtFromString(client.handshake.headers.authorization);
+        this.activeUsersList = this.activeUsersList.filter(el => el !== decodeToken.email);
+        this.server.emit('updateUsers', { users: this.activeUsersList });
     }
     handleConnection(client, ...args) {
-        console.log(`${client.handshake.headers.authorization} успешно подключился`);
+        const decodeToken = this.jwtHelpService.decodeJwtFromString(client.handshake.headers.authorization);
+        this.activeUsersList = [...this.activeUsersList, decodeToken.email];
+        this.server.emit('updateUsers', { users: this.activeUsersList });
     }
     handleMessage(client, payload) {
         console.log(`${client.handshake.headers.authorization} отправил сообщение`);
@@ -36,7 +45,8 @@ __decorate([
 ], AppGateway.prototype, "handleMessage", null);
 AppGateway = __decorate([
     (0, common_1.Injectable)(),
-    (0, websockets_1.WebSocketGateway)({ cors: true })
+    (0, websockets_1.WebSocketGateway)({ cors: true }),
+    __metadata("design:paramtypes", [token_service_1.HelpJwtService])
 ], AppGateway);
 exports.AppGateway = AppGateway;
 //# sourceMappingURL=app.gateway.js.map

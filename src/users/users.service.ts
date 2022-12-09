@@ -50,6 +50,7 @@ export class UserService {
         })
         const peoples: IPeople[] = user.map(user => {
             return {
+                email: user.email,
                 login: user.login,
                 userName: user.name,
                 userAvatar: user.avatar,

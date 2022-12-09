@@ -5,6 +5,7 @@ export interface IPeople {
     status: string,
     age: number,
     city: string,
-    gender: string
+    gender: string,
+    email: string,
 }
 export type People = IPeople;

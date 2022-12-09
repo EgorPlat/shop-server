@@ -6,5 +6,6 @@ export interface IPeople {
     age: number;
     city: string;
     gender: string;
+    email: string;
 }
 export declare type People = IPeople;

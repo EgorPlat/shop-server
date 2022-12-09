@@ -22,6 +22,10 @@ let HelpJwtService = class HelpJwtService {
         const decodedToken = this.jwtService.decode(token);
         return decodedToken;
     }
+    decodeJwtFromString(token) {
+        const decodedToken = this.jwtService.decode(token);
+        return decodedToken;
+    }
 };
 HelpJwtService = __decorate([
     (0, common_1.Injectable)(),

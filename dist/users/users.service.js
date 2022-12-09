@@ -54,6 +54,7 @@ let UserService = class UserService {
         });
         const peoples = user.map(user => {
             return {
+                email: user.email,
                 login: user.login,
                 userName: user.name,
                 userAvatar: user.avatar,

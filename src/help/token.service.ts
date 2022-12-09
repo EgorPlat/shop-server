@@ -13,4 +13,8 @@ export class HelpJwtService {
 
         return decodedToken;
     }
+    decodeJwtFromString(token: string) {
+        const decodedToken: any = this.jwtService.decode(token);
+        return decodedToken;
+    }
 }

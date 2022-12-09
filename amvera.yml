@@ -6,3 +6,4 @@ meta:
 
 run:
   command: npm run start:prod
+  containerPort: 5000
