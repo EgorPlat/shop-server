@@ -6,9 +6,9 @@ import { HelpJwtService } from './help/token.service';
 @Injectable()
 @WebSocketGateway({ cors: true })
 export class AppGateway implements OnGatewayConnection, OnGatewayDisconnect {
-  
   @WebSocketServer()
   server: Server;
+
   private activeUsersList: string[] = [];
 
   constructor(private jwtHelpService: HelpJwtService) {}
