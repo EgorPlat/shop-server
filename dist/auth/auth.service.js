@@ -37,7 +37,7 @@ let AuthService = class AuthService {
     async generateToken(user) {
         const payload = { email: user.email, name: user.name, city: user.city, avatar: user.avatar };
         return {
-            auth: { token: this.jwtService.sign(payload) },
+            auth: { token: this.jwtService.sign(payload, { expiresIn: '1h' }) },
             profile: { user }
         };
     }

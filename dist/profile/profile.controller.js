@@ -16,6 +16,7 @@ exports.ProfileController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const profile_service_1 = require("./profile.service");
+const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 let ProfileController = class ProfileController {
     constructor(profileService) {
         this.profileService = profileService;
@@ -44,6 +45,7 @@ __decorate([
 ProfileController = __decorate([
     (0, common_1.Controller)('profile'),
     (0, swagger_1.ApiTags)('Профиль'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __metadata("design:paramtypes", [profile_service_1.ProfileService])
 ], ProfileController);
 exports.ProfileController = ProfileController;
