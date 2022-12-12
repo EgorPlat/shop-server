@@ -26,6 +26,9 @@ let EventController = class EventController {
     getEventInfoById(request) {
         return this.eventService.getEventInfoById(request.body.eventId);
     }
+    getUserEventsInfo(request) {
+        return this.eventService.getUserEventsInfo(request);
+    }
 };
 __decorate([
     (0, common_1.Post)('/getEventsCategory'),
@@ -41,6 +44,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], EventController.prototype, "getEventInfoById", null);
+__decorate([
+    (0, common_1.Get)('/getUserEventsInfo'),
+    __param(0, (0, common_2.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], EventController.prototype, "getUserEventsInfo", null);
 EventController = __decorate([
     (0, common_1.Controller)('event'),
     __metadata("design:paramtypes", [event_service_1.EventService])

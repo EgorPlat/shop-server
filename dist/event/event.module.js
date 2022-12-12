@@ -12,13 +12,20 @@ const common_1 = require("@nestjs/common");
 const event_service_1 = require("./event.service");
 const event_controller_1 = require("./event.controller");
 const ckeck_service_1 = require("../help/ckeck.service");
+const token_module_1 = require("../help/token.module");
+const user_schema_1 = require("../schemas/user.schema");
+const mongoose_1 = require("@nestjs/mongoose");
 let EventModule = class EventModule {
 };
 EventModule = __decorate([
     (0, common_1.Module)({
         providers: [event_service_1.EventService, ckeck_service_1.CheckService],
         controllers: [event_controller_1.EventController],
-        imports: [axios_1.HttpModule]
+        imports: [
+            axios_1.HttpModule,
+            token_module_1.HelpJwtModule,
+            mongoose_1.MongooseModule.forFeature([{ name: user_schema_1.User.name, schema: user_schema_1.UserSchema }]),
+        ],
     })
 ], EventModule);
 exports.EventModule = EventModule;

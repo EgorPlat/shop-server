@@ -14,4 +14,8 @@ export class EventController {
     getEventInfoById(@Request() request) {
         return this.eventService.getEventInfoById(request.body.eventId)
     }
+    @Get('/getUserEventsInfo')
+    getUserEventsInfo(@Request() request) {
+        return this.eventService.getUserEventsInfo(request)
+    }
 }

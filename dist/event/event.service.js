@@ -8,16 +8,47 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EventService = void 0;
 const common_1 = require("@nestjs/common");
 const axios_1 = require("@nestjs/axios");
 const ckeck_service_1 = require("../help/ckeck.service");
 const rxjs_1 = require("rxjs");
+const token_service_1 = require("../help/token.service");
+const mongoose_1 = require("@nestjs/mongoose");
+const user_schema_1 = require("../schemas/user.schema");
+const mongoose_2 = require("mongoose");
 let EventService = class EventService {
-    constructor(httpService, checkService) {
+    constructor(httpService, checkService, jwtHelpService, userModel) {
         this.httpService = httpService;
         this.checkService = checkService;
+        this.jwtHelpService = jwtHelpService;
+        this.userModel = userModel;
+    }
+    async getUserEventsInfo(request) {
+        const decodedJwt = this.jwtHelpService.decodeJwt(request);
+        const user = await this.userModel.findOne({ email: decodedJwt.email }, {
+            _id: false,
+            __v: false
+        });
+        let userEventsInfo = [];
+        if (user) {
+            await Promise.all(user.events.map(async (eventId) => {
+                const { data } = await this.httpService.get(`https://kudago.com/public-api/v1.4/events/${eventId}`).toPromise();
+                if (data) {
+                    return data;
+                }
+                else {
+                    return null;
+                }
+            })).then(results => {
+                userEventsInfo = results.filter(el => el !== null);
+            });
+        }
+        throw new common_1.HttpException(userEventsInfo, 200);
     }
     async getEventsByCategory(eventsInfo) {
         const { data } = await this.httpService.get(`https://kudago.com/public-api/v1.4/events/?page=${eventsInfo.page}&page_size=70&categories=${eventsInfo.nameCategory}&fields=id,title,description,price,images,age_restriction`).toPromise();
@@ -50,8 +81,11 @@ let EventService = class EventService {
 };
 EventService = __decorate([
     (0, common_1.Injectable)(),
+    __param(3, (0, mongoose_1.InjectModel)(user_schema_1.User.name)),
     __metadata("design:paramtypes", [axios_1.HttpService,
-        ckeck_service_1.CheckService])
+        ckeck_service_1.CheckService,
+        token_service_1.HelpJwtService,
+        mongoose_2.Model])
 ], EventService);
 exports.EventService = EventService;
 //# sourceMappingURL=event.service.js.map

@@ -4,4 +4,5 @@ export declare class EventController {
     constructor(eventService: EventService);
     getEventsByCategory(request: any): Promise<any[]>;
     getEventInfoById(request: any): Promise<any>;
+    getUserEventsInfo(request: any): Promise<void>;
 }

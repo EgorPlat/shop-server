@@ -21,7 +21,11 @@ ChatModule = __decorate([
     (0, common_1.Module)({
         controllers: [chat_controller_1.ChatController],
         providers: [chat_service_1.ChatService, app_gateway_1.AppGateway],
-        imports: [users_module_1.UsersModule, token_module_1.HelpJwtModule, mongoose_1.MongooseModule.forFeature([{ name: chat_schema_1.Chat.name, schema: chat_schema_1.ChatSchema }])]
+        imports: [
+            users_module_1.UsersModule,
+            token_module_1.HelpJwtModule,
+            mongoose_1.MongooseModule.forFeature([{ name: chat_schema_1.Chat.name, schema: chat_schema_1.ChatSchema }]),
+        ],
     })
 ], ChatModule);
 exports.ChatModule = ChatModule;

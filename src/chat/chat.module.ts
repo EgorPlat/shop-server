@@ -9,6 +9,10 @@ import { AppGateway } from 'src/app.gateway';
 @Module({
   controllers: [ChatController],
   providers: [ChatService, AppGateway],
-  imports: [UsersModule, HelpJwtModule, MongooseModule.forFeature([{name: Chat.name, schema: ChatSchema}])]
+  imports: [
+    UsersModule,
+    HelpJwtModule,
+    MongooseModule.forFeature([{ name: Chat.name, schema: ChatSchema }]),
+  ],
 })
 export class ChatModule {}
