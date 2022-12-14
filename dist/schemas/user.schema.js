@@ -84,6 +84,11 @@ __decorate([
     (0, mongoose_1.Prop)({ default: [] }),
     __metadata("design:type", Array)
 ], User.prototype, "events", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: [], description: 'Посты' }),
+    (0, mongoose_1.Prop)({ default: [] }),
+    __metadata("design:type", Array)
+], User.prototype, "posts", void 0);
 User = __decorate([
     (0, mongoose_1.Schema)()
 ], User);

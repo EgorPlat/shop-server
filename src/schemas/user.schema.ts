@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { ApiProperty } from "@nestjs/swagger";
 import { Document } from 'mongoose';
+import { IPost } from "src/interfaces/post.interface";
 export type UserDocument = User & Document;
 
 @Schema()
@@ -61,6 +62,10 @@ export class User {
     @ApiProperty({example: [], description: 'Мероприятия'})
     @Prop({ default: [] })
     events: string[];
+    
+    @ApiProperty({example: [], description: 'Посты'})
+    @Prop({ default: [] })
+    posts: IPost[];
 };
 
 export const UserSchema = SchemaFactory.createForClass(User);

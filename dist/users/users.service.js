@@ -166,6 +166,27 @@ let UserService = class UserService {
             return updatedUser;
         }
     }
+    async addUserPost(file, request) {
+        const { body } = request;
+        const decodedToken = this.helpJwtService.decodeJwt(request);
+        const user = await this.userModel.findOne({ email: decodedToken.email });
+        const newPost = {
+            title: body.title,
+            description: body.description,
+            images: [file.filename],
+            date: new Date()
+        };
+        await this.userModel.updateOne({ email: decodedToken.email }, { $set: {
+                posts: [...user.posts, newPost]
+            } });
+        const updatedUser = await this.userModel.findOne({ email: decodedToken.email });
+        if (updatedUser) {
+            throw new common_1.HttpException(updatedUser, 200);
+        }
+        else {
+            throw new common_1.HttpException('Попробуйте снова.', 500);
+        }
+    }
 };
 UserService = __decorate([
     (0, common_1.Injectable)(),

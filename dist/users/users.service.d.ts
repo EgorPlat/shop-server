@@ -1,10 +1,3 @@
-/// <reference types="mongoose/types/pipelinestage" />
-/// <reference types="mongoose/types/connection" />
-/// <reference types="mongoose/types/cursor" />
-/// <reference types="mongoose/types/document" />
-/// <reference types="mongoose/types/error" />
-/// <reference types="mongoose/types/mongooseoptions" />
-/// <reference types="mongoose/types/schemaoptions" />
 import { User, UserDocument } from "src/schemas/user.schema";
 import { Model } from 'mongoose';
 import { CreateUserDto } from "src/dto/create-user.dto";
@@ -13,6 +6,7 @@ import { ISortParams } from "src/interfaces/sort.params";
 import { IAccount } from "src/interfaces/account.interface";
 import { IProfile } from "src/interfaces/profile.interface";
 import { HelpJwtService } from "src/help/token.service";
+import { Request } from 'express';
 export declare class UserService {
     private userModel;
     private helpJwtService;
@@ -40,4 +34,5 @@ export declare class UserService {
     updateUserAvatar(file: any, user: User): Promise<User>;
     updateUserBirthDate(userEmail: string, date: Date): Promise<void>;
     addUserEvent(request: any): Promise<User>;
+    addUserPost(file: any, request: Request): Promise<void>;
 }

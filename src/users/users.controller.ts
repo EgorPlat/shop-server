@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Post, UseGuards, Req } from "@nestjs/common";
+import { Controller, Get, Body, Post, UseGuards, Req, UseInterceptors, UploadedFile } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { CreateUserDto } from "src/dto/create-user.dto";
@@ -7,6 +7,8 @@ import { User } from "src/schemas/user.schema";
 import { UserService } from "./users.service";
 import { People } from "src/interfaces/people.interface";
 import { Request } from "express";
+import { diskStorage } from "multer";
+import { FileInterceptor } from "@nestjs/platform-express";
 
 @ApiTags('Пользователи')
 @Controller('/users')
@@ -55,5 +57,22 @@ export class UserController {
     @Post('/addUserEvent')
     addUserEvent(@Req() request: Request) {
         return this.userService.addUserEvent(request); 
+    }
+
+    @Post('/addUserPost')
+    @UseInterceptors(FileInterceptor('uploadedFile',{     
+    storage: diskStorage(
+        {
+            destination: './src/static',
+            filename: (req, file, cb) => {
+                const fileNameSplit = file.originalname.split('.');
+                const fileExt = fileNameSplit[fileNameSplit.length - 1];
+                cb(null, `${Date.now()}.${fileExt}`);
+            }
+        }
+    )
+    }))
+    addUserPost(@UploadedFile() file, @Req() request: Request) {
+        return this.userService.addUserPost(file, request);
     }
 }

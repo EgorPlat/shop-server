@@ -8,6 +8,7 @@ import { ISortParams } from "src/interfaces/sort.params";
 import { IAccount } from "src/interfaces/account.interface";
 import { IProfile } from "src/interfaces/profile.interface";
 import { HelpJwtService } from "src/help/token.service";
+import { Request } from 'express';
 
 @Injectable()
 export class UserService {
@@ -171,6 +172,33 @@ export class UserService {
         const updatedUser: User = await this.userModel.findOne({email: decodedToken.email});
         if (updatedUser) {
             return updatedUser;
+        }
+    }
+
+    async addUserPost(file: any, request: Request) {
+        const { body } = request;
+        const decodedToken = this.helpJwtService.decodeJwt(request);
+        const user = await this.userModel.findOne({email : decodedToken.email});
+
+        const newPost = {
+            title: body.title,
+            description: body.description,
+            images: [file.filename],
+            date: new Date()
+        }
+        await this.userModel.updateOne({email : decodedToken.email}, {$set: {
+            posts: [...user.posts, newPost]
+        }});
+        const updatedUser = await this.userModel.findOne({email : decodedToken.email}, {
+            _id: false,
+            password: false,
+            __v: false
+        });
+
+        if (updatedUser) {
+            throw new HttpException(updatedUser, 200);
+        } else {
+            throw new HttpException('Попробуйте снова.', 500);
         }
     }
 }

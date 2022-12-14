@@ -19,6 +19,8 @@ const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const create_user_dto_1 = require("../dto/create-user.dto");
 const user_schema_1 = require("../schemas/user.schema");
 const users_service_1 = require("./users.service");
+const multer_1 = require("multer");
+const platform_express_1 = require("@nestjs/platform-express");
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
@@ -40,6 +42,9 @@ let UserController = class UserController {
     }
     addUserEvent(request) {
         return this.userService.addUserEvent(request);
+    }
+    addUserPost(file, request) {
+        return this.userService.addUserPost(file, request);
     }
 };
 __decorate([
@@ -95,6 +100,24 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "addUserEvent", null);
+__decorate([
+    (0, common_1.Post)('/addUserPost'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('uploadedFile', {
+        storage: (0, multer_1.diskStorage)({
+            destination: './src/static',
+            filename: (req, file, cb) => {
+                const fileNameSplit = file.originalname.split('.');
+                const fileExt = fileNameSplit[fileNameSplit.length - 1];
+                cb(null, `${Date.now()}.${fileExt}`);
+            }
+        })
+    })),
+    __param(0, (0, common_1.UploadedFile)()),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "addUserPost", null);
 UserController = __decorate([
     (0, swagger_1.ApiTags)('Пользователи'),
     (0, common_1.Controller)('/users'),
