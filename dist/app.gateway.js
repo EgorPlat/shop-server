@@ -21,12 +21,12 @@ let AppGateway = class AppGateway {
     }
     handleDisconnect(client) {
         const decodeToken = this.jwtHelpService.decodeJwtFromString(client.handshake.headers.authorization);
-        this.activeUsersList = this.activeUsersList.filter(el => el !== decodeToken.email);
+        this.activeUsersList = this.activeUsersList.filter(el => el !== (decodeToken === null || decodeToken === void 0 ? void 0 : decodeToken.email));
         this.server.emit('updateUsers', { users: this.activeUsersList });
     }
     handleConnection(client, ...args) {
         const decodeToken = this.jwtHelpService.decodeJwtFromString(client.handshake.headers.authorization);
-        this.activeUsersList = [...this.activeUsersList, decodeToken.email];
+        this.activeUsersList = [...this.activeUsersList, decodeToken === null || decodeToken === void 0 ? void 0 : decodeToken.email];
         this.server.emit('updateUsers', { users: this.activeUsersList });
     }
     handleMessage(client, payload) {

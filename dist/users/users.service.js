@@ -179,7 +179,11 @@ let UserService = class UserService {
         await this.userModel.updateOne({ email: decodedToken.email }, { $set: {
                 posts: [...user.posts, newPost]
             } });
-        const updatedUser = await this.userModel.findOne({ email: decodedToken.email });
+        const updatedUser = await this.userModel.findOne({ email: decodedToken.email }, {
+            _id: false,
+            password: false,
+            __v: false
+        });
         if (updatedUser) {
             throw new common_1.HttpException(updatedUser, 200);
         }

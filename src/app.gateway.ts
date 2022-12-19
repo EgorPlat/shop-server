@@ -15,12 +15,12 @@ export class AppGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   handleDisconnect(client: any) {
     const decodeToken = this.jwtHelpService.decodeJwtFromString(client.handshake.headers.authorization);    
-    this.activeUsersList = this.activeUsersList.filter(el => el !== decodeToken.email);
+    this.activeUsersList = this.activeUsersList.filter(el => el !== decodeToken?.email);
     this.server.emit('updateUsers', { users: this.activeUsersList });
   }
   handleConnection(client: any, ...args: any[]) {
     const decodeToken = this.jwtHelpService.decodeJwtFromString(client.handshake.headers.authorization);
-    this.activeUsersList = [...this.activeUsersList, decodeToken.email];
+    this.activeUsersList = [...this.activeUsersList, decodeToken?.email];
     this.server.emit('updateUsers', { users: this.activeUsersList });
   }
   @SubscribeMessage('message')
