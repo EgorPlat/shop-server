@@ -4,7 +4,7 @@ import { HelpJwtService } from './help/token.service';
 export declare class AppGateway implements OnGatewayConnection, OnGatewayDisconnect {
     private jwtHelpService;
     server: Server;
-    private activeUsersList;
+    activeUsersList: string[];
     constructor(jwtHelpService: HelpJwtService);
     handleDisconnect(client: any): void;
     handleConnection(client: any, ...args: any[]): void;

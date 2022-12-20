@@ -12,13 +12,15 @@ const profile_service_1 = require("./profile.service");
 const profile_controller_1 = require("./profile.controller");
 const auth_module_1 = require("../auth/auth.module");
 const users_module_1 = require("../users/users.module");
+const app_gateway_1 = require("../app.gateway");
+const token_module_1 = require("../help/token.module");
 let ProfileModule = class ProfileModule {
 };
 ProfileModule = __decorate([
     (0, common_1.Module)({
-        providers: [profile_service_1.ProfileService],
+        providers: [profile_service_1.ProfileService, app_gateway_1.AppGateway],
         controllers: [profile_controller_1.ProfileController],
-        imports: [auth_module_1.AuthModule, users_module_1.UsersModule]
+        imports: [auth_module_1.AuthModule, users_module_1.UsersModule, token_module_1.HelpJwtModule]
     })
 ], ProfileModule);
 exports.ProfileModule = ProfileModule;

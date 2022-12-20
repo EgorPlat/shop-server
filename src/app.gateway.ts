@@ -9,7 +9,7 @@ export class AppGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
   server: Server;
 
-  private activeUsersList: string[] = [];
+  public activeUsersList: string[] = [];
 
   constructor(private jwtHelpService: HelpJwtService) {}
 

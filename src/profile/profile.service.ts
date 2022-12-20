@@ -1,6 +1,7 @@
 import { HttpCode, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
+import { AppGateway } from 'src/app.gateway';
 import { UserService } from 'src/users/users.service';
 
 @Injectable()
@@ -17,11 +18,9 @@ export class ProfileService {
         const token = BearerToken.split(' ')[1];
         const decodedToken: any = this.jwtService.decode(token);
         const user = await this.userService.getUserByEmail(decodedToken.email);
-        const isUserOnline: boolean = this.socketServer.activeUsersList.includes(user.email);
         
-        const advanceUser = {...user, isOnline: isUserOnline};
-        if(advanceUser) {
-            throw new HttpException(advanceUser, 200)
+        if(user) {
+            throw new HttpException(user, 200)
         } else {
             throw new HttpException('Ошибка. Обновите токен.', HttpStatus.UNAUTHORIZED);
         }
