@@ -15,6 +15,9 @@ export declare class UserController {
     getUserByLogin(login: string): Promise<User & import("mongoose").Document<any, any, any> & {
         _id: any;
     }>;
+    getUserByUserId(req: Request): Promise<User & import("mongoose").Document<any, any, any> & {
+        _id: any;
+    }>;
     getUserList(): Promise<import("src/interfaces/people.interface").IPeople[]>;
     getSortedPeoples(sortParams: ISortParams): Promise<void>;
     addUserEvent(request: Request): Promise<User>;

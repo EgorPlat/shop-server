@@ -35,7 +35,14 @@ export class UserController {
     @ApiResponse({status: 200, type: User})
     @Post('/getUserByLogin')
     getUserByLogin(@Body() login: string) {
-        return this.userService.getUserByLogin(login); 
+        return this.userService.getUserByLogin(login);
+    }
+
+    @ApiOperation({summary: 'Получить пользователя'})
+    @ApiResponse({status: 200, type: User})
+    @Post('/getUserByUserId')
+    getUserByUserId(@Req() req: Request) {
+        return this.userService.getUserByUserId(req.body.userId);
     }
 
     @ApiOperation({summary: 'Получить список пользователей'})

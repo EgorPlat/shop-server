@@ -171,10 +171,12 @@ let UserService = class UserService {
         const decodedToken = this.helpJwtService.decodeJwt(request);
         const user = await this.userModel.findOne({ email: decodedToken.email });
         const newPost = {
+            id: String(Math.floor(Math.random() * 150000)),
             title: body.title,
             description: body.description,
             images: [file.filename],
-            date: new Date()
+            date: String(new Date()),
+            likes: 0,
         };
         await this.userModel.updateOne({ email: decodedToken.email }, { $set: {
                 posts: [...user.posts, newPost]

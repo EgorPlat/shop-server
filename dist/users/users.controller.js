@@ -34,6 +34,9 @@ let UserController = class UserController {
     getUserByLogin(login) {
         return this.userService.getUserByLogin(login);
     }
+    getUserByUserId(req) {
+        return this.userService.getUserByUserId(req.body.userId);
+    }
     getUserList() {
         return this.userService.getUserList();
     }
@@ -74,6 +77,15 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "getUserByLogin", null);
+__decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Получить пользователя' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: user_schema_1.User }),
+    (0, common_1.Post)('/getUserByUserId'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "getUserByUserId", null);
 __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Получить список пользователей' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: user_schema_1.User }),

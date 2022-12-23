@@ -10,14 +10,25 @@ import { SettingsController } from './settings/settings.controller';
 import { SettingsService } from './settings/settings.service';
 import { SettingsModule } from './settings/settings.module';
 import { ChatModule } from './chat/chat.module';
-import { HelpJwtModule } from "./help/token.module";
+import { HelpJwtModule } from './help/token.module';
 import { AppGateway } from './app.gateway';
 import { EventModule } from './event/event.module';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
-    controllers: [AppController, SettingsController],
-    providers: [AppService, SettingsService, AppGateway],
-    imports: [HelpJwtModule, UsersModule, MongooseModule.forRoot(dbUrl), AuthModule, ProfileModule, SettingsModule, ChatModule, EventModule]
+  controllers: [AppController, SettingsController],
+  providers: [AppService, SettingsService, AppGateway],
+  imports: [
+    HelpJwtModule,
+    UsersModule,
+    MongooseModule.forRoot(dbUrl),
+    AuthModule,
+    ProfileModule,
+    SettingsModule,
+    ChatModule,
+    EventModule,
+    PostsModule,
+  ],
 })
 export class AppModule {
 

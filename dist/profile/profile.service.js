@@ -25,11 +25,8 @@ let ProfileService = class ProfileService {
         const token = BearerToken.split(' ')[1];
         const decodedToken = this.jwtService.decode(token);
         const user = await this.userService.getUserByEmail(decodedToken.email);
-        const isUserOnline = this.socketServer.activeUsersList.includes(user.email);
-        const advancedUser = user;
-        advancedUser['isOnline'] = isUserOnline;
-        if (isUserOnline) {
-            throw new common_1.HttpException(advancedUser, 200);
+        if (user) {
+            throw new common_1.HttpException(user, 200);
         }
         else {
             throw new common_1.HttpException('Ошибка. Обновите токен.', common_1.HttpStatus.UNAUTHORIZED);
