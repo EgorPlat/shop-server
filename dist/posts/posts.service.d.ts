@@ -10,4 +10,5 @@ export declare class PostsService {
     constructor(jwtHelpService: HelpJwtService, userModel: Model<UserDocument>, postCommentModel: Model<PostCommentDocument>);
     addNewCommentToUserPost(request: Request): Promise<void>;
     getAllPostCommentsByPostId(request: Request): Promise<void>;
+    getAllPostCommentsByPostIdPagination(request: Request): Promise<void>;
 }

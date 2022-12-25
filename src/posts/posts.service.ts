@@ -50,4 +50,17 @@ export class PostsService {
       throw new HttpException('Комментариев к посту нет.', 400);
     }
   }
+
+  async getAllPostCommentsByPostIdPagination(request: Request) {
+    const { postId } = request.body;
+    const { pageNumber } = request.body;
+    const PAGE_SIZE = 2;
+
+    const comments = await this.postCommentModel.find({ postId: postId });
+    if (comments) {
+      throw new HttpException(comments.slice(0, PAGE_SIZE * pageNumber), 200);
+    } else {
+      throw new HttpException('Комментариев к посту нет.', 400);
+    }
+  }
 }

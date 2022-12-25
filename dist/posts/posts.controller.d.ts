@@ -5,4 +5,5 @@ export declare class PostsController {
     constructor(postsService: PostsService);
     addNewCommentToUserPost(request: Request): Promise<void>;
     getAllPostCommentsByPostId(request: Request): Promise<void>;
+    getAllPostCommentsByPostIdPagination(request: Request): Promise<void>;
 }

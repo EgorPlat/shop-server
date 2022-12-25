@@ -20,4 +20,9 @@ export class PostsController {
     getAllPostCommentsByPostId(@Req() request: Request) {
         return this.postsService.getAllPostCommentsByPostId(request);
     }
+
+    @Post('/get-page-comments')
+    getAllPostCommentsByPostIdPagination(@Req() request: Request) {
+        return this.postsService.getAllPostCommentsByPostIdPagination(request);
+    }
 }

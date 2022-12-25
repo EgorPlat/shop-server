@@ -27,6 +27,9 @@ let PostsController = class PostsController {
     getAllPostCommentsByPostId(request) {
         return this.postsService.getAllPostCommentsByPostId(request);
     }
+    getAllPostCommentsByPostIdPagination(request) {
+        return this.postsService.getAllPostCommentsByPostIdPagination(request);
+    }
 };
 __decorate([
     (0, common_1.Post)('/add-new-comment'),
@@ -42,6 +45,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], PostsController.prototype, "getAllPostCommentsByPostId", null);
+__decorate([
+    (0, common_1.Post)('/get-page-comments'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], PostsController.prototype, "getAllPostCommentsByPostIdPagination", null);
 PostsController = __decorate([
     (0, common_1.Controller)('posts'),
     (0, swagger_1.ApiTags)('Посты'),
