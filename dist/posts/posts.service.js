@@ -61,9 +61,8 @@ let PostsService = class PostsService {
         const { pageNumber } = request.body;
         const PAGE_SIZE = 2;
         const comments = await this.postCommentModel.find({ postId: postId });
-        console.log(comments.slice(0, PAGE_SIZE * pageNumber));
         if (comments) {
-            throw new common_1.HttpException(comments, 200);
+            throw new common_1.HttpException(comments.slice(0, PAGE_SIZE * pageNumber), 200);
         }
         else {
             throw new common_1.HttpException('Комментариев к посту нет.', 400);

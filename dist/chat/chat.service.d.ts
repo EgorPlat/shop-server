@@ -19,6 +19,7 @@ export declare class ChatService {
     sendFileToChat(file: any, request: Request): Promise<void>;
     checkDialog(request: Request): Promise<void>;
     getDialogMessages(request: Request): Promise<void>;
+    markDialogMessagesAsReaded(request: Request): Promise<void>;
     sendNewMessage(request: Request): Promise<void>;
     getUserDialogs(request: Request): Promise<void>;
     startNewDialog(request: Request): Promise<void>;

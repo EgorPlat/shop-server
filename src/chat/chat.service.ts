@@ -75,6 +75,25 @@ export class ChatService {
         const messages = dialog.messages;
         throw new HttpException(messages, 200);
     }
+    async markDialogMessagesAsReaded(request: Request) {
+        const decodedJwt = await this.helpJwtService.decodeJwt(request);
+        const inithiator: User = await this.userService.getUserByEmail(decodedJwt.email);
+        const dialog: Chat = await this.chatModel.findOne({dialogId: request.body.dialogId});
+
+        const updatedDialogMessages = dialog.messages.map((message) => {
+            if (message.senderId !== inithiator.userId) {
+                return {
+                    ...message,
+                    isRead: true,
+                }
+            }
+            return message;
+        })
+        await this.chatModel.updateOne({ dialogId: request.body.dialogId }, {$set: {
+            messages: updatedDialogMessages
+        }});
+        throw new HttpException('Успешно обновлено.', 200);
+    }
     async sendNewMessage(request: Request) {
         const decodedJwt = await this.helpJwtService.decodeJwt(request);
         const inithiator: User = await this.userService.getUserByEmail(decodedJwt.email);

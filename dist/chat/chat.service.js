@@ -78,6 +78,21 @@ let ChatService = class ChatService {
         const messages = dialog.messages;
         throw new common_1.HttpException(messages, 200);
     }
+    async markDialogMessagesAsReaded(request) {
+        const decodedJwt = await this.helpJwtService.decodeJwt(request);
+        const inithiator = await this.userService.getUserByEmail(decodedJwt.email);
+        const dialog = await this.chatModel.findOne({ dialogId: request.body.dialogId });
+        const updatedDialogMessages = dialog.messages.map((message) => {
+            if (message.senderId !== inithiator.userId) {
+                return Object.assign(Object.assign({}, message), { isRead: true });
+            }
+            return message;
+        });
+        await this.chatModel.updateOne({ dialogId: request.body.dialogId }, { $set: {
+                messages: updatedDialogMessages
+            } });
+        throw new common_1.HttpException('Успешно обновлено.', 200);
+    }
     async sendNewMessage(request) {
         const decodedJwt = await this.helpJwtService.decodeJwt(request);
         const inithiator = await this.userService.getUserByEmail(decodedJwt.email);

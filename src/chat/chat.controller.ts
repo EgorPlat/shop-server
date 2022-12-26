@@ -45,4 +45,8 @@ export class ChatController {
     checkDialog(@Req() request: Request) {
         return this.chatService.checkDialog(request);
     }
+    @Post('/mark-messages-as-readed')
+    markDialogMessagesAsReaded(@Req() request: Request) {
+        return this.chatService.markDialogMessagesAsReaded(request);
+    }
 }

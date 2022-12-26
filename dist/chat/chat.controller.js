@@ -39,6 +39,9 @@ let ChatController = class ChatController {
     checkDialog(request) {
         return this.chatService.checkDialog(request);
     }
+    markDialogMessagesAsReaded(request) {
+        return this.chatService.markDialogMessagesAsReaded(request);
+    }
 };
 __decorate([
     (0, common_1.Post)('/send-file-to-chat'),
@@ -93,6 +96,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], ChatController.prototype, "checkDialog", null);
+__decorate([
+    (0, common_1.Post)('/mark-messages-as-readed'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], ChatController.prototype, "markDialogMessagesAsReaded", null);
 ChatController = __decorate([
     (0, common_1.Controller)('chat'),
     __metadata("design:paramtypes", [chat_service_1.ChatService])
