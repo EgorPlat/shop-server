@@ -18,6 +18,8 @@ export declare class UserController {
     getUserByUserId(req: Request): Promise<User & import("mongoose").Document<any, any, any> & {
         _id: any;
     }>;
+    removeUserInterest(req: Request): Promise<User>;
+    addUserInterest(req: Request): Promise<User>;
     getUserList(): Promise<import("src/interfaces/people.interface").IPeople[]>;
     getSortedPeoples(sortParams: ISortParams): Promise<void>;
     addUserEvent(request: Request): Promise<User>;

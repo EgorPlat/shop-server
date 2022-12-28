@@ -45,6 +45,21 @@ export class UserController {
         return this.userService.getUserByUserId(req.body.userId);
     }
 
+    
+    @ApiOperation({summary: 'Удалить интерес пользователя'})
+    @ApiResponse({status: 200, type: User})
+    @Post('/removeUserInterest')
+    removeUserInterest(@Req() req: Request) {
+        return this.userService.removeUserInterest(req); 
+    }
+
+    @ApiOperation({summary: 'Добавить новый интерес пользователя'})
+    @ApiResponse({status: 200, type: User})
+    @Post('/addUserInterest')
+    addUserInterest(@Req() req: Request) {
+        return this.userService.addUserInterest(req); 
+    }
+
     @ApiOperation({summary: 'Получить список пользователей'})
     @ApiResponse({status: 200, type: User})
     @Get('/getUserList')

@@ -34,5 +34,7 @@ export declare class UserService {
     updateUserAvatar(file: any, user: User): Promise<User>;
     updateUserBirthDate(userEmail: string, date: Date): Promise<void>;
     addUserEvent(request: any): Promise<User>;
+    addUserInterest(request: any): Promise<User>;
+    removeUserInterest(request: any): Promise<User>;
     addUserPost(file: any, request: Request): Promise<void>;
 }
