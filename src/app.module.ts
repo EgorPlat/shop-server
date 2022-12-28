@@ -14,6 +14,7 @@ import { HelpJwtModule } from './help/token.module';
 import { AppGateway } from './app.gateway';
 import { EventModule } from './event/event.module';
 import { PostsModule } from './posts/posts.module';
+import { InterestsModule } from "./interests/interest.module";
 
 @Module({
   controllers: [AppController, SettingsController],
@@ -28,6 +29,7 @@ import { PostsModule } from './posts/posts.module';
     ChatModule,
     EventModule,
     PostsModule,
+    InterestsModule
   ],
 })
 export class AppModule {

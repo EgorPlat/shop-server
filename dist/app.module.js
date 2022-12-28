@@ -23,6 +23,7 @@ const token_module_1 = require("./help/token.module");
 const app_gateway_1 = require("./app.gateway");
 const event_module_1 = require("./event/event.module");
 const posts_module_1 = require("./posts/posts.module");
+const interest_module_1 = require("./interests/interest.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -39,6 +40,7 @@ AppModule = __decorate([
             chat_module_1.ChatModule,
             event_module_1.EventModule,
             posts_module_1.PostsModule,
+            interest_module_1.InterestsModule
         ],
     })
 ], AppModule);

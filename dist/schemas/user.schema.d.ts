@@ -6,6 +6,7 @@
 /// <reference types="mongoose/types/mongooseoptions" />
 /// <reference types="mongoose/types/schemaoptions" />
 import { Document } from 'mongoose';
+import { IInterests } from "src/interfaces/interests.interface";
 import { IPost } from "src/interfaces/post.interface";
 export declare type UserDocument = User & Document;
 export declare class User {
@@ -24,5 +25,6 @@ export declare class User {
     age: number;
     events: string[];
     posts: IPost[];
+    interests: IInterests[];
 }
 export declare const UserSchema: import("mongoose").Schema<Document<User, any, any>, import("mongoose").Model<Document<User, any, any>, any, any, any>, {}, {}>;
