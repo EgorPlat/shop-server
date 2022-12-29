@@ -19,7 +19,7 @@ export class InterestsController {
     getInterestsById(@Req() request: Request) {
         return this.interestsService.getInterestsById(request);
     }
-    @Get('/get-ineterests')
+    @Get('/get-interests')
     getInterests(@Req() request: Request) {
         return this.interestsService.getInterests(request);
     }
