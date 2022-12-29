@@ -19,7 +19,7 @@ export declare class UserController {
         _id: any;
     }>;
     removeUserInterest(req: Request): Promise<User>;
-    addUserInterest(req: Request): Promise<User>;
+    updateUserInterest(req: Request): Promise<User>;
     getUserList(): Promise<import("src/interfaces/people.interface").IPeople[]>;
     getSortedPeoples(sortParams: ISortParams): Promise<void>;
     addUserEvent(request: Request): Promise<User>;

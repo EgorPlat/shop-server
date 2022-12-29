@@ -166,15 +166,12 @@ let UserService = class UserService {
             return updatedUser;
         }
     }
-    async addUserInterest(request) {
+    async updateUserInterest(request) {
         const { body } = request;
         const decodedToken = this.helpJwtService.decodeJwt(request);
         const prevUserState = await this.userModel.findOne({ email: decodedToken.email });
-        if (prevUserState === null || prevUserState === void 0 ? void 0 : prevUserState.interests.includes(body.interestId)) {
-            throw new common_1.HttpException("Ошибка уже есть данный интерес", 400);
-        }
         await this.userModel.updateOne({ email: decodedToken.email }, { $set: {
-                interests: [...prevUserState === null || prevUserState === void 0 ? void 0 : prevUserState.interests, body.interestId],
+                interests: body.interests,
             } });
         const updatedUser = await this.userModel.findOne({ email: decodedToken.email });
         if (updatedUser) {

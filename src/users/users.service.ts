@@ -182,7 +182,7 @@ export class UserService {
         const prevUserState = await this.userModel.findOne({email : decodedToken.email});
         
         await this.userModel.updateOne({email : decodedToken.email}, {$set: {
-            interests: [body.interests], 
+            interests: body.interests,
         }}); 
         const updatedUser: User = await this.userModel.findOne({email: decodedToken.email});
         if (updatedUser) {

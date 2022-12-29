@@ -40,8 +40,8 @@ let UserController = class UserController {
     removeUserInterest(req) {
         return this.userService.removeUserInterest(req);
     }
-    addUserInterest(req) {
-        return this.userService.addUserInterest(req);
+    updateUserInterest(req) {
+        return this.userService.updateUserInterest(req);
     }
     getUserList() {
         return this.userService.getUserList();
@@ -102,14 +102,14 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "removeUserInterest", null);
 __decorate([
-    (0, swagger_1.ApiOperation)({ summary: 'Добавить новый интерес пользователя' }),
+    (0, swagger_1.ApiOperation)({ summary: 'Обновить интересы пользователя' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: user_schema_1.User }),
-    (0, common_1.Post)('/addUserInterest'),
+    (0, common_1.Post)('/updateUserInterest'),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
-], UserController.prototype, "addUserInterest", null);
+], UserController.prototype, "updateUserInterest", null);
 __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Получить список пользователей' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: user_schema_1.User }),
