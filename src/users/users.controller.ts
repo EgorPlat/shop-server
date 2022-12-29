@@ -53,11 +53,11 @@ export class UserController {
         return this.userService.removeUserInterest(req); 
     }
 
-    @ApiOperation({summary: 'Добавить новый интерес пользователя'})
+    @ApiOperation({summary: 'Обновить интересы пользователя'})
     @ApiResponse({status: 200, type: User})
-    @Post('/addUserInterest')
-    addUserInterest(@Req() req: Request) {
-        return this.userService.addUserInterest(req); 
+    @Post('/updateUserInterest')
+    updateUserInterest(@Req() req: Request) {
+        return this.userService.updateUserInterest(req); 
     }
 
     @ApiOperation({summary: 'Получить список пользователей'})
