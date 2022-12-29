@@ -10,6 +10,9 @@ export declare class InterestsService {
     private socketServer;
     private interestsModel;
     constructor(jwtService: JwtService, userService: UserService, socketServer: AppGateway, interestsModel: Model<InterestDocument>);
+    getInterests(request: Request): Promise<(Interest & import("mongoose").Document<any, any, any> & {
+        _id: any;
+    })[]>;
     getInterestsById(request: Request): Promise<any[]>;
     addInterests(request: Request): Promise<Interest & import("mongoose").Document<any, any, any> & {
         _id: any;

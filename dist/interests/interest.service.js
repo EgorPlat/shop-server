@@ -27,6 +27,15 @@ let InterestsService = class InterestsService {
         this.socketServer = socketServer;
         this.interestsModel = interestsModel;
     }
+    async getInterests(request) {
+        const allInterests = await this.interestsModel.find();
+        if (allInterests) {
+            return allInterests;
+        }
+        else {
+            throw new common_1.HttpException('Ничего не найдено.', 400);
+        }
+    }
     async getInterestsById(request) {
         let findedInterests = [];
         await Promise.all(request.body.interests.map(async (el) => {
