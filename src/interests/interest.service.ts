@@ -17,6 +17,15 @@ export class InterestsService {
         @InjectModel(Interest.name) private interestsModel: Model<InterestDocument>
     ) {}
     
+    async getInterests(request: Request) {
+        const allInterests = await this.interestsModel.find();
+        if (allInterests) {
+            return allInterests;
+        } else {
+            throw new HttpException('Ничего не найдено.', 400);
+        }
+    }
+
     async getInterestsById(request: Request) {
         let findedInterests = [];
         await Promise.all(request.body.interests.map(async (el) => {

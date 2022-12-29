@@ -19,6 +19,10 @@ export class InterestsController {
     getInterestsById(@Req() request: Request) {
         return this.interestsService.getInterestsById(request);
     }
+    @Get('/get-ineterests')
+    getInterests(@Req() request: Request) {
+        return this.interestsService.getInterests(request);
+    }
     @Post('/add-interests')
     addInterests(@Req() request: Request) {
         return this.interestsService.addInterests(request);
