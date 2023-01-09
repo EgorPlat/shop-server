@@ -16,5 +16,6 @@ export declare class PostComment {
     date: Date;
     commentOwnerAvatar: string;
     commentOwnerName: string;
+    commentOwnerLogin: number;
 }
 export declare const PostCommentSchema: import("mongoose").Schema<Document<PostComment, any, any>, import("mongoose").Model<Document<PostComment, any, any>, any, any, any>, {}, {}>;

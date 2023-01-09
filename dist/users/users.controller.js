@@ -52,6 +52,9 @@ let UserController = class UserController {
     addUserEvent(request) {
         return this.userService.addUserEvent(request);
     }
+    deleteUserEvent(request) {
+        return this.userService.deleteUserEvent(request);
+    }
     addUserPost(file, request) {
         return this.userService.addUserPost(file, request);
     }
@@ -136,6 +139,15 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "addUserEvent", null);
+__decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Удалить мероприятие для пользователя' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: user_schema_1.User }),
+    (0, common_1.Post)('/deleteUserEvent'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "deleteUserEvent", null);
 __decorate([
     (0, common_1.Post)('/addUserPost'),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('uploadedFile', {

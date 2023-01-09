@@ -81,6 +81,13 @@ export class UserController {
         return this.userService.addUserEvent(request); 
     }
 
+    @ApiOperation({summary: 'Удалить мероприятие для пользователя'})
+    @ApiResponse({status: 200, type: User})
+    @Post('/deleteUserEvent')
+    deleteUserEvent(@Req() request: Request) {
+        return this.userService.deleteUserEvent(request); 
+    }
+
     @Post('/addUserPost')
     @UseInterceptors(FileInterceptor('uploadedFile',{     
     storage: diskStorage(

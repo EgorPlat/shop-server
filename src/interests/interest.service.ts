@@ -28,12 +28,16 @@ export class InterestsService {
 
     async getInterestsById(request: Request) {
         let findedInterests = [];
-        await Promise.all(request.body.interests.map(async (el) => {
-            const eachInterest = await this.interestsModel.findOne({ interestId: el});
-            if (eachInterest) {
-                findedInterests = [...findedInterests, eachInterest];
-            }
-        }));
+        const { interests } = request.body;
+
+        if (interests) {
+            await Promise.all(interests.map(async (el) => {
+                const eachInterest = await this.interestsModel.findOne({ interestId: el});
+                if (eachInterest) {
+                    findedInterests = [...findedInterests, eachInterest];
+                }
+            }));
+        }
 
         if (findedInterests) {
             return findedInterests;

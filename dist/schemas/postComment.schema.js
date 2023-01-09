@@ -54,6 +54,11 @@ __decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
 ], PostComment.prototype, "commentOwnerName", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 'text', description: 'Логин пользователя у комментария' }),
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", Number)
+], PostComment.prototype, "commentOwnerLogin", void 0);
 PostComment = __decorate([
     (0, mongoose_1.Schema)()
 ], PostComment);

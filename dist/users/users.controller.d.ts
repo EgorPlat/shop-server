@@ -23,5 +23,6 @@ export declare class UserController {
     getUserList(): Promise<import("src/interfaces/people.interface").IPeople[]>;
     getSortedPeoples(sortParams: ISortParams): Promise<void>;
     addUserEvent(request: Request): Promise<User>;
+    deleteUserEvent(request: Request): Promise<User>;
     addUserPost(file: any, request: Request): Promise<void>;
 }

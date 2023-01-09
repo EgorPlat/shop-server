@@ -18,15 +18,23 @@ let AppGateway = class AppGateway {
     constructor(jwtHelpService) {
         this.jwtHelpService = jwtHelpService;
         this.activeUsersList = [];
+        this.activeFullUsersList = [];
     }
     handleDisconnect(client) {
         const decodeToken = this.jwtHelpService.decodeJwtFromString(client.handshake.headers.authorization);
         this.activeUsersList = this.activeUsersList.filter(el => el !== (decodeToken === null || decodeToken === void 0 ? void 0 : decodeToken.email));
         this.server.emit('updateUsers', { users: this.activeUsersList });
+        this.activeFullUsersList = this.activeFullUsersList.filter(el => el.email !== (decodeToken === null || decodeToken === void 0 ? void 0 : decodeToken.email));
     }
     handleConnection(client, ...args) {
         const decodeToken = this.jwtHelpService.decodeJwtFromString(client.handshake.headers.authorization);
         this.activeUsersList = [...this.activeUsersList, decodeToken === null || decodeToken === void 0 ? void 0 : decodeToken.email];
+        const fullClient = {
+            email: decodeToken === null || decodeToken === void 0 ? void 0 : decodeToken.email,
+            socketId: client.id,
+            userId: decodeToken === null || decodeToken === void 0 ? void 0 : decodeToken.userId
+        };
+        this.activeFullUsersList = [...this.activeFullUsersList, fullClient];
         this.server.emit('updateUsers', { users: this.activeUsersList });
     }
     handleMessage(client, payload) {

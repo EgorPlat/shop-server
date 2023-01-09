@@ -30,6 +30,7 @@ export class PostsService {
         commentId: String(Math.floor(Math.random() * 1000000)),
         commentOwnerAvatar: user.avatar,
         commentOwnerName: user.name,
+        commentOwnerLogin: user.login
       };
       const newCreatedComment = await this.postCommentModel.create(newComment);
       throw new HttpException(newCreatedComment, 201);

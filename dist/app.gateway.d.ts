@@ -5,6 +5,7 @@ export declare class AppGateway implements OnGatewayConnection, OnGatewayDisconn
     private jwtHelpService;
     server: Server;
     activeUsersList: string[];
+    activeFullUsersList: any[];
     constructor(jwtHelpService: HelpJwtService);
     handleDisconnect(client: any): void;
     handleConnection(client: any, ...args: any[]): void;

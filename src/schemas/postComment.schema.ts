@@ -37,5 +37,9 @@ export class PostComment {
     @ApiProperty({example: 'text', description: 'Аватар пользователя у комментария'})
     @Prop()
     commentOwnerName: string;
+
+    @ApiProperty({example: 'text', description: 'Логин пользователя у комментария'})
+    @Prop()
+    commentOwnerLogin: number;
 }
 export const PostCommentSchema = SchemaFactory.createForClass(PostComment);

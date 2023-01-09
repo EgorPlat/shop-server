@@ -10,19 +10,29 @@ export class AppGateway implements OnGatewayConnection, OnGatewayDisconnect {
   server: Server;
 
   public activeUsersList: string[] = [];
+  public activeFullUsersList: any[] = [];
 
-  constructor(private jwtHelpService: HelpJwtService) {}
+  constructor(private jwtHelpService: HelpJwtService) { }
 
   handleDisconnect(client: any) {
-    const decodeToken = this.jwtHelpService.decodeJwtFromString(client.handshake.headers.authorization);    
+    const decodeToken = this.jwtHelpService.decodeJwtFromString(client.handshake.headers.authorization);
     this.activeUsersList = this.activeUsersList.filter(el => el !== decodeToken?.email);
     this.server.emit('updateUsers', { users: this.activeUsersList });
+    this.activeFullUsersList = this.activeFullUsersList.filter(el => el.email !== decodeToken?.email);
   }
+
   handleConnection(client: any, ...args: any[]) {
     const decodeToken = this.jwtHelpService.decodeJwtFromString(client.handshake.headers.authorization);
     this.activeUsersList = [...this.activeUsersList, decodeToken?.email];
+    const fullClient = {
+      email: decodeToken?.email,
+      socketId: client.id,
+      userId: decodeToken?.userId
+    };
+    this.activeFullUsersList = [...this.activeFullUsersList, fullClient];
     this.server.emit('updateUsers', { users: this.activeUsersList });
   }
+
   @SubscribeMessage('message')
   handleMessage(client: any, payload: any) {
     console.log(`${client.handshake.headers.authorization} отправил сообщение`);

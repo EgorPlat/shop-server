@@ -158,8 +158,25 @@ let UserService = class UserService {
         const { body } = request;
         const decodedToken = this.helpJwtService.decodeJwt(request);
         const prevUserState = await this.userModel.findOne({ email: decodedToken.email });
+        if (!prevUserState.events.includes(body.eventId)) {
+            await this.userModel.updateOne({ email: decodedToken.email }, { $set: {
+                    events: [...prevUserState.events, body.eventId],
+                } });
+            const updatedUser = await this.userModel.findOne({ email: decodedToken.email });
+            if (updatedUser) {
+                return updatedUser;
+            }
+        }
+        else {
+            throw new common_1.HttpException("Уже есть данное событие.", 400);
+        }
+    }
+    async deleteUserEvent(request) {
+        const { body } = request;
+        const decodedToken = this.helpJwtService.decodeJwt(request);
+        const prevUserState = await this.userModel.findOne({ email: decodedToken.email });
         await this.userModel.updateOne({ email: decodedToken.email }, { $set: {
-                events: [...prevUserState.events, body.eventId],
+                events: prevUserState.events.filter(el => el !== body.eventId),
             } });
         const updatedUser = await this.userModel.findOne({ email: decodedToken.email });
         if (updatedUser) {
