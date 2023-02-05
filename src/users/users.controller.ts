@@ -67,6 +67,13 @@ export class UserController {
         return this.userService.getUserList(); 
     }
 
+    @ApiOperation({summary: 'Получить список пользователей по номеру страницы'})
+    @ApiResponse({status: 200, type: User})
+    @Post('/getUserListByPageNumber')
+    getUserListByPageNumber(@Req() request: Request) {
+        return this.userService.getUserListByPageNumber(request); 
+    }
+
     @ApiOperation({summary: 'Получить список сортированных пользователей'})
     @ApiResponse({status: 200, type: User})
     @Post('/getSortedUsers')

@@ -51,7 +51,15 @@ let EventService = class EventService {
         throw new common_1.HttpException(userEventsInfo, 200);
     }
     async getEventsByCategory(eventsInfo) {
-        const { data } = await this.httpService.get(`https://kudago.com/public-api/v1.4/events/?page=${eventsInfo.page}&page_size=70&categories=${eventsInfo.nameCategory}&fields=id,title,description,price,images,age_restriction`).toPromise();
+        const dateInTimestamp = Math.floor(Date.now() / 1000);
+        console.log(`
+        https://kudago.com/public-api/v1.4/events/
+        ?page=${eventsInfo.page}
+        &page_size=70&categories=${eventsInfo.nameCategory}
+        &fields=id,title,description,price,images,age_restriction
+        &actual_since=${dateInTimestamp - 50000}&actual_until=${dateInTimestamp}
+        `);
+        const { data } = await this.httpService.get(`https://kudago.com/public-api/v1.4/events/?page=${eventsInfo.page}&page_size=70&categories=${eventsInfo.nameCategory}&fields=id,title,description,price,images,age_restriction&actual_since=${dateInTimestamp - 50000}&actual_until=${dateInTimestamp}`).toPromise();
         if (data) {
             let newData = [];
             await Promise.all(data.results.map(async (el) => await (0, rxjs_1.lastValueFrom)(this.httpService.head(`${el.images[0].image}`)).then(() => {

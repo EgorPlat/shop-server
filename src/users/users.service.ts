@@ -64,6 +64,37 @@ export class UserService {
         })
         return peoples;
     }
+    async getUserListByPageNumber(request: Request) {
+        const { pageNumber, pageSize, filters } = request.body;
+
+        const users = await this.userModel.find({}, {
+            password: false,
+            _id: false,
+            __v: false
+        });
+        let peoples: IPeople[] = users.map((user, index) => {
+            return {
+                email: user.email,
+                login: user.login,
+                userName: user.name,
+                userAvatar: user.avatar,
+                status: user.status,
+                age: user.age,
+                city: user.city,
+                gender: user.gender
+            }
+        });
+        if (filters.age !== 0) {
+            peoples = peoples.filter(peoples => peoples.age === filters.age);
+        }
+        if (filters.gender !== 'all') {
+            peoples = peoples.filter(peoples => peoples.gender === filters.gender)
+        }
+        const maxPage = Math.ceil(peoples.length / pageSize);
+        peoples = peoples.slice(pageNumber * pageSize - pageSize, pageNumber * pageSize);
+
+        return { peoples: peoples, maxPage: maxPage };
+    }
     async getSortedPeoples(sortParams: ISortParams) {
         let peoples = await this.getUserList();
         if(sortParams.age !== 50) {

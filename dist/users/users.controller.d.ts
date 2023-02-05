@@ -1,3 +1,11 @@
+/// <reference types="mongoose/types/pipelinestage" />
+/// <reference types="mongoose/types/connection" />
+/// <reference types="mongoose/types/cursor" />
+/// <reference types="mongoose/types/document" />
+/// <reference types="mongoose/types/error" />
+/// <reference types="mongoose/types/mongooseoptions" />
+/// <reference types="mongoose/types/schemaoptions" />
+/// <reference types="mongoose" />
 import { CreateUserDto } from "src/dto/create-user.dto";
 import { ISortParams } from "src/interfaces/sort.params";
 import { User } from "src/schemas/user.schema";
@@ -21,6 +29,10 @@ export declare class UserController {
     removeUserInterest(req: Request): Promise<User>;
     updateUserInterest(req: Request): Promise<User>;
     getUserList(): Promise<import("src/interfaces/people.interface").IPeople[]>;
+    getUserListByPageNumber(request: Request): Promise<{
+        peoples: import("src/interfaces/people.interface").IPeople[];
+        maxPage: number;
+    }>;
     getSortedPeoples(sortParams: ISortParams): Promise<void>;
     addUserEvent(request: Request): Promise<User>;
     deleteUserEvent(request: Request): Promise<User>;

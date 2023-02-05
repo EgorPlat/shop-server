@@ -1,3 +1,10 @@
+/// <reference types="mongoose/types/pipelinestage" />
+/// <reference types="mongoose/types/connection" />
+/// <reference types="mongoose/types/cursor" />
+/// <reference types="mongoose/types/document" />
+/// <reference types="mongoose/types/error" />
+/// <reference types="mongoose/types/mongooseoptions" />
+/// <reference types="mongoose/types/schemaoptions" />
 import { User, UserDocument } from "src/schemas/user.schema";
 import { Model } from 'mongoose';
 import { CreateUserDto } from "src/dto/create-user.dto";
@@ -21,6 +28,10 @@ export declare class UserService {
         _id: any;
     }>;
     getUserList(): Promise<IPeople[]>;
+    getUserListByPageNumber(request: Request): Promise<{
+        peoples: IPeople[];
+        maxPage: number;
+    }>;
     getSortedPeoples(sortParams: ISortParams): Promise<void>;
     getUserByEmail(email: string): Promise<User & import("mongoose").Document<any, any, any> & {
         _id: any;

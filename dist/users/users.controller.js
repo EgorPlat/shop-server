@@ -46,6 +46,9 @@ let UserController = class UserController {
     getUserList() {
         return this.userService.getUserList();
     }
+    getUserListByPageNumber(request) {
+        return this.userService.getUserListByPageNumber(request);
+    }
     getSortedPeoples(sortParams) {
         return this.userService.getSortedPeoples(sortParams);
     }
@@ -121,6 +124,15 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "getUserList", null);
+__decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Получить список пользователей по номеру страницы' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: user_schema_1.User }),
+    (0, common_1.Post)('/getUserListByPageNumber'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "getUserListByPageNumber", null);
 __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Получить список сортированных пользователей' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: user_schema_1.User }),
