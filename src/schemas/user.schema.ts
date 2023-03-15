@@ -3,6 +3,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Document } from 'mongoose';
 import { IInterests } from "src/interfaces/interests.interface";
 import { IPost } from "src/interfaces/post.interface";
+import { IOuterInvites, IInnerInvites } from "src/interfaces/sentInvites.interface";
 export type UserDocument = User & Document;
 
 @Schema()
@@ -71,6 +72,14 @@ export class User {
     @ApiProperty({example: [], description: 'Интересы'})
     @Prop({ default: [] })
     interests: IInterests[];
+
+    @ApiProperty({example: [], description: 'Отправленные приглашения'})
+    @Prop({ default: [] })
+    outerInvites: IOuterInvites[];
+
+    @ApiProperty({example: [], description: 'Входящие приглашения'})
+    @Prop({ default: [] })
+    innerInvites: IInnerInvites[];
 };
 
 export const UserSchema = SchemaFactory.createForClass(User);

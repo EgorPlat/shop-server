@@ -94,6 +94,16 @@ __decorate([
     (0, mongoose_1.Prop)({ default: [] }),
     __metadata("design:type", Array)
 ], User.prototype, "interests", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: [], description: 'Отправленные приглашения' }),
+    (0, mongoose_1.Prop)({ default: [] }),
+    __metadata("design:type", Array)
+], User.prototype, "outerInvites", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: [], description: 'Входящие приглашения' }),
+    (0, mongoose_1.Prop)({ default: [] }),
+    __metadata("design:type", Array)
+], User.prototype, "innerInvites", void 0);
 User = __decorate([
     (0, mongoose_1.Schema)()
 ], User);

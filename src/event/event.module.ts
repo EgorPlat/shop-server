@@ -6,9 +6,10 @@ import { CheckService } from 'src/help/ckeck.service';
 import { HelpJwtModule } from 'src/help/token.module';
 import { User, UserSchema } from 'src/schemas/user.schema';
 import { MongooseModule } from '@nestjs/mongoose';
+import { UserService } from 'src/users/users.service';
 
 @Module({
-  providers: [EventService, CheckService],
+  providers: [EventService, CheckService, UserService],
   controllers: [EventController],
   imports: [
     HttpModule,

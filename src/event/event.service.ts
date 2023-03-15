@@ -8,6 +8,8 @@ import { HelpJwtService } from 'src/help/token.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from 'src/schemas/user.schema';
 import { Model } from 'mongoose';
+import { UserService } from 'src/users/users.service';
+import { IOuterInvites } from 'src/interfaces/sentInvites.interface';
 
 @Injectable()
 export class EventService {
@@ -16,6 +18,7 @@ export class EventService {
         private httpService: HttpService,
         private checkService: CheckService,
         private jwtHelpService: HelpJwtService,
+        private userService: UserService,
         @InjectModel(User.name) private userModel: Model<UserDocument>,
     ) {}
 
@@ -45,14 +48,6 @@ export class EventService {
 
     async getEventsByCategory(eventsInfo: IEventsInfo) {
         const dateInTimestamp: number = Math.floor(Date.now() / 1000);
-        
-        console.log(`
-        https://kudago.com/public-api/v1.4/events/
-        ?page=${eventsInfo.page}
-        &page_size=70&categories=${eventsInfo.nameCategory}
-        &fields=id,title,description,price,images,age_restriction
-        &actual_since=${dateInTimestamp-50000}&actual_until=${dateInTimestamp}
-        `);
         
         const {data} = await this.httpService.get(
             `https://kudago.com/public-api/v1.4/events/?page=${eventsInfo.page}&page_size=70&categories=${eventsInfo.nameCategory}&fields=id,title,description,price,images,age_restriction&actual_since=${dateInTimestamp-50000}&actual_until=${dateInTimestamp}`
@@ -84,6 +79,83 @@ export class EventService {
             return data;
         } else {
             throw new HttpException('Ничего не найдено', 404);
+        }
+    }
+
+    async sendInviteToUser(request: Request) {
+        try {
+            const decodedJwt = await this.jwtHelpService.decodeJwt(request);
+
+            const { userIdTo, eventId } = request.body;
+            const dateOfSending = new Date();
+            
+            const userFromData = await this.userService.getUserByEmail(decodedJwt.email);
+            const userToData = await this.userService.getUserByUserId(userIdTo);
+
+            // добавление исходящего приглашения
+            let eventSearched: boolean = false;
+            let updatedOuterInvites = userFromData.outerInvites.map(el => {
+                if (el.eventId === eventId) {
+                    eventSearched =  true;
+                    const userAlreadyInList = el.invitedUsers.filter(user => user.userId === userIdTo).length !== 0;
+                    if (userAlreadyInList) {
+                        throw new HttpException('User is already in invited list', 200)
+                    } else {
+                        return {
+                            eventId: eventId,
+                            invitedUsers: [...el.invitedUsers, 
+                                { 
+                                    userId: userIdTo, 
+                                    status: false, 
+                                    dateOfSending: dateOfSending,
+                                    avatar: userToData.avatar,
+                                    name: userToData.name
+                                }
+                            ]
+                        }
+                    }
+                } else {
+                    return el;
+                }
+            })
+            if (!eventSearched) {
+                updatedOuterInvites = [...updatedOuterInvites, {
+                    invitedUsers: [
+                        { 
+                            userId: userIdTo, 
+                            status: false, 
+                            dateOfSending: dateOfSending,
+                            avatar: userToData.avatar,
+                            name: userToData.name
+                        }
+                    ],
+                    eventId: eventId
+                }]
+            }
+            await this.userModel.updateOne({ userId: userFromData.userId } , { 
+                $set: {
+                    outerInvites: updatedOuterInvites
+                }
+            });
+
+            // добавление входящего приглашения
+            const innerInvite = {
+                fromUserId: userFromData.userId,
+                eventId: eventId,
+                dateOfSending: dateOfSending,
+                status: false,
+                name: userFromData.name,
+                avatar: userFromData.avatar
+            }
+            await this.userModel.updateOne({ userId: userIdTo }, { 
+                $set: {
+                    innerInvites: [...userToData.innerInvites, innerInvite]
+                }
+            })
+
+            throw new HttpException('Success', 200)
+        } catch(error) {
+            throw new HttpException(error, 500)
         }
     }
 }

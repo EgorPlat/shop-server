@@ -14,6 +14,10 @@ export class EventController {
     getEventInfoById(@Request() request) {
         return this.eventService.getEventInfoById(request.body.eventId)
     }
+    @Post('/sendInviteToUser')
+    sendInviteToUser(@Request() request) {
+        return this.eventService.sendInviteToUser(request)
+    }
     @Get('/getUserEventsInfo')
     getUserEventsInfo(@Request() request) {
         return this.eventService.getUserEventsInfo(request)
