@@ -16,6 +16,7 @@ const token_module_1 = require("../help/token.module");
 const user_schema_1 = require("../schemas/user.schema");
 const mongoose_1 = require("@nestjs/mongoose");
 const users_service_1 = require("../users/users.service");
+const mail_module_1 = require("../mail/mail.module");
 let EventModule = class EventModule {
 };
 EventModule = __decorate([
@@ -26,6 +27,7 @@ EventModule = __decorate([
             axios_1.HttpModule,
             token_module_1.HelpJwtModule,
             mongoose_1.MongooseModule.forFeature([{ name: user_schema_1.User.name, schema: user_schema_1.UserSchema }]),
+            mail_module_1.MailModule
         ],
     })
 ], EventModule);

@@ -6,13 +6,15 @@ import { HelpJwtService } from 'src/help/token.service';
 import { UserDocument } from 'src/schemas/user.schema';
 import { Model } from 'mongoose';
 import { UserService } from 'src/users/users.service';
+import { MailService } from 'src/mail/mail.service';
 export declare class EventService {
     private httpService;
     private checkService;
     private jwtHelpService;
     private userService;
+    private mailService;
     private userModel;
-    constructor(httpService: HttpService, checkService: CheckService, jwtHelpService: HelpJwtService, userService: UserService, userModel: Model<UserDocument>);
+    constructor(httpService: HttpService, checkService: CheckService, jwtHelpService: HelpJwtService, userService: UserService, mailService: MailService, userModel: Model<UserDocument>);
     getUserEventsInfo(request: Request): Promise<void>;
     getEventsByCategory(eventsInfo: IEventsInfo): Promise<any[]>;
     getEventInfoById(eventId: string | number): Promise<any>;

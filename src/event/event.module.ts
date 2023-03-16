@@ -7,6 +7,7 @@ import { HelpJwtModule } from 'src/help/token.module';
 import { User, UserSchema } from 'src/schemas/user.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserService } from 'src/users/users.service';
+import { MailModule } from 'src/mail/mail.module';
 
 @Module({
   providers: [EventService, CheckService, UserService],
@@ -15,6 +16,7 @@ import { UserService } from 'src/users/users.service';
     HttpModule,
     HelpJwtModule,
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    MailModule
   ],
 })
 export class EventModule {}

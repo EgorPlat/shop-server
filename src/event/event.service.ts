@@ -10,6 +10,7 @@ import { User, UserDocument } from 'src/schemas/user.schema';
 import { Model } from 'mongoose';
 import { UserService } from 'src/users/users.service';
 import { IOuterInvites } from 'src/interfaces/sentInvites.interface';
+import { MailService } from 'src/mail/mail.service';
 
 @Injectable()
 export class EventService {
@@ -19,6 +20,7 @@ export class EventService {
         private checkService: CheckService,
         private jwtHelpService: HelpJwtService,
         private userService: UserService,
+        private mailService: MailService,
         @InjectModel(User.name) private userModel: Model<UserDocument>,
     ) {}
 
@@ -92,6 +94,7 @@ export class EventService {
             const userFromData = await this.userService.getUserByEmail(decodedJwt.email);
             const userToData = await this.userService.getUserByUserId(userIdTo);
 
+            await this.mailService.sendUserConfirmation(userToData.email, userToData.name);
             // добавление исходящего приглашения
             let eventSearched: boolean = false;
             let updatedOuterInvites = userFromData.outerInvites.map(el => {

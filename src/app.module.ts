@@ -15,6 +15,7 @@ import { AppGateway } from './app.gateway';
 import { EventModule } from './event/event.module';
 import { PostsModule } from './posts/posts.module';
 import { InterestsModule } from "./interests/interest.module";
+import { MailModule } from './mail/mail.module';
 
 @Module({
   controllers: [AppController, SettingsController],
@@ -29,7 +30,8 @@ import { InterestsModule } from "./interests/interest.module";
     ChatModule,
     EventModule,
     PostsModule,
-    InterestsModule
+    InterestsModule,
+    MailModule
   ],
 })
 export class AppModule {

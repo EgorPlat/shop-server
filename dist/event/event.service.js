@@ -22,12 +22,14 @@ const mongoose_1 = require("@nestjs/mongoose");
 const user_schema_1 = require("../schemas/user.schema");
 const mongoose_2 = require("mongoose");
 const users_service_1 = require("../users/users.service");
+const mail_service_1 = require("../mail/mail.service");
 let EventService = class EventService {
-    constructor(httpService, checkService, jwtHelpService, userService, userModel) {
+    constructor(httpService, checkService, jwtHelpService, userService, mailService, userModel) {
         this.httpService = httpService;
         this.checkService = checkService;
         this.jwtHelpService = jwtHelpService;
         this.userService = userService;
+        this.mailService = mailService;
         this.userModel = userModel;
     }
     async getUserEventsInfo(request) {
@@ -88,13 +90,14 @@ let EventService = class EventService {
             const dateOfSending = new Date();
             const userFromData = await this.userService.getUserByEmail(decodedJwt.email);
             const userToData = await this.userService.getUserByUserId(userIdTo);
+            await this.mailService.sendUserConfirmation(userToData.email, userToData.name);
             let eventSearched = false;
             let updatedOuterInvites = userFromData.outerInvites.map(el => {
                 if (el.eventId === eventId) {
                     eventSearched = true;
                     const userAlreadyInList = el.invitedUsers.filter(user => user.userId === userIdTo).length !== 0;
                     if (userAlreadyInList) {
-                        return el;
+                        throw new common_1.HttpException('User is already in invited list', 200);
                     }
                     else {
                         return {
@@ -156,11 +159,12 @@ let EventService = class EventService {
 };
 EventService = __decorate([
     (0, common_1.Injectable)(),
-    __param(4, (0, mongoose_1.InjectModel)(user_schema_1.User.name)),
+    __param(5, (0, mongoose_1.InjectModel)(user_schema_1.User.name)),
     __metadata("design:paramtypes", [axios_1.HttpService,
         ckeck_service_1.CheckService,
         token_service_1.HelpJwtService,
         users_service_1.UserService,
+        mail_service_1.MailService,
         mongoose_2.Model])
 ], EventService);
 exports.EventService = EventService;
