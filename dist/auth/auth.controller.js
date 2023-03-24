@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
+const accept_user_dto_1 = require("../dto/accept-user.dto");
 const create_user_dto_1 = require("../dto/create-user.dto");
 const user_dto_1 = require("../dto/user.dto");
 const auth_service_1 = require("./auth.service");
@@ -27,6 +28,12 @@ let AuthController = class AuthController {
     }
     registration(userDto) {
         return this.authService.registration(userDto);
+    }
+    registrationWithConfirmation(userDto) {
+        return this.authService.registrationWithConfirmation(userDto);
+    }
+    acceptUserAccount(userDto) {
+        return this.authService.acceptUserAccount(userDto);
     }
 };
 __decorate([
@@ -43,6 +50,20 @@ __decorate([
     __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "registration", null);
+__decorate([
+    (0, common_1.Post)('/registrationWithConfirmation'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "registrationWithConfirmation", null);
+__decorate([
+    (0, common_1.Post)('/acceptUserAccount'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [accept_user_dto_1.AcceptUserDto]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "acceptUserAccount", null);
 AuthController = __decorate([
     (0, swagger_1.ApiTags)('Авторизация'),
     (0, common_1.Controller)('auth'),

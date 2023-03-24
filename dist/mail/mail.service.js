@@ -17,7 +17,6 @@ let MailService = class MailService {
         this.mailerService = mailerService;
     }
     async sendUserConfirmation(email, name) {
-        console.log(email + ' ' + name);
         try {
             await this.mailerService.sendMail({
                 to: email,
@@ -25,6 +24,22 @@ let MailService = class MailService {
                 template: './invitation',
                 context: {
                     name: name,
+                },
+            });
+        }
+        catch (er) {
+            console.log(er);
+        }
+    }
+    async sendUserRegisterConfirmationMail(email, name, code) {
+        try {
+            await this.mailerService.sendMail({
+                to: email,
+                subject: 'Meetins - Подтверждение регистрации!',
+                template: './confirmationEmail',
+                context: {
+                    name: name,
+                    code: code
                 },
             });
         }

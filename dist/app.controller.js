@@ -19,6 +19,9 @@ let AppController = class AppController {
     getUsers() {
         return this.appService.getUsers();
     }
+    sendUsers() {
+        return this.appService.sendUsers();
+    }
 };
 __decorate([
     (0, common_1.Get)(),
@@ -26,8 +29,14 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], AppController.prototype, "getUsers", null);
+__decorate([
+    (0, common_1.Post)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AppController.prototype, "sendUsers", null);
 AppController = __decorate([
-    (0, common_1.Controller)('/api'),
+    (0, common_1.Controller)('/'),
     __metadata("design:paramtypes", [app_service_1.AppService])
 ], AppController);
 exports.AppController = AppController;

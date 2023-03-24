@@ -27,7 +27,7 @@ MailModule = __decorate([
                     },
                 },
                 defaults: {
-                    from: '"No Reply" <meetins.official@gmail.com>',
+                    from: '"Meetins" <meetins.official@gmail.com>',
                 },
                 template: {
                     dir: (0, path_1.join)(__dirname, 'templates'),

@@ -9,6 +9,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthModule = void 0;
 const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
+const mongoose_1 = require("@nestjs/mongoose");
+const mail_module_1 = require("../mail/mail.module");
+const unConfirmedUser_schema_1 = require("../schemas/unConfirmedUser.schema");
 const users_module_1 = require("../users/users.module");
 const auth_controller_1 = require("./auth.controller");
 const auth_service_1 = require("./auth.service");
@@ -18,12 +21,17 @@ AuthModule = __decorate([
     (0, common_1.Module)({
         controllers: [auth_controller_1.AuthController],
         providers: [auth_service_1.AuthService],
-        imports: [(0, common_1.forwardRef)(() => users_module_1.UsersModule), jwt_1.JwtModule.register({
+        imports: [
+            mail_module_1.MailModule,
+            (0, common_1.forwardRef)(() => users_module_1.UsersModule),
+            jwt_1.JwtModule.register({
                 secret: process.env.PRIVATE_KEY || 'SECRET',
                 signOptions: {
                     expiresIn: '1h'
                 }
-            })],
+            }),
+            mongoose_1.MongooseModule.forFeature([{ name: unConfirmedUser_schema_1.UnConfirmedUser.name, schema: unConfirmedUser_schema_1.UnConfirmedUserSchema }]),
+        ],
         exports: [auth_service_1.AuthService, jwt_1.JwtModule]
     })
 ], AuthModule);

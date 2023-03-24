@@ -25,6 +25,7 @@ const event_module_1 = require("./event/event.module");
 const posts_module_1 = require("./posts/posts.module");
 const interest_module_1 = require("./interests/interest.module");
 const mail_module_1 = require("./mail/mail.module");
+const schedule_1 = require("@nestjs/schedule");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -35,6 +36,7 @@ AppModule = __decorate([
             token_module_1.HelpJwtModule,
             users_module_1.UsersModule,
             mongoose_1.MongooseModule.forRoot(data_1.dbUrl),
+            schedule_1.ScheduleModule.forRoot(),
             auth_module_1.AuthModule,
             profile_module_1.ProfileModule,
             settings_module_1.SettingsModule,

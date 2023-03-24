@@ -1,7 +1,7 @@
 import { Controller, Get, Post } from "@nestjs/common";
 import { AppService } from "./app.service";
 
-@Controller('/api')
+@Controller('/')
 export class AppController {
 
     constructor(private appService: AppService) {}
@@ -9,6 +9,10 @@ export class AppController {
     @Get()
     getUsers() {
         return this.appService.getUsers();
+    }
+    @Post()
+    sendUsers() {
+        return this.appService.sendUsers();
     }
 }
 

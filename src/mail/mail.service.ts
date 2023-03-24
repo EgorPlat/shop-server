@@ -1,5 +1,6 @@
 import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
+import { Cron } from '@nestjs/schedule';
 
 @Injectable()
 export class MailService {
@@ -20,4 +21,27 @@ export class MailService {
       console.log(er);
     }
   }
+
+  async sendUserRegisterConfirmationMail(email: string, name: string, code: number) {
+    try {
+      await this.mailerService.sendMail({
+        to: email,
+        // from: '"Support Team" <support@example.com>', // override default from
+        subject: 'Meetins - Подтверждение регистрации!',
+        template: './confirmationEmail', // `.hbs` extension is appended automatically
+        context: { // ✏️ filling curly brackets with content
+          name: name,
+          code: code
+        },
+      });
+    } catch(er) {
+      console.log(er);
+    }
+  }
+
+  /*@Cron('* * * * *')
+  sendMailForAllUsers() {
+    console.log('Email will send');
+    return null;
+  }*/
 }

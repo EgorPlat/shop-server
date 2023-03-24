@@ -16,6 +16,7 @@ import { EventModule } from './event/event.module';
 import { PostsModule } from './posts/posts.module';
 import { InterestsModule } from "./interests/interest.module";
 import { MailModule } from './mail/mail.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   controllers: [AppController, SettingsController],
@@ -24,6 +25,7 @@ import { MailModule } from './mail/mail.module';
     HelpJwtModule,
     UsersModule,
     MongooseModule.forRoot(dbUrl),
+    ScheduleModule.forRoot(),
     AuthModule,
     ProfileModule,
     SettingsModule,
