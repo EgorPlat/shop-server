@@ -22,4 +22,12 @@ export class EventController {
     getUserEventsInfo(@Request() request) {
         return this.eventService.getUserEventsInfo(request)
     }
+    @Get('/getUserInnerInvitesEventInfo')
+    getUserInnerInvitesEventInfo(@Request() request) {
+        return this.eventService.getUserInnerInvitesEventInfo(request)
+    }
+    @Get('/getUserOuterInvitesEventInfo')
+    getUserOuterInvitesEventInfo(@Request() request) {
+        return this.eventService.getUserOuterInvitesEventInfo(request)
+    }
 }

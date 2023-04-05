@@ -15,6 +15,8 @@ export declare class EventService {
     private mailService;
     private userModel;
     constructor(httpService: HttpService, checkService: CheckService, jwtHelpService: HelpJwtService, userService: UserService, mailService: MailService, userModel: Model<UserDocument>);
+    getUserOuterInvitesEventInfo(request: Request): Promise<void>;
+    getUserInnerInvitesEventInfo(request: Request): Promise<void>;
     getUserEventsInfo(request: Request): Promise<void>;
     getEventsByCategory(eventsInfo: IEventsInfo): Promise<any[]>;
     getEventInfoById(eventId: string | number): Promise<any>;

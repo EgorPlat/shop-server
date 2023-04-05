@@ -32,6 +32,12 @@ let EventController = class EventController {
     getUserEventsInfo(request) {
         return this.eventService.getUserEventsInfo(request);
     }
+    getUserInnerInvitesEventInfo(request) {
+        return this.eventService.getUserInnerInvitesEventInfo(request);
+    }
+    getUserOuterInvitesEventInfo(request) {
+        return this.eventService.getUserOuterInvitesEventInfo(request);
+    }
 };
 __decorate([
     (0, common_1.Post)('/getEventsCategory'),
@@ -61,6 +67,20 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], EventController.prototype, "getUserEventsInfo", null);
+__decorate([
+    (0, common_1.Get)('/getUserInnerInvitesEventInfo'),
+    __param(0, (0, common_2.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], EventController.prototype, "getUserInnerInvitesEventInfo", null);
+__decorate([
+    (0, common_1.Get)('/getUserOuterInvitesEventInfo'),
+    __param(0, (0, common_2.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], EventController.prototype, "getUserOuterInvitesEventInfo", null);
 EventController = __decorate([
     (0, common_1.Controller)('event'),
     __metadata("design:paramtypes", [event_service_1.EventService])

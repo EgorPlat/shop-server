@@ -32,6 +32,50 @@ let EventService = class EventService {
         this.mailService = mailService;
         this.userModel = userModel;
     }
+    async getUserOuterInvitesEventInfo(request) {
+        const decodedJwt = this.jwtHelpService.decodeJwt(request);
+        const user = await this.userModel.findOne({ email: decodedJwt.email }, {
+            _id: false,
+            __v: false
+        });
+        let userEventsInfo = [];
+        if (user) {
+            await Promise.all(user.outerInvites.map(async (inviteInfo) => {
+                const { data } = await this.httpService.get(`https://kudago.com/public-api/v1.4/events/${inviteInfo.eventId}`).toPromise();
+                if (data) {
+                    return Object.assign(Object.assign({}, data), { isInnerInvite: false, inviteInfo });
+                }
+                else {
+                    return null;
+                }
+            })).then(results => {
+                userEventsInfo = results.filter(el => el !== null);
+            });
+        }
+        throw new common_1.HttpException(userEventsInfo, 200);
+    }
+    async getUserInnerInvitesEventInfo(request) {
+        const decodedJwt = this.jwtHelpService.decodeJwt(request);
+        const user = await this.userModel.findOne({ email: decodedJwt.email }, {
+            _id: false,
+            __v: false
+        });
+        let userEventsInfo = [];
+        if (user) {
+            await Promise.all(user.innerInvites.map(async (inviteInfo) => {
+                const { data } = await this.httpService.get(`https://kudago.com/public-api/v1.4/events/${inviteInfo.eventId}`).toPromise();
+                if (data) {
+                    return Object.assign(Object.assign({}, data), { isInnerInvite: true, inviteInfo });
+                }
+                else {
+                    return null;
+                }
+            })).then(results => {
+                userEventsInfo = [...userEventsInfo, ...results.filter(el => el !== null)];
+            });
+        }
+        throw new common_1.HttpException(userEventsInfo, 200);
+    }
     async getUserEventsInfo(request) {
         const decodedJwt = this.jwtHelpService.decodeJwt(request);
         const user = await this.userModel.findOne({ email: decodedJwt.email }, {

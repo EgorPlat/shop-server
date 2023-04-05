@@ -24,6 +24,53 @@ export class EventService {
         @InjectModel(User.name) private userModel: Model<UserDocument>,
     ) {}
 
+    async getUserOuterInvitesEventInfo(request: Request) {
+        const decodedJwt = this.jwtHelpService.decodeJwt(request);
+        const user = await this.userModel.findOne({email: decodedJwt.email}, {
+            _id: false,
+            __v: false
+        });
+        let userEventsInfo = [];
+        if (user) {
+            await Promise.all(user.outerInvites.map(async (inviteInfo) => {
+                const {data} = await this.httpService.get(
+                    `https://kudago.com/public-api/v1.4/events/${inviteInfo.eventId}`
+                ).toPromise();
+                if (data) {
+                    return { ...data, isInnerInvite: false, inviteInfo };
+                } else {
+                    return null;
+                }
+            })).then(results => {
+                userEventsInfo = results.filter(el => el !== null)
+            });
+        }
+        throw new HttpException(userEventsInfo, 200);
+    }
+    async getUserInnerInvitesEventInfo(request: Request) {
+        const decodedJwt = this.jwtHelpService.decodeJwt(request);
+        const user = await this.userModel.findOne({email: decodedJwt.email}, {
+            _id: false,
+            __v: false
+        });
+        let userEventsInfo = [];
+        if (user) {
+            await Promise.all(user.innerInvites.map(async (inviteInfo) => {
+                const {data} = await this.httpService.get(
+                    `https://kudago.com/public-api/v1.4/events/${inviteInfo.eventId}`
+                ).toPromise();
+                if (data) {
+                    return { ...data, isInnerInvite: true, inviteInfo };
+                } else {
+                    return null;
+                }
+            })).then(results => {
+                userEventsInfo = [...userEventsInfo, ...results.filter(el => el !== null)]
+            });
+        }
+        throw new HttpException(userEventsInfo, 200);
+    }
+
     async getUserEventsInfo(request: Request) {
         const decodedJwt = this.jwtHelpService.decodeJwt(request);
         const user = await this.userModel.findOne({email: decodedJwt.email}, {
@@ -57,6 +104,19 @@ export class EventService {
         
         if(data) {
             let newData = [];
+           /*for (const url of data.results) {
+                try {
+                    const response = this.httpService.head(`${url.images[0].image}`);
+                    const data = await lastValueFrom(response);
+
+                    if (data.status <= 217) {
+                        newData = [...newData, url]
+                    }
+                }
+                catch(error) {
+                    console.log('fail');
+                }
+            }*/
             await Promise.all( data.results.map( async (el) => 
                 await lastValueFrom(this.httpService.head(`${el.images[0].image}`)).then(() => {
                     return el;
@@ -64,10 +124,10 @@ export class EventService {
                     return null;
                 })
                 )).then(results => {
-                newData = results.filter(res => res !== null);
-            }).catch(() => {
-                throw new HttpException('Ошибка сервера.', 500);
-            })
+                    newData = results.filter(res => res !== null);
+                }).catch(() => {
+                    throw new HttpException('Ошибка сервера.', 500);
+                })
             return newData;
         } else {
             throw new HttpException('Ничего не найдено', 404);

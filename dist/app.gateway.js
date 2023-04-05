@@ -23,8 +23,8 @@ let AppGateway = class AppGateway {
     handleDisconnect(client) {
         const decodeToken = this.jwtHelpService.decodeJwtFromString(client.handshake.headers.authorization);
         this.activeUsersList = this.activeUsersList.filter(el => el !== (decodeToken === null || decodeToken === void 0 ? void 0 : decodeToken.email));
-        this.server.emit('updateUsers', { users: this.activeFullUsersList });
         this.activeFullUsersList = this.activeFullUsersList.filter(el => el.email !== (decodeToken === null || decodeToken === void 0 ? void 0 : decodeToken.email));
+        this.server.emit('updateUsers', { users: this.activeFullUsersList });
     }
     handleConnection(client, ...args) {
         const decodeToken = this.jwtHelpService.decodeJwtFromString(client.handshake.headers.authorization);
