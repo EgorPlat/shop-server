@@ -12,4 +12,9 @@ export class AppService {
             <p>Hello world from POST REQUEST</p>
         `
     }
+    headUsers(): string {
+        return `
+            <p>Hello world from HEAD REQUEST</p>
+        `
+    }
 }
