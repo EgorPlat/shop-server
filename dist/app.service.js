@@ -19,6 +19,11 @@ let AppService = class AppService {
             <p>Hello world from POST REQUEST</p>
         `;
     }
+    headUsers() {
+        return `
+            <p>Hello world from HEAD REQUEST</p>
+        `;
+    }
 };
 AppService = __decorate([
     (0, common_1.Injectable)()

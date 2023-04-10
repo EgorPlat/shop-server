@@ -4,4 +4,5 @@ export declare class AppController {
     constructor(appService: AppService);
     getUsers(): string;
     sendUsers(): string;
+    headUsers(): string;
 }
