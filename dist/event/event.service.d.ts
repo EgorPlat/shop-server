@@ -18,7 +18,7 @@ export declare class EventService {
     getUserOuterInvitesEventInfo(request: Request): Promise<void>;
     getUserInnerInvitesEventInfo(request: Request): Promise<void>;
     getUserEventsInfo(request: Request): Promise<void>;
-    getEventsByCategory(eventsInfo: IEventsInfo): Promise<any[]>;
+    getEventsByCategory(eventsInfo: IEventsInfo): Promise<any>;
     getEventInfoById(eventId: string | number): Promise<any>;
     sendInviteToUser(request: Request): Promise<void>;
 }

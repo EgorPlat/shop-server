@@ -111,7 +111,6 @@ let UserService = class UserService {
             _id: false,
             __v: false
         });
-        console.log(user);
         return user;
     }
     async getUserByUserId(userId) {

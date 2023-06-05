@@ -101,34 +101,20 @@ export class EventService {
         const {data} = await this.httpService.get(
             `https://kudago.com/public-api/v1.4/events/?page=${eventsInfo.page}&page_size=70&categories=${eventsInfo.nameCategory}&fields=id,title,description,price,images,age_restriction&actual_since=${dateInTimestamp-50000}&actual_until=${dateInTimestamp}`
         ).toPromise();
-        
         if(data) {
-            let newData = [];
-           /*for (const url of data.results) {
-                try {
-                    const response = this.httpService.head(`${url.images[0].image}`);
-                    const data = await lastValueFrom(response);
-
-                    if (data.status <= 217) {
-                        newData = [...newData, url]
-                    }
-                }
-                catch(error) {
-                    console.log('fail');
-                }
-            }*/
+            /*let newData = [];
             await Promise.all( data.results.map( async (el) => 
                 await lastValueFrom(this.httpService.head(`${el.images[0].image}`)).then(() => {
                     return el;
                 }).catch(() => {
                     return null;
                 })
-                )).then(results => {
-                    newData = results.filter(res => res !== null);
-                }).catch(() => {
-                    throw new HttpException('Ошибка сервера.', 500);
-                })
-            return newData;
+            )).then(results => {
+                newData = results.filter(res => res !== null);
+            }).catch(() => {
+                throw new HttpException('Ошибка сервера.', 500);
+            })*/
+            return data.results;
         } else {
             throw new HttpException('Ничего не найдено', 404);
         }
