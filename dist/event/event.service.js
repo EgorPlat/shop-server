@@ -21,7 +21,7 @@ const mongoose_1 = require("@nestjs/mongoose");
 const user_schema_1 = require("../schemas/user.schema");
 const mongoose_2 = require("mongoose");
 const users_service_1 = require("../users/users.service");
-const mail_service_1 = require("../mail/mail.service");
+const mail_service_1 = require("../modules/mail/mail.service");
 let EventService = class EventService {
     constructor(httpService, checkService, jwtHelpService, userService, mailService, userModel) {
         this.httpService = httpService;

@@ -4,7 +4,7 @@ import { UserDto } from 'src/dto/user.dto';
 import { UnConfirmedUserDocument } from 'src/schemas/unConfirmedUser.schema';
 import { UserService } from 'src/users/users.service';
 import { Model } from 'mongoose';
-import { MailService } from 'src/mail/mail.service';
+import { MailService } from 'src/modules/mail/mail.service';
 import { AcceptUserDto } from 'src/dto/accept-user.dto';
 export declare class AuthService {
     private userService;

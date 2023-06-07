@@ -16,7 +16,7 @@ const token_module_1 = require("../help/token.module");
 const user_schema_1 = require("../schemas/user.schema");
 const mongoose_1 = require("@nestjs/mongoose");
 const users_service_1 = require("../users/users.service");
-const mail_module_1 = require("../mail/mail.module");
+const mail_module_1 = require("../modules/mail/mail.module");
 let EventModule = class EventModule {
 };
 EventModule = __decorate([

@@ -12,20 +12,21 @@ const mongoose_1 = require("@nestjs/mongoose");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const data_1 = require("./global/data");
-const users_module_1 = require("./users/users.module");
-const auth_module_1 = require("./auth/auth.module");
-const profile_module_1 = require("./profile/profile.module");
-const settings_controller_1 = require("./settings/settings.controller");
-const settings_service_1 = require("./settings/settings.service");
-const settings_module_1 = require("./settings/settings.module");
-const chat_module_1 = require("./chat/chat.module");
+const users_module_1 = require("./modules/users/users.module");
+const auth_module_1 = require("./modules/auth/auth.module");
+const profile_module_1 = require("./modules/profile/profile.module");
+const settings_controller_1 = require("./modules/settings/settings.controller");
+const settings_service_1 = require("./modules/settings/settings.service");
+const settings_module_1 = require("./modules/settings/settings.module");
+const chat_module_1 = require("./modules/chat/chat.module");
 const token_module_1 = require("./help/token.module");
 const app_gateway_1 = require("./app.gateway");
-const event_module_1 = require("./event/event.module");
-const posts_module_1 = require("./posts/posts.module");
-const interest_module_1 = require("./interests/interest.module");
-const mail_module_1 = require("./mail/mail.module");
+const event_module_1 = require("./modules/event/event.module");
+const posts_module_1 = require("./modules/posts/posts.module");
+const interest_module_1 = require("./modules/interests/interest.module");
+const mail_module_1 = require("./modules/mail/mail.module");
 const schedule_1 = require("@nestjs/schedule");
+const tariffs_module_1 = require("./modules/tariffs/tariffs.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -44,7 +45,8 @@ AppModule = __decorate([
             event_module_1.EventModule,
             posts_module_1.PostsModule,
             interest_module_1.InterestsModule,
-            mail_module_1.MailModule
+            mail_module_1.MailModule,
+            tariffs_module_1.TariffsModule
         ],
     })
 ], AppModule);

@@ -6,7 +6,7 @@ import { HelpJwtService } from 'src/help/token.service';
 import { UserDocument } from 'src/schemas/user.schema';
 import { Model } from 'mongoose';
 import { UserService } from 'src/users/users.service';
-import { MailService } from 'src/mail/mail.service';
+import { MailService } from 'src/modules/mail/mail.service';
 export declare class EventService {
     private httpService;
     private checkService;

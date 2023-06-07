@@ -19,7 +19,7 @@ const mongoose_1 = require("@nestjs/mongoose");
 const unConfirmedUser_schema_1 = require("../schemas/unConfirmedUser.schema");
 const users_service_1 = require("../users/users.service");
 const mongoose_2 = require("mongoose");
-const mail_service_1 = require("../mail/mail.service");
+const mail_service_1 = require("../modules/mail/mail.service");
 let AuthService = class AuthService {
     constructor(userService, jwtService, mailService, unConfirmedUserModel) {
         this.userService = userService;
