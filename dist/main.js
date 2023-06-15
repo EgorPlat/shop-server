@@ -15,8 +15,8 @@ const start = async () => {
             credentials: true,
         });
         const config = new swagger_1.DocumentBuilder()
-            .setTitle('Meetins Server')
-            .setDescription('Meetins Documentation')
+            .setTitle('Lady Shery')
+            .setDescription('Lady Shery Documentation')
             .setVersion('1.0.0')
             .addTag('Egor Platonov')
             .build();

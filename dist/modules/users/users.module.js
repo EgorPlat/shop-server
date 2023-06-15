@@ -11,9 +11,9 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const auth_module_1 = require("../auth/auth.module");
 const token_module_1 = require("../../help/token.module");
-const user_schema_1 = require("../../schemas/user.schema");
 const users_controller_1 = require("./users.controller");
 const users_service_1 = require("./users.service");
+const user_schema_1 = require("../../schemas/user.schema");
 let UsersModule = class UsersModule {
 };
 UsersModule = __decorate([

@@ -14,39 +14,23 @@ const app_service_1 = require("./app.service");
 const data_1 = require("./global/data");
 const users_module_1 = require("./modules/users/users.module");
 const auth_module_1 = require("./modules/auth/auth.module");
-const profile_module_1 = require("./modules/profile/profile.module");
-const settings_controller_1 = require("./modules/settings/settings.controller");
-const settings_service_1 = require("./modules/settings/settings.service");
-const settings_module_1 = require("./modules/settings/settings.module");
-const chat_module_1 = require("./modules/chat/chat.module");
 const token_module_1 = require("./help/token.module");
 const app_gateway_1 = require("./app.gateway");
-const event_module_1 = require("./modules/event/event.module");
-const posts_module_1 = require("./modules/posts/posts.module");
-const interest_module_1 = require("./modules/interests/interest.module");
-const mail_module_1 = require("./modules/mail/mail.module");
-const schedule_1 = require("@nestjs/schedule");
-const tariffs_module_1 = require("./modules/tariffs/tariffs.module");
+const category_module_1 = require("./modules/category/category.module");
+const product_module_1 = require("./modules/product/product.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
-        controllers: [app_controller_1.AppController, settings_controller_1.SettingsController],
-        providers: [app_service_1.AppService, settings_service_1.SettingsService, app_gateway_1.AppGateway],
+        controllers: [app_controller_1.AppController],
+        providers: [app_service_1.AppService, app_gateway_1.AppGateway],
         imports: [
             token_module_1.HelpJwtModule,
             users_module_1.UsersModule,
             mongoose_1.MongooseModule.forRoot(data_1.dbUrl),
-            schedule_1.ScheduleModule.forRoot(),
             auth_module_1.AuthModule,
-            profile_module_1.ProfileModule,
-            settings_module_1.SettingsModule,
-            chat_module_1.ChatModule,
-            event_module_1.EventModule,
-            posts_module_1.PostsModule,
-            interest_module_1.InterestsModule,
-            mail_module_1.MailModule,
-            tariffs_module_1.TariffsModule
+            category_module_1.CategoryModule,
+            product_module_1.ProductModule
         ],
     })
 ], AppModule);
